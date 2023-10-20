@@ -1,0 +1,6 @@
+/venv
+/addProducts/__pycache__
+/addProducts/migrations
+/GullYakh/__pycache__
+db.sqlite3
+/tailwind/node_modules
