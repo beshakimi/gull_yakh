@@ -190,27 +190,23 @@
 
       <!-- start pagenation -->
       <ul class="my-10 flex gap-1 justify-center items-center">
-        <li>
-          <a href="#" class="pagn"> <i class="fa-solid fa-arrow-right"></i> </a>
-        </li>
-        <li>
-          <a href="#" class="pagn"> 1 </a>
-        </li>
+        {% if foodlist.has_previous %}
+          <li>
+          <a href="?page={{foodlist.previous_page_number}}" class="pagn"> <i class="fa-solid fa-arrow-right"></i> </a>
+          </li>
+        {% endif %}
 
-        <li>
-          <a href="#" class="pagn"> 2 </a>
-        </li>
+        {% for num in pagination_range %}
+          <li>
+            <a href="?page={{num}}" class="pagn"> {{ num }} </a>
+          </li>
+        {% endfor %}
 
-        <li>
-          <a href="#" class="pagn"> ... </a>
-        </li>
-
-        <li>
-          <a href="#" class="pagn"> 4 </a>
-        </li>
-        <li>
-          <a href="#" class="pagn"> <i class="fa-solid fa-arrow-left"></i> </a>
-        </li>
+        {% if foodlist.has_next %}
+          <li>
+            <a href="?page={{foodlist.next_page_number}}" class="pagn"> <i class="fa-solid fa-arrow-left"></i> </a>
+          </li>
+        {% endif %}
       </ul>
       <!-- end pagenation -->
       </div>

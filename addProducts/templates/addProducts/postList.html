@@ -72,8 +72,8 @@
 
       <div class="">
           <h1 class=" text-2xl p-2 font-bold">{{post.Title}}</h1>
-          <p class=" px-2 text-sm text-gray-500 h-10 overflow-hidden  ">{{post.Description}}
-           </p>
+          <p class="px-2 text-sm text-gray-500 h-10 overflow-hidden">{{ post.Description|slice:":100" }}{% if post.Description|length > 100 %}...{% endif %}</p>
+         
           <div class=" w-full mt-4 py-2 px-2 bg-gray-200  ">
               <a href="\addProduct/post/{{post.id}}" class=" flex items-center text-gray-500 hover:text-[#f5056d] ease-in duration-300 "> ادامه <i class="fa-solid fa-arrow-left mr-2"></i></a>
           </div>
