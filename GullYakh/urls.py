@@ -19,6 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include
+from addProducts.views import homeView
 from addProducts.views import aboutUsView
 from addProducts.views import foodListView
 from addProducts.views import foodDetailsView
@@ -31,6 +32,7 @@ from addProducts.views import postDetailsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('addProduct/home', homeView),
     path('addProduct/about' ,aboutUsView),
     path('addProduct/food/list' ,foodListView),
     path('addProduct/food/<int:food_id>' ,foodDetailsView),

@@ -22,33 +22,6 @@ bodys.addEventListener("click", (event) => {
   }
 });
 
-
-// const menuBtn = document.getElementById("menuBtn");
-// const closeBtn = document.getElementById("closeBtn");
-// const navMenu = document.getElementById("navMenu");
-// const bodys = document.querySelector("body");
-
-// menuBtn.addEventListener("click", () => {
-//   navMenu.classList.remove("hidden");
-//   menuBtn.classList.add("hidden");
-//   closeBtn.classList.remove("hidden");
-// });
-
-// closeBtn.addEventListener("click", () => {
-//   navMenu.classList.add("hidden");
-//   menuBtn.classList.remove("hidden");
-//   closeBtn.classList.add("hidden");
-// });
-// // bodys.addEventListener("click", (event) => {
-// //   if (event.target !== closeBtn) {
-// //     navMenu.classList.add("hidden");
-// //   }
-// // });
-
-// end navbar script
-
-// end slider script
-
 // start full screen
 const fullscreenIcon = document.querySelector("#fullscreen-icon");
 
@@ -96,3 +69,18 @@ logInProfile.addEventListener("click", () => {
 closeProfile.addEventListener("click", () => {
   logIn.classList.add("hidden");
 });
+
+// start slider script
+const slider = document.getElementById("slider");
+let currentSlide = 0;
+
+const images = slider.getElementsByTagName("img");
+
+setInterval(() => {
+  images[currentSlide].classList.add("hidden");
+  currentSlide = (currentSlide + 1) % images.length;
+  images[currentSlide].classList.remove("hidden");
+}, 5000);
+
+// end slider script
+
