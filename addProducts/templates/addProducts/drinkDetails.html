@@ -4,37 +4,37 @@
 {% block mainContent%}
 
 <!-- start drink details  -->
-<div class="w-full border-2 md:flex py-28 px-10">
-  <div class="w-full md:p-0 md:w-1/2">
+<div class="w-[90%] mx-auto mt-28 mb-6 md:flex md:mt-28 bg-[#ffdbff] bg-opacity-20 shadow-md">
+  <div class="w-full md:w-1/2">
     <img
       src="{{drinkDetails.Image.url}}"
       alt=""
-      class="w-full h-[400px] md:h-[500px] object-cover"
+      class="w-full h-[300px] md:h-[500px] object-cover position-top"
     />
   </div>
 
-  <div class="w-full p-10 md:w-1/2">
-    <h2 class="text-3xl font-semibold mb-4">{{drinkDetails.Title}}</h2>
+  <div class="w-full px-6 py-3 md:mr-6 md:w-1/2">
+    <h2 class="text-2xl font-semibold mb-2">{{drinkDetails.Title}}</h2>
     <p class="text-gray-600 mb-4 text-justify">{{drinkDetails.Description}}</p>
-    <p class="text-lg font-semibold mb-4">{{drinkDetails.Price}}</p>
+    <p class="text-sm text-gray-00 font-semibold mb-4">{{drinkDetails.Price}}Af </p>
     <button
       class="cbtn font-bold"
     >
       افزودن به سبد خرید
     </button>
 
-    <div class="">
+    <div class=" ">
       <p
         id="toggleText"
-        class="mt-36 cursor-pointer py-2 px-4 border-t-2 hover:bg-[#f5056d] duration-500"
+        class="mt-10 cursor-pointer py-2 px-4 border-t-2 hover:bg-[#f5056d] duration-500"
       >
         نظر دهید
       </p>
-      <div id="content" class="hidden">
-        <div class="max-w-lg mx-auto my-10">
+      <div id="content" class="">
+        <div class=" mx-auto my-10">
           <div class="flex gap-1 py-2">
-            <p class="text-gray-700 font-semibold mb-2">امتیاز دهید</p>
-            <div class="flex">
+            <p class="text-gray-700 font-semibold mb-2">امتیاز دهید:</p>
+            <div class="flex gap-1">
               <input
                 type="radio"
                 id="star5"
@@ -103,7 +103,7 @@
             </div>
           </div>
 
-          <form class="bg-white rounded-lg">
+          <form class= "">
             <div class="mb-4">
               <label for="name" class="block text-gray-700 font-semibold mb-2"
                 >نام:</label

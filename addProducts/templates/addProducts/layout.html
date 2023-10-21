@@ -7,15 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>gull yakh</title>
 
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    
         <link rel="stylesheet" href="{% static 'css/output.css' %}" />
         
-
+    <style>
+     @font-face {
+      font-family:'vazir';
+      src: url('{% static "fonts/Vazir.ttf"%}') format('ttf');
+      src: url('{% static "fonts/Vazir.woff"%}') format('woff');
+      src: url('{% static "fonts/Vazir.woff2"%}') format('woff2');
+     } 
+    </style>
     
 </head>
 
@@ -41,7 +46,7 @@
                     <div class="hidden md:block lg:flex  justify-center items-center">
                         <ul class="flex md:gap-5 lg:gap-10 ">
                             <li>
-                                <a href="#" class="li">صفحه اصلی</a>   
+                                <a href="/addProduct/home" class="li">صفحه اصلی</a>   
                             </li>
                             <li><a href="/addProduct/about" class="li">در باره ما</a>
                                
@@ -60,7 +65,7 @@
                             </li>
                     </div>
 
-                    <div class="flex sm:gap-5  ">
+                    <div class="flex gap-3 md:gap-4 lg:gap-5  ">
                      
                         <!-- start shoppin cart -->
                         <span class="relative">
@@ -70,10 +75,10 @@
                         </span>
 
 
-                        <!-- login icon -->
+                        <!-- user icon -->
                         <div>
                            <img src="{% static 'icons/user-regular.svg'%}"
-                                  class=" md:ml-0 flex p-1 mr-3 border border-gray-300 rounded-md hover:bg-[#f5056d] hover:cursor-pointer duration-500 w-[30px] h-[30px] relative" id="user-icon">
+                                  class=" md:ml-0 flex p-1 border border-gray-300 rounded-md hover:bg-[#f5056d] hover:cursor-pointer duration-500 w-[30px] h-[30px] relative" id="user-icon">
                             <!-- user information -->
                             <div class="hidden w-28 flex-col bg-white rounded-sm absolute top-16 left-10 md:left-20 lg:left-32" id="user-model" >
                                 <!-- strar item 1 -->
@@ -107,12 +112,12 @@
                       <!-- fullscreen-icon -->
                       <span id="fullscreen-icon">
                         <img src="{% static 'icons/icons8-full-screen-48.png'%}" alt=""
-                                class=" md:ml-0 flex p-1 mr-3 border border-gray-300 rounded-md hover:cursor-pointer hover:bg-[#f5056d] duration-500 w-[30px] h-[30px]  ">
+                                class=" md:ml-0 flex p-[2px] border border-gray-300 rounded-md hover:cursor-pointer hover:bg-[#f5056d] duration-500 w-[30px] h-[30px]  ">
                     </span>
 
                         <div class=" md:hidden  flex items-center justify-center">
                             <button id="menuBtn" class=" lg:hidden ">
-                                <img src="{%static 'icons/menu_FILL0_wght400_GRAD0_opsz24.svg'%}" alt="" class=" w-[30px] h-[30x] flex items-center p-[2px] border border-gray-300 rounded-md hover:bg-[#f5056d] duration-500  mr-3 ">
+                                <img src="{%static 'icons/menu_FILL0_wght400_GRAD0_opsz24.svg'%}" alt="" class=" w-[30px] h-[30x] flex items-center p-[2px] border border-gray-300 rounded-md hover:bg-[#f5056d] duration-500 ">
                               </button>
                               <button id="closeBtn" class=" hidden lg:hidden ">
                                 <img src="{% static 'icons/close_FILL0_wght400_GRAD0_opsz24.svg'%}" alt=""class="w-[30px] h-[30x] mr-3 flex items-center p-1 border border-gray-300 rounded-md hover:bg-[#f5056d]  duration-500 ">

@@ -8,7 +8,20 @@ from addProducts.models import BlogModel
 
 # Create your views here.
 
-# start contacts view 
+# start home view 
+def homeView(request):
+    foods=foodModel.objects.all().order_by('-id')[:2]
+    drink=DringModel.objects.all().order_by('-id')[:2]
+    post=BlogModel.objects.all().order_by('-id')[:2]
+    context={
+            "foodlist":foods,
+            "drinklist":drink,
+            "postlist":post,
+        }
+    
+    return render(request, "addProducts/home.html",context)
+
+# start about view 
 def aboutUsView(request):
     return render(request,"addProducts/about.html")
 
@@ -57,10 +70,10 @@ def blogView(request):
     posts = BlogModel.objects.all()
 
     context={
-        "postList":posts,
+        "postlist":posts,
     }
 
-    return render(request,"addProducts/blogList.html",context)
+    return render(request,"addProducts/postList.html",context)
 
 # start post details view
 def postDetailsView(request,post_id):
