@@ -260,7 +260,7 @@
     <!-- end drink menu -->
 
      <!-- start blog  -->
-    <div class="w-[90%] mx-auto my-8 grid grid-cols-1 sm:grid-cols-2 md:w-[70%]  md:grid-cols-3 gap-4">
+    <div class="w-[90%] mx-auto my-8 grid grid-cols-1 sm:grid-cols-2 md:w-[80%]  md:grid-cols-3 lg:grid-cols-4 gap-4">
     {% for post in postlist%}
     {%if post%}
       <div class="w-full mx-auto shadow-md relative  ">
@@ -275,8 +275,7 @@
 
       <div class="">
           <h1 class=" text-2xl p-2 font-bold">{{post.Title}}</h1>
-          <p class=" px-2 text-sm text-gray-500 h-10 overflow-hidden  ">{{post.Description}}
-           </p>
+          <p class="px-2 text-sm text-gray-500 h-10 overflow-hidden">{{ post.Description|slice:":70" }}{% if post.Description|length > 70 %}...{% endif %}</p>
           <div class="w-full mt-4 py-3 px-2 bg-gray-200 ">
               <a href="\addProduct/post/{{post.id}}" class=" text-gray-500 hover:text-[#f5056d] ease-in duration-300 "> ادامه...</a>
           </div>

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from persiantools.jdatetime import JalaliDate
-
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from addProducts.models import foodModel
 from addProducts.models import DringModel
 from addProducts.models import BlogModel
@@ -10,9 +10,9 @@ from addProducts.models import BlogModel
 
 # start home view 
 def homeView(request):
-    foods=foodModel.objects.all().order_by('-id')[:2]
-    drink=DringModel.objects.all().order_by('-id')[:2]
-    post=BlogModel.objects.all().order_by('-id')[:2]
+    foods=foodModel.objects.all().order_by('-id')[:8]
+    drink=DringModel.objects.all().order_by('-id')[:8]
+    post=BlogModel.objects.all().order_by('-id')[:4]
     context={
             "foodlist":foods,
             "drinklist":drink,
@@ -29,9 +29,33 @@ def aboutUsView(request):
 # food list view 
 def foodListView(request):
     foods=foodModel.objects.all()
+    page = request.GET.get('page')
+
+    # تعداد نوشیدنی‌ها در هر صفحه
+    items_per_page = 8
+
+    paginator = Paginator(foods, items_per_page)
+    try:
+        foods = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        foods = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        foods = paginator.page(page)
+    
+    left_index = (int(page) - 2 )
+    if left_index < 1:
+        left_index = 1
+    
+    right_index = (int(page) + 2)
+    if right_index > paginator.num_pages:
+        right_index = paginator.num_pages
+
+    pagination_range = range(left_index, right_index + 1)
     context={
        "foodlist":foods,
-       "foodcount":foods.count()
+       "pagination_range": pagination_range,
    }
     return render(request,"addProducts/foodList.html",context)
    
@@ -47,12 +71,46 @@ def foodDetailsView(request,food_id):
 
 # drink list view
 def drinkListView(request):
-    drinks=DringModel.objects.all()
-    context={
-       "drinkList":drinks,
-      #  "foodcount":foods.count()
-   }
-    return render(request,"addProducts/drinkList.html",context)
+    # دریافت همه نوشیدنی‌ها
+    drinks = DringModel.objects.all()
+    page = request.GET.get('page')
+
+    # تعداد نوشیدنی‌ها در هر صفحه
+    items_per_page = 8
+
+    paginator = Paginator(drinks, items_per_page)
+    try:
+        drinks = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        drinks = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        drinks = paginator.page(page)
+    
+    left_index = (int(page) - 2 )
+    if left_index < 1:
+        left_index = 1
+    
+    right_index = (int(page) + 2)
+    if right_index > paginator.num_pages:
+        right_index = paginator.num_pages
+
+    pagination_range = range(left_index, right_index + 1)
+
+    context = {
+        'drinkList': drinks,
+        'pagination_range': pagination_range,
+    }
+
+    return render(request, 'addProducts/drinkList.html', context)
+# def drinkListView(request):
+#     drinks=DringModel.objects.all()
+#     context={
+#        "drinkList":drinks,
+#       #  "foodcount":foods.count()
+#    }
+#     return render(request,"addProducts/drinkList.html",context)
    
 
 # drink detials view

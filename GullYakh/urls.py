@@ -32,6 +32,7 @@ from addProducts.views import postDetailsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',homeView),
     path('addProduct/home', homeView),
     path('addProduct/about' ,aboutUsView),
     path('addProduct/food/list' ,foodListView),
