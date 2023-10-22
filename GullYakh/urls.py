@@ -32,16 +32,8 @@ from addProducts.views import postDetailsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',homeView),
-    path('addProduct/home', homeView),
-    path('addProduct/about' ,aboutUsView),
-    path('addProduct/food/list' ,foodListView),
-    path('addProduct/food/<int:food_id>' ,foodDetailsView),
-    path('addProduct/drink/list' ,drinkListView),
-    path('addProduct/drink/<int:drink_id>' ,drinkDetailsView ),
-    path('addProduct/blog/list' ,blogView),
-    path('addProduct/post/<int:post_id>',postDetailsView),
-    path('addProduct/contacts' ,contectView),
+    path('' ,include('addProducts.urls')),
+    path('' ,include('accounts.urls')),
 ]
 
 if settings.DEBUG:
