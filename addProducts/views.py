@@ -59,6 +59,7 @@ def foodListView(request):
    }
     return render(request,"addProducts/foodList.html",context)
    
+
 # food details view 
 def foodDetailsView(request,food_id):
     food=foodModel.objects.get(pk=food_id)
@@ -104,13 +105,7 @@ def drinkListView(request):
     }
 
     return render(request, 'addProducts/drinkList.html', context)
-# def drinkListView(request):
-#     drinks=DringModel.objects.all()
-#     context={
-#        "drinkList":drinks,
-#       #  "foodcount":foods.count()
-#    }
-#     return render(request,"addProducts/drinkList.html",context)
+
    
 
 # drink detials view
@@ -123,7 +118,7 @@ def drinkDetailsView(request,drink_id):
 
     return render(request,"addProducts/drinkDetails.html",context )
 
-# start blog view
+# start post list view
 def blogView(request):
     posts = BlogModel.objects.all()
 

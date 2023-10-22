@@ -16,11 +16,6 @@ closeBtn.addEventListener("click", () => {
   closeBtn.classList.add("hidden");
 });
 
-bodys.addEventListener("click", (event) => {
-  if (event.target !== closeBtn) {
-    navMenu.classList.add("hidden");
-  }
-});
 
 // start full screen
 const fullscreenIcon = document.querySelector("#fullscreen-icon");
