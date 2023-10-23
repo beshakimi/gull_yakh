@@ -1,0 +1,265 @@
+{%load static%}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gull yakh</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+  <style>
+    @font-face {
+      font-family: 'vazir';
+      src: url('{% static "fonts/Vazir.ttf"%}') format('ttf');
+      src: url('{% static "fonts/Vazir.woff"%}') format('woff');
+      src: url('{% static "fonts/Vazir.woff2"%}') format('woff2');
+    }
+  </style>
+
+</head>
+
+
+<body dir="rtl" class="font-vazir">
+
+  <!-- start aside -->
+  <div class="bg-slate-800 w-60 h-screen hidden md:block md:items-start fixed top-0 z-10">
+
+    <div class="w-full flex flex-col">
+
+      <!-- lofo  -->
+      <a href="#" class="px-5 w-full bg-gray-950">
+        <img src="{%static 'admin/logo/logo_admin.png'%}" alt="" class="h-16 w-16">
+      </a>
+
+      <!-- start dashboard -->
+      <a href="/manage/dashboard"
+        class="w-full py-[15px] px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
+        <img src="{%static 'admin/icons/dashboard.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1">داشبورد</h1>
+      </a>
+      <hr class="w-full border border-gray-500" />
+      <!-- end dashboard -->
+
+      <!-- start products -->
+      <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
+        <h1 class="font-bold">اضافه کردن</h1>
+      </div>
+
+      <a href="/manage/addfood"
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
+        <img src="{%static 'admin/icons/food.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1">غذا ها</h1>
+      </a>
+
+      <a href="./addDrink.html"
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
+        <img src="{%static 'admin/icons/drink.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1">نوشیدنی ها</h1>
+      </a>
+
+      <a href="./addPost.html"
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
+        <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1">پست ها</h1>
+      </a>
+      <!-- end products -->
+
+      <!-- start genral -->
+      <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
+        <h1 class="font-bold"> کاربران</h1>
+      </div>
+      <a href="./users.html"
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
+        <img src="{%static 'admin/icons/users-icon.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1">لیست کاربران</h1>
+      </a>
+
+      <a href=""
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
+        <img src="{%static 'admin/icons/logout.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1"> خروج</h1>
+      </a>
+
+      <!-- end genral -->
+    </div>
+  </div>
+  <!-- end aside -->
+
+  <!--start Mobile navbar -->
+  <div class=" hidden md:hidden border-t border-gray-500 pb-10 mobile-menu fixed top-16 z-20 " id="navMenu">
+    <div class="flex flex-col bg-slate-800 w-60 h-screen">
+
+
+      <a href="./profile.html"
+        class="w-full py-4 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
+        <img src="{%static 'admin/icons/profile.png'%}" alt="" class=" w-[24px] h-[24px] ml-2" />
+
+        <p class="font-semibold items-center mr-2">رضا رضایی</p>
+      </a>
+      <hr class="w-full border border-gray-500" />
+      <!-- start dashboard -->
+      <a href=""
+        class="w-full py-3 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
+        <img src="{%static 'admin/icons/dashboard.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1">داشبورد</h1>
+      </a>
+      <hr class="w-full border border-gray-500" />
+      <!-- end dashboard -->
+
+      <!-- start products -->
+      <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
+        <h1 class="font-bold">اضافه کردن</h1>
+      </div>
+      <a href="./addFoods.html"
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
+        <img src="{%static 'admin/icons/food.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1">غذا ها</h1>
+      </a>
+
+      <a href="./addDrink.html"
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
+        <img src="{%static 'admin/icons/drink.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1">نوشیدنی ها</h1>
+      </a>
+
+      <a href="./addPost.html"
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
+        <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1">پست ها</h1>
+      </a>
+      <!-- end products -->
+
+      <!-- start genral -->
+      <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
+        <h1 class="font-bold"> کاربران</h1>
+      </div>
+      <a href="./users.html"
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
+        <img src="{%static 'admin/icons/users-icon.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1">لیست کاربر </h1>
+      </a>
+
+      <a href=""
+        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
+        <img src="{%static 'admin/icons/logout.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+        <h1 class="mr-1 mb-1"> خروج</h1>
+      </a>
+
+      <!-- end genral -->
+    </div>
+  </div>
+  <!--end Mobile Menu -->
+
+  <!-- start navbar -->
+  <div class="w-full pr-8 md:w-screen h-16 bg-slate-800 fixed top-0 flex justify-between items-center md:pr-64">
+
+    <div class="w-full p-2 flex justify-between items-center">
+
+      <!-- search  -->
+      <div class="">
+        <input type="search" class="px-2 h-8 rounded-sm items-center focus:outline-none" placeholder="جستجو ..." />
+      </div>
+      <!-- start notification  -->
+
+      <div class="flex items-center">
+        <div class="md:ml-6 hover:cursor-pointer" id="notificationIcon">
+          <img src="{%static 'admin/icons/notification.gif'%}" alt=""
+            class="p-[2px] mb-0 rounded-lg hover:bg-[#f5056d] duration-500" />
+        </div>
+
+
+        <!-- start notification details  -->
+        <div class="hidden w-40 border rounded-sm absolute top-14 left-10 md:left-20 " id="notificationModel">
+
+          <!-- notification 1 -->
+          <a href="">
+            <div class=" flex px-2 py-1 bg-white items-center hover:bg-gray-200 ease-in-out duration-300">
+              <div>
+                <img src="{%static 'admin/icons/male-user-48.png'%}" alt="" class="w-[36px] h-[36px] ml-2">
+              </div>
+              <div class="flex flex-col gap-[-5]">
+                <h1>رضا بهرام</h1>
+                <p class=" text-[11px] text-gray-500 ">1 ساعت قبل</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- notification 2 -->
+          <a href="">
+            <div class=" flex px-2 py-1 bg-white items-center hover:bg-gray-200 ease-in-out duration-300">
+              <div>
+                <img src="{%static 'admin/icons/male-user-48.png'%}" alt="" class="w-[36px] h-[36px] ml-2">
+              </div>
+              <div class="flex flex-col gap-[-5]">
+                <h1>رضا بهرام</h1>
+                <p class=" text-[11px] text-gray-500 ">1 ساعت قبل</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- notification 3 -->
+          <a href="">
+            <div class=" flex px-2 py-1  bg-white items-center hover:bg-gray-200 ease-in-out duration-300">
+              <div>
+                <img src="{%static 'admin/icons/male-user-48.png'%}" alt="" class="w-[36px] h-[36px] ml-2">
+              </div>
+              <div class="flex flex-col gap-[-5]">
+                <h1>رضا بهرام</h1>
+                <p class=" text-[11px] text-gray-500 ">1 ساعت قبل</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+
+        <!-- start profile  -->
+        <a href="./profile.html">
+          <div class="hidden md:flex w-fit items-center justify-srart ml-6 px-2 rounded-sm hover:cursor-pointer">
+            <img src="{%static 'admin/icons/male-user-48.png'%}" alt="" class="rounded-full w-[30px] h-[30px]" />
+
+            <p class="font-semibold text-white items-center mr-2 mb-1">رضا رضایی</p>
+          </div>
+        </a>
+
+        <!-- mobile menu icons  -->
+        <div class="md:hidden flex items-center justify-center">
+          <button id="menuBtn">
+            <img src="{%static 'admin/icons/menu.png'%}" alt=""
+              class="w-[30px] h-[30x] flex items-center p-[2px]  rounded-lg hover:bg-[#f5056d] duration-500 mr-3" />
+          </button>
+          <button id="closeBtn" class="hidden">
+            <img src="{%static 'admin/icons/close.png'%}" alt=""
+              class="w-[30px] h-[30x] mr-3 flex items-center p-1 rounded-lg hover:bg-[#f5056d] duration-500" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  {%block mainContent%}
+
+  {%endblock%}
+
+
+
+
+
+
+</body>
+<script src="{% static 'js/main.js'%}"></script>
+
+</html>

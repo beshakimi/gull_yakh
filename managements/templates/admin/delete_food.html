@@ -1,0 +1,43 @@
+<!-- delete_food.html -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to delete food: {{ food.Title }}?</p>
+        <form method="POST" action="{% url 'delete-food' food.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" onclick="cancelDelete()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function cancelDelete() {
+        // Close the modal
+        document.getElementById('deleteModal').style.display = 'none';
+    }
+</script>
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+        text-align: center;
+    }
+</style>
