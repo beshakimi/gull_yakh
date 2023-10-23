@@ -32,8 +32,10 @@ from addProducts.views import postDetailsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('' ,include('addProducts.urls')),
-    path('' ,include('accounts.urls')),
+    path('',homeView),
+    path('addProduct/' ,include('addProducts.urls')),
+    path('accounts/' ,include('accounts.urls')),
+    path('manage/' ,include('managements.urls')),
 ]
 
 if settings.DEBUG:

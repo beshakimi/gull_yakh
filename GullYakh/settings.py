@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'addProducts.apps.AddproductsConfig', 
     'accounts.apps.AccountsConfig', 
-    'tailwind'
+    'tailwind',
+    'managements',
 
 ]
 
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'GullYakh.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,6 +128,7 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL="/Images/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"Images")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

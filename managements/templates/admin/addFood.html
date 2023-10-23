@@ -1,0 +1,99 @@
+{% extends "admin/admin_base.html" %}
+{%load static %}
+
+
+
+
+{% block mainContent %}
+<!-- title -->
+<div class="mt-16 bg-[#f5056d] md:pr-60">
+    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> اضافه کردن غذا </h1>
+</div>
+
+<!-- start addFoods -->
+<div class=" py-8 mt-6 md:mr-64 ">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+        <!-- Add Food Form -->
+        <div class="bg-white rounded-lg shadow p-4">
+            <form method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+                <!-- Food Name -->
+                <div class="mb-4">
+                    <label for="foodName" class="block text-gray-700 font-bold mb-2">نام : </label>
+                    <input id="foodName" type="text" class="input" Name="title" placeholder="نام غذا را بنویسید">
+                </div>
+
+                <!-- food price -->
+                <div class="mb-4">
+                    <label for="foodPrice" class="block text-gray-700 font-bold mb-2"> قیمت: </label>
+                    <input id="foodPrice" type="number" class="input" Name="price" placeholder="100">
+                </div>
+
+                <!-- food image -->
+                <div class="mb-4">
+                    <label for="foodImage" class="block text-gray-700 font-bold mb-2"> عکس: </label>
+                    <input id="foodImage" type="file" class="input" Name="image">
+                </div>
+                <!-- Food Description -->
+                <div class="mb-4">
+                    <label for="foodDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
+                    <textarea id="foodDescription" class="input" Name="description" rows="4"
+                        placeholder="توضیاحات در مورد غذا"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="cbtn w-full">
+                    اضافه کردن
+                </button>
+            </form>
+        </div>
+
+        <!-- Foods List -->
+        <div class="bg-white rounded-lg shadow p-4 ml-4 h-[600px] overflow-y-scroll">
+            <h2 class="text-xl font-bold mb-4">آخرین غذا ها</h2>
+            <ul>
+                {% for food in foods %}
+
+                <li class="border-b border-gray-300 py-2">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold"> {{food.Title}}</h3>
+                            <p class="text-gray-500 text-sm">{{ food.Description|slice:":20" }}
+                                {% if food.Description|length > 20 %}
+                                ...
+                                {% else %}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div>
+                            <a href="{% url 'update-food' food_id=food.id %}"
+                                class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-2 rounded-sm inline-block mb-2 sm:mb-0">ویرایش</a>
+                            <a href="#"
+                                class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded-sm inline-block"
+                                id="deleteBotton">حذف</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class=" hidden w-full h-full justify-center items-center bg-black bg-opacity-80 fixed top-0 z-30" id="deleteModel">
+
+    <div class="w-80  bg-gray-200 px-6 py-4 rounded-sm ">
+        <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
+        <div class="flex gap-8 mt-4">
+            <a href="" class="px-2 text-sm flex items-center rounded-sm text-white bg-red-600">بلی</a>
+            <a href="" class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
+        </div>
+
+    </div>
+
+
+</div>
+<!-- end addFoods -->
+
+{% endblock mainContent %}

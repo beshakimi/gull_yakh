@@ -1,0 +1,56 @@
+{% extends "admin/admin_base.html" %}
+{%load static %}
+{% block mainContent %}
+
+
+
+
+ <!-- title -->
+   <div class="mt-16 w-full bg-[#f5056d] md:pr-60">
+        <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  ">داشبورد</h1>
+    </div>
+
+ <!-- dashboard content -->
+ <div class=" grid gap-6 grid-cols-1 md:grid-cols-3 p-6 md:mr-60">
+   
+
+
+        <!-- start client -->
+    <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
+        <div class="  flex flex-col justify-center items-center">
+            <h1 class="text-xl font-semibold text-gray-400">مشتری</h1>
+            <h2 class="text-xl font-bold">450</h2>
+        </div>
+
+        <div>
+            <img src="{%static 'admin/icons/users.png'%}" alt="" class="w-20 h-20">
+        </div>
+    </div>
+       <!-- end client -->
+
+       <!-- start selse -->
+      <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
+          <div class="  flex flex-col justify-center items-center">
+              <h1 class="text-xl font-semibold text-gray-400">فروشات</h1>
+              <h2 class="text-xl font-bold">24000Af</h2>
+          </div>
+
+          <div>
+              <img src="{%static 'admin/icons/shop.png'%}" alt="" class="w-20 h-20">
+          </div>
+      </div>
+        
+
+
+      <!-- start performance -->
+      <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
+          <div class="  flex flex-col justify-center items-center">
+              <h1 class="text-xl font-semibold text-gray-400">عملکرد</h1>
+              <h2 class="text-xl font-bold">98%</h2>
+          </div>
+          <div>
+              <img src="{%static 'admin/icons/performance.png'%}" alt="" class="w-20 h-20">
+          </div>
+      </div>
+  </div>
+{% endblock %}
