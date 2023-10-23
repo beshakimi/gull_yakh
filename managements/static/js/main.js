@@ -29,5 +29,5 @@ const deleteBotton = document.getElementById("deleteBotton");
 const deleteModel = document.getElementById("deleteModel");
 
 deleteBotton.addEventListener("click", () => {
-  deleteModel.classList.toggle("hidden");
+deleteModel.classList.toggle("hidden");
 });

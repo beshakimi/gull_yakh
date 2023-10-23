@@ -6,7 +6,7 @@
 {% block mainContent %}
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:pr-60">
-    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> اضافه کردن غذا </h1>
+    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  ">ویرایش غذا</h1>
 </div>
 
 <!-- start addFoods -->
@@ -19,36 +19,45 @@
                 <!-- Food Name -->
                 <div class="mb-4">
                     <label for="foodName" class="block text-gray-700 font-bold mb-2">نام : </label>
-                    <input id="foodName" type="text" class="input" Name="title" value="{{food.Title}}" placeholder="نام غذا را بنویسید">
+                    <input id="foodName" type="text" class="input" Name="title" value="{{food.Title}}"
+                        placeholder="نام غذا را بنویسید">
                 </div>
 
                 <!-- food price -->
                 <div class="mb-4">
                     <label for="foodPrice" class="block text-gray-700 font-bold mb-2"> قیمت: </label>
-                    <input id="foodPrice" type="number" class="input" Name="price" value="{{food.Price}}"  placeholder="100">
+                    <input id="foodPrice" type="number" class="input" Name="price" value="{{food.Price}}"
+                        placeholder="100">
                 </div>
 
                 <!-- food image -->
-              <!-- Food Image -->
-<div class="mb-4">
-    <label for="foodImage" class="block text-gray-700 font-bold mb-2">عکس:</label>
-    <input id="foodImage" type="file" class="input" name="image">
-</div>
+                <div class="mb-4">
+                    <label for="foodImage" class="block text-gray-700 font-bold mb-2">{{food.Image.url}} عکس:</label>
+                    <img src="{{ food.Image.url }}" alt="Food Image">
+                    <input id="foodImage" type="file" class="input" name="image">
+                </div>
 
-<!-- Food Description -->
-<div class="mb-4">
-    <label for="foodDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-    <textarea id="foodDescription" class="input" name="description" rows="4" placeholder="توضیحات در مورد غذا">{{ food.Description }}</textarea>
-</div>
+                <!-- <div class="mb-4">
+                    <label for="foodImage" class="block text-gray-700 font-bold mb-2">{{food.Image.url}} عکس:</label>
+                    <input id="foodImage" type="file" class="input" name="image" value="{{food.Image.url}}">
+
+                </div> -->
+
+                <!-- Food Description -->
+                <div class="mb-4">
+                    <label for="foodDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
+                    <textarea id="foodDescription" class="input" name="description" rows="4"
+                        placeholder="توضیحات در مورد غذا">{{ food.Description }}</textarea>
+                </div>
                 <!-- Submit Button -->
                 <button type="submit" class="cbtn w-full">
-                    اضافه کردن
+                    ذخیره
                 </button>
             </form>
         </div>
 
         <!-- Foods List -->
-      
+
     </div>
 </div>
 <!-- end addFoods -->
