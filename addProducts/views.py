@@ -28,7 +28,7 @@ def aboutUsView(request):
 
 # food list view 
 def foodListView(request):
-    foods=foodModel.objects.all()
+    foods=foodModel.objects.all().order_by('-id')
     page = request.GET.get('page')
 
     # تعداد نوشیدنی‌ها در هر صفحه
@@ -73,7 +73,7 @@ def foodDetailsView(request,food_id):
 # drink list view
 def drinkListView(request):
     # دریافت همه نوشیدنی‌ها
-    drinks = DringModel.objects.all()
+    drinks = DringModel.objects.all().order_by('-id')
     page = request.GET.get('page')
 
     # تعداد نوشیدنی‌ها در هر صفحه
@@ -120,7 +120,7 @@ def drinkDetailsView(request,drink_id):
 
 # start post list view
 def blogView(request):
-    posts = BlogModel.objects.all()
+    posts = BlogModel.objects.all().order_by('-id')
 
     context={
         "postlist":posts,

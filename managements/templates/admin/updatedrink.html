@@ -1,0 +1,64 @@
+{% extends "admin/admin_base.html" %}
+{%load static %}
+
+
+
+{% block mainContent %}
+<!-- title -->
+<div class="mt-16 bg-[#f5056d] md:pr-60">
+    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  ">ویرایش نوشیدنی</h1>
+</div>
+
+<!-- start adddrinks -->
+<div class=" py-8 mt-6 md:mr-64 ">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+        <!-- Add drink Form -->
+        <div class="bg-white rounded-lg shadow p-4">
+            <form method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+                <!-- drink Name -->
+                <div class="mb-4">
+                    <label for="drinkName" class="block text-gray-700 font-bold mb-2">نام : </label>
+                    <input id="drinkName" type="text" class="input" Name="title" value="{{drink.Title}}"
+                        placeholder="نام غذا را بنویسید">
+                </div>
+
+                <!-- drink price -->
+                <div class="mb-4">
+                    <label for="drinkPrice" class="block text-gray-700 font-bold mb-2"> قیمت: </label>
+                    <input id="drinkPrice" type="number" class="input" Name="price" value="{{drink.Price}}"
+                        placeholder="100">
+                </div>
+
+                <!-- drink image -->
+                <div class="mb-4">
+                    <label for="drinkImage" class="block text-gray-700 font-bold mb-2"> عکس:</label>
+                    <input id="drinkImage" type="file" class="input" name="image">
+                </div>
+
+                <!-- <div class="mb-4">
+                    <label for="drinkImage" class="block text-gray-700 font-bold mb-2">{{drink.Image.url}} عکس:</label>
+                    <input id="drinkImage" type="file" class="input" name="image" value="{{drink.Image.url}}">
+
+                </div> -->
+
+                <!-- drink Description -->
+                <div class="mb-4">
+                    <label for="drinkDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
+                    <textarea id="drinkDescription" class="input" name="description" rows="4"
+                        placeholder="توضیحات در مورد غذا">{{ drink.Description }}</textarea>
+                </div>
+                <!-- Submit Button -->
+                <button type="submit" class="cbtn w-full">
+                    ذخیره
+                </button>
+            </form>
+        </div>
+
+        <!-- drinks List -->
+
+    </div>
+</div>
+<!-- end adddrinks -->
+
+{% endblock mainContent %}
