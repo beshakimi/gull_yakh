@@ -6,8 +6,8 @@
 
 {% block mainContent %}
 <!-- title -->
-<div class="mt-16 bg-[#f5056d] md:pr-60">
-    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> اضافه کردن نوشیدنی </h1>
+<div class="mt-16 bg-[#f5056d] md:mr-60">
+    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> اضافه کردن پست </h1>
 </div>
 
 <!-- back to priveuse page -->
@@ -15,35 +15,29 @@
     <a href="/manage/dashboard" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
 </div>
 
-<!-- start adddrinks -->
+<!-- start addPodts -->
 <div class=" md:mr-64 ">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
-        <!-- Add drink Form -->
-        <div class="bg-white rounded-lg shadow p-4">
+        <!-- Add post Form -->
+        <div class="bg-white h-fit rounded-lg shadow p-4">
             <form method="POST" enctype="multipart/form-data">
                 {%csrf_token%}
-                <!-- drink Name -->
+                <!-- post Name -->
                 <div class="mb-4">
-                    <label for="drinkName" class="block text-gray-700 font-bold mb-2">نام : </label>
-                    <input id="drinkName" type="text" class="input" Name="title" placeholder="نام نوشیدنی را بنویسید">
+                    <label for="postName" class="block text-gray-700 font-bold mb-2">عنوان : </label>
+                    <input id="postName" type="text" class="input" Name="title" placeholder="عنوان پست را بنویسید">
                 </div>
 
-                <!-- drink price -->
+                <!-- post image -->
                 <div class="mb-4">
-                    <label for="drinkPrice" class="block text-gray-700 font-bold mb-2"> قیمت: </label>
-                    <input id="drinkPrice" type="number" class="input" Name="price" placeholder="100">
+                    <label for="postImage" class="block text-gray-700 font-bold mb-2"> عکس: </label>
+                    <input id="postImage" type="file" class="input" Name="image">
                 </div>
-
-                <!-- drink image -->
+                <!-- post Description -->
                 <div class="mb-4">
-                    <label for="drinkImage" class="block text-gray-700 font-bold mb-2"> عکس: </label>
-                    <input id="drinkImage" type="file" class="input" Name="image">
-                </div>
-                <!-- drink Description -->
-                <div class="mb-4">
-                    <label for="drinkDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-                    <textarea id="drinkDescription" class="input" Name="description" rows="4"
-                        placeholder="توضیاحات در مورد نوشیدنی"></textarea>
+                    <label for="postDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
+                    <textarea id="postDescription" class="input" Name="description" rows="4"
+                        placeholder="توضیاحات در مورد پست"></textarea>
                 </div>
 
                 <!-- Submit Button -->
@@ -53,25 +47,26 @@
             </form>
         </div>
 
-        <!-- drinks List -->
-        <div class="bg-white rounded-lg shadow p-4 ml-4 h-[600px] overflow-y-scroll">
-            <h2 class="text-xl font-bold mb-4">آخرین نوشیدنی ها</h2>
+        <!-- posts List -->
+        <div class="bg-white rounded-lg shadow p-4 ml-4 h-[500px] overflow-y-scroll">
+            <h2 class="text-xl font-bold mb-4">آخرین پست ها</h2>
             <ul>
-                {% for drink in drinks %}
+                {% for post in posts %}
 
                 <li class="border-b border-gray-300 py-2">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold"> {{drink.Title}}</h3>
-                            <p class="text-gray-500 text-sm">{{ drink.Description|slice:":20" }}
-                                {% if drink.Description|length > 20 %}
+                            <h3 class="font-bold"> {{post.Title}}</h3>
+                            <p class="text-gray-500 text-sm">{{ post.Description|slice:":20" }}
+                                {% if post.Description|length > 20 %}
                                 ...
                                 {% else %}
-                                {% endif %}
+                            <p>پست موجود نمی باشد</p>
+                            {% endif %}
                             </p>
                         </div>
                         <div>
-                            <a href="{% url 'update-drink' drink.id %}"
+                            <a href="{% url 'update-post' post_id=post.id %}"
                                 class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block mb-2 sm:mb-0">ویرایش</a>
                             <p class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block hover:cursor-pointer"
                                 id="deleteBotton">حذف</p>
@@ -82,7 +77,7 @@
                                     <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
                                         <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
                                         <div class="">
-                                            <form action="{% url 'delete-drink' drink_id=drink.id %}"
+                                            <form action="{% url 'delete-post' post_id=post.id %}"
                                                 class="flex gap-8 mt-4" method="post">
                                                 {%csrf_token%}
                                                 <input type="submit" value="بلی"
@@ -114,6 +109,6 @@
 
 
 
-<!-- end adddrinks -->
+<!-- end addposts -->
 
 {% endblock %}

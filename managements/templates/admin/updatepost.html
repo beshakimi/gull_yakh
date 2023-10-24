@@ -1,0 +1,64 @@
+{% extends "admin/admin_base.html" %}
+{%load static %}
+
+
+
+{% block mainContent %}
+<!-- title -->
+<div class="mt-16 bg-[#f5056d] md:pr-60">
+    <h1 class="text-2xl pr-10 py-3 text-white font-bold flex items-center  ">ویرایش پست</h1>
+</div>
+
+<!-- back to priveuse page -->
+<div class="mt-4 pr-4 md:pr-64">
+    <a href="/manage/addPost" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
+</div>
+
+<!-- start addposts -->
+<div class="md:mr-64 ">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+        <!-- Add post Form -->
+        <div class="bg-white rounded-sm shadow p-4">
+            <form method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+                <!-- post Name -->
+                <div class="mb-4">
+                    <label for="postName" class="block text-gray-700 font-bold mb-2">عنوان : </label>
+                    <input id="postName" type="text" class="input" Name="title" value="{{post.Title}}"
+                        placeholder="عنوان غذا را بنویسید">
+                </div>
+
+                <!-- post price -->
+                <div class="mb-4">
+                    <label for="postPrice" class="block text-gray-700 font-bold mb-2"> تاریخ: </label>
+                    <input id="postPrice" type="date" class="input" Name="date" value="{{post.Date}}"
+                        placeholder="100">
+                </div>
+
+                <!-- post image -->
+                <div class="mb-4">
+                    <label for="postImage" class="block text-gray-700 font-bold mb-2"> عکس:</label>
+                    <input id="postImage" type="file" class="input" name="image">
+                </div>
+
+
+                <!-- post Description -->
+                <div class="mb-4">
+                    <label for="postDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
+                    <textarea id="postDescription" class="input" name="description" rows="4"
+                        placeholder="توضیحات در مورد غذا">{{ post.Description }}</textarea>
+                </div>
+                <!-- Submit Button -->
+                <button type="submit" class="cbtn mb-0 w-full">
+                    ذخیره
+                </button>
+            </form>
+        </div>
+
+        <!-- posts List -->
+
+    </div>
+</div>
+<!-- end addposts -->
+
+{% endblock mainContent %}

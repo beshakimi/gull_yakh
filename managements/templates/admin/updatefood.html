@@ -9,11 +9,16 @@
     <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  ">ویرایش غذا</h1>
 </div>
 
+<!-- back to priveuse page -->
+<div class="mt-4 pr-4 md:pr-64">
+    <a href="/manage/addfood" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
+</div>
+
 <!-- start addFoods -->
-<div class=" py-8 mt-6 md:mr-64 ">
+<div class="md:mr-64 ">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
         <!-- Add Food Form -->
-        <div class="bg-white rounded-lg shadow p-4">
+        <div class="bg-white rounded-md shadow p-4">
             <form method="POST" enctype="multipart/form-data">
                 {%csrf_token%}
                 <!-- Food Name -->
