@@ -48,23 +48,6 @@ class BlogModel(models.Model):
     
 
 
-
-class ProfileModel(models.Model):
-    class Meta:
-        verbose_name="کاربر"
-        verbose_name_plural="کاربر ها"
-    Name= models.CharField(max_length=100 ,verbose_name="نام ")
-    Family= models.CharField(max_length=100 ,verbose_name="نام فامیلی")
-    ProfileImage=models.ImageField(upload_to="profileImage/" ,verbose_name="عکس")
-
-    man=1
-    woman=2
-    status_chioces=(("man","مرد"),("woman","زن"))
-
-    Gender=models.IntegerField(choices=status_chioces,verbose_name="جنسیت")
-
-    def __str__(self):
-        return "FullName:{} {}".format("Name,Family")
     
 
 

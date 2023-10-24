@@ -56,6 +56,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'GullYakh.urls'
+AUTH_USER_MODEL = 'accounts.User'
 
 TEMPLATES = [
     {
