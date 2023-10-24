@@ -35,12 +35,31 @@
                 </div>
 
                 <!-- drink image -->
-                <div class="mb-4">
+                 <div class="mb-4">
+              <label class="block font-bold text-gray-700 ">عکس:</label>
+              <div class="mt-2 ">
+                <label
+                  for="chose-image"
+                  class="p-2 text-gray-500 rounded-sm bg-gray-200 hover:cursor-pointer"
+                  >انتخاب عکس</label
+                >
+              </div>
+              <input
+                type="file"
+                name="image"
+                id="chose-image"
+                class="hidden"
+                required
+              />
+            </div>
+
+
+                {% comment %} <div class="mb-4">
                     <label for="drinkImage" class="block text-gray-700 font-bold mb-2"> عکس: </label>
                     <input id="drinkImage" type="file" class="input" Name="image">
-                </div>
+                </div> {% endcomment %}
                 <!-- drink Description -->
-                <div class="mb-4">
+                <div class="mb-4 ">
                     <label for="drinkDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
                     <textarea id="drinkDescription" class="input" Name="description" rows="4"
                         placeholder="توضیاحات در مورد نوشیدنی"></textarea>
