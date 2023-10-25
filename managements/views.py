@@ -62,8 +62,6 @@ def delete_food(request, food_id):
    
 
     # add drink view 
-
-
 def create_drink_view(request):
     drinks = DringModel.objects.all().order_by('-id')
 
@@ -73,18 +71,18 @@ def create_drink_view(request):
         description = request.POST.get('description')
         image = request.FILES.get('image')
 
-        if not title:
-            messages.error(request, 'لطفا نام را وارد کنید.')
-            return redirect('/manage/addDrink')
-        if not price:
-            messages.error(request, 'لطفا قیمت را وارد کنید.')
-            return redirect('/manage/addDrink')
-        if not description:
-            messages.error(request, 'لطفا توضیحات را وارد کنید.')
-            return redirect('/manage/addDrink')
-        if not image:
-            messages.error(request, 'لطفا عکس را بارگذاری کنید.')
-            return redirect('/manage/addDrink')
+        # if not title:
+        #     messages.error(request, 'لطفا نام را وارد کنید.')
+        #     return redirect('/manage/addDrink')
+        # if not price:
+        #     messages.error(request, 'لطفا قیمت را وارد کنید.')
+        #     return redirect('/manage/addDrink')
+        # if not description:
+        #     messages.error(request, 'لطفا توضیحات را وارد کنید.')
+        #     return redirect('/manage/addDrink')
+        # if not image:
+        #     messages.error(request, 'لطفا عکس را بارگذاری کنید.')
+        #     return redirect('/manage/addDrink')
 
         # بررسی وجود مورد در پایگاه داده
         if DringModel.objects.filter(Title=title).exists():
