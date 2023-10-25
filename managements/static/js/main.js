@@ -31,3 +31,6 @@ const deleteModel = document.getElementById("deleteModel");
 deleteBotton.addEventListener("click", () => {
 deleteModel.classList.toggle("hidden");
 });
+
+
+// form validation

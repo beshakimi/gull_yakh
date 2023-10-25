@@ -15,19 +15,27 @@ def dashboar_view(request):
 def create_food_model_view(request):
     foods = foodModel.objects.all().order_by('-id')
     if request.method == 'POST':
- 
-        Title = request.POST['title']
-        Price = request.POST['price']
-        Description = request.POST['description']
-        Image = request.FILES['image']
-        food = foodModel(Title=Title, Price=Price, Description=Description, Image=Image)
+        title = request.POST.get('title')
+        price = request.POST.get('price')
+        description = request.POST.get('description')
+        image = request.FILES.get('image')
+
+        if foodModel.objects.filter(Title=title).exists():
+            messages.error(request, 'این مورد از قبل وجود دارد.')
+            return redirect('/manage/addfood')
+
+        food = foodModel(Title=title, Price=price, Description=description, Image=image)
         food.save()
+
+        messages.success(request, ' با موفقیت اضافه شد.')
         return redirect('/manage/addfood')
- 
+
     context = {
         'foods':foods
     }
+
     return render(request, 'admin/addFood.html', context)
+    
 
 # update food view 
 def update_food_model_view(request, food_id):
@@ -41,6 +49,7 @@ def update_food_model_view(request, food_id):
         if 'image' in request.FILES:
             Image = request.FILES['image']
             food.Image = Image
+
         food.Title =Title
         food.Price = Price
         food.Description = Description
@@ -81,10 +90,10 @@ def create_drink_view(request):
         #     messages.error(request, 'لطفا توضیحات را وارد کنید.')
         #     return redirect('/manage/addDrink')
         # if not image:
-        #     messages.error(request, 'لطفا عکس را بارگذاری کنید.')
+        #     messages.error(request, 'لطفا عکس را وارد کنید.')
         #     return redirect('/manage/addDrink')
 
-        # بررسی وجود مورد در پایگاه داده
+      
         if DringModel.objects.filter(Title=title).exists():
             messages.error(request, 'این مورد از قبل وجود دارد.')
             return redirect('/manage/addDrink')
@@ -92,7 +101,7 @@ def create_drink_view(request):
         drink = DringModel(Title=title, Price=price, Description=description, Image=image)
         drink.save()
 
-        messages.success(request, 'مورد با موفقیت ایجاد شد.')
+        messages.success(request, ' با موفقیت اضافه شد.')
         return redirect('/manage/addDrink')
 
     context = {
