@@ -26,15 +26,15 @@
 
 
 <body dir="rtl" class="font-vazir relative">
-  <img src="{%static 'images/bg.jpg'%}" alt="" class="w-screen h-screen object-cover z-0 blur-sm">
-  <div class="w-screen h-screen bg-black bg-opacity-50 absolute top-0"></div>
+  <img src="{%static 'images/bg-login.jpg'%}" alt="" class="w-screen h-screen object-cover z-0 blur-sm">
+  <div class="w-screen h-screen bg-black bg-opacity-80 absolute top-0"></div>
 
   <!-- log-in page -->
   <div class="fixed w-[100%] h-[100%] bg-black bg-opacity-80 z-30" id="log-in">
 
     <div
-      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[400px] mx-auto flex flex-col md:flex-row items-center ">
-      <div class="relative bg-white rounded-sm w-full mt-6 p-8 flex items-center justify-center">
+      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[350px] mx-auto flex flex-col md:flex-row items-center ">
+      <div class="relative bg-white rounded-sm w-full mt-6 p-4 flex items-center justify-center">
         <div class="w-full ">
           <h1 class="text-xl md:text-2xl font-bold leading-tight">
             به حساب خود وارد شوید
@@ -66,8 +66,10 @@
 
 
           <!-- close icon  -->
-          <img src="{% static 'icons/close_FILL0_wght400_GRAD0_opsz24.svg'%}" alt=""
-            class="absolute left-4 top-4 hover:cursor-pointer " id="close-profil">
+          <a href="{% url 'home' %}">
+            <img src="{% static 'icons/close_FILL0_wght400_GRAD0_opsz24.svg'%}" alt=""
+              class="absolute left-4 top-4 hover:cursor-pointer border rounded-sm p-1 hover:bg-[#f5056d] ease-in-out duration-300 " id="close-profil">
+          </a>
 
           <form class="mt-6" action="#" method="POST">
             {%csrf_token%}
@@ -94,7 +96,7 @@
             </button>
           </form>
 
-          <hr class="mb-6 border-gray-400 w-full" />
+          {% comment %} <hr class="mb-6 border-gray-400 w-full" />
 
           <button type="button"
             class="w-full block bg-white hover:bg-[#f5056d] focus:bg-gray-100 duration-500 text-gray-900 font-semibold rounded-sm px-4 py-2 border border-gray-300">
@@ -102,7 +104,7 @@
               <img src="{% static 'icons/google icon.png'%}" alt="" class="w-8 ml-2" />
               <span class="font-medium"> با گوگل وارد شوید</span>
             </div>
-          </button>
+          </button> {% endcomment %}
 
           <!-- <button
       type="button"
