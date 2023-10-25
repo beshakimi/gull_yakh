@@ -5,10 +5,33 @@
 
 
 {% block mainContent %}
+
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:pr-60">
     <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> اضافه کردن نوشیدنی </h1>
 </div>
+
+<!-- error and succuss message -->
+{% if messages %}
+
+{% for message in messages %}
+<p
+    class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center text-green-600 p-2 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
+    {{ message }}
+</p>
+{% endfor %}
+
+{% endif %}
+
+<script>
+    setTimeout(function () {
+        var errorMessage = document.querySelector('.error-message');
+        if (errorMessage) {
+            errorMessage.classList.add('hidden');
+        }
+    }, 5000);
+</script>
+
 
 <!-- back to priveuse page -->
 <div class="mt-4 pr-4 md:pr-64">
@@ -19,7 +42,7 @@
 <div class=" md:mr-64 ">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
         <!-- Add drink Form -->
-        <div class="bg-white rounded-lg shadow p-4">
+        <div class="bg-white rounded-sm shadow p-4">
             <form method="POST" enctype="multipart/form-data">
                 {%csrf_token%}
                 <!-- drink Name -->
@@ -35,23 +58,14 @@
                 </div>
 
                 <!-- drink image -->
-                 <div class="mb-4">
-              <label class="block font-bold text-gray-700 ">عکس:</label>
-              <div class="mt-2 ">
-                <label
-                  for="chose-image"
-                  class="p-2 text-gray-500 rounded-sm bg-gray-200 hover:cursor-pointer"
-                  >انتخاب عکس</label
-                >
-              </div>
-              <input
-                type="file"
-                name="image"
-                id="chose-image"
-                class="hidden"
-                required
-              />
-            </div>
+                <div class="mb-4">
+                    <label class="block font-bold text-gray-700 ">عکس:</label>
+                    <div class="mt-2 ">
+                        <label for="chose-image"
+                            class="p-2 text-gray-500 rounded-sm bg-gray-200 hover:cursor-pointer">انتخاب عکس</label>
+                    </div>
+                    <input type="file" name="image" id="chose-image" class="hidden" required />
+                </div>
 
 
                 {% comment %} <div class="mb-4">
@@ -73,7 +87,7 @@
         </div>
 
         <!-- drinks List -->
-        <div class="bg-white rounded-lg shadow p-4 ml-4 h-[600px] overflow-y-scroll">
+        <div class="bg-white rounded-sm shadow p-4 ml-4 h-[600px] overflow-y-scroll">
             <h2 class="text-xl font-bold mb-4">آخرین نوشیدنی ها</h2>
             <ul>
                 {% for drink in drinks %}

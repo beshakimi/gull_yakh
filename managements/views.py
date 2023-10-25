@@ -1,6 +1,7 @@
 
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from addProducts.models import foodModel
 from addProducts.models import DringModel
 from addProducts.models import BlogModel
@@ -61,20 +62,43 @@ def delete_food(request, food_id):
    
 
     # add drink view 
+
+
 def create_drink_view(request):
-    drink = DringModel.objects.all().order_by('-id')
+    drinks = DringModel.objects.all().order_by('-id')
+
     if request.method == 'POST':
- 
-        Title = request.POST['title']
-        Price = request.POST['price']
-        Description = request.POST['description']
-        Image = request.FILES['image']
-        drink = DringModel(Title=Title, Price=Price, Description=Description, Image=Image)
+        title = request.POST.get('title')
+        price = request.POST.get('price')
+        description = request.POST.get('description')
+        image = request.FILES.get('image')
+
+        if not title:
+            messages.error(request, 'لطفا نام را وارد کنید.')
+            return redirect('/manage/addDrink')
+        if not price:
+            messages.error(request, 'لطفا قیمت را وارد کنید.')
+            return redirect('/manage/addDrink')
+        if not description:
+            messages.error(request, 'لطفا توضیحات را وارد کنید.')
+            return redirect('/manage/addDrink')
+        if not image:
+            messages.error(request, 'لطفا عکس را بارگذاری کنید.')
+            return redirect('/manage/addDrink')
+
+        # بررسی وجود مورد در پایگاه داده
+        if DringModel.objects.filter(Title=title).exists():
+            messages.error(request, 'این مورد از قبل وجود دارد.')
+            return redirect('/manage/addDrink')
+
+        drink = DringModel(Title=title, Price=price, Description=description, Image=image)
         drink.save()
+
+        messages.success(request, 'مورد با موفقیت ایجاد شد.')
         return redirect('/manage/addDrink')
- 
+
     context = {
-        'drinks':drink
+        'drinks': drinks
     }
     return render(request, 'admin/addDrink.html', context)
 
@@ -117,10 +141,10 @@ def create_post_view(request):
         title=request.POST['title']
         description= request.POST['description']
         date = request.POST['date']
-        image = request.FILS['image']
+        image = request.FILES['image']
 
         post=BlogModel(Title=title, Description=description, Date=date, Image=image)
-        post.save
+        post.save()
         return redirect('/manage/addPost')
     context={
         'posts':post
