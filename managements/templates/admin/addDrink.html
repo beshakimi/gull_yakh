@@ -12,13 +12,13 @@
 </div>
 
 <!-- error and succuss message -->
+<p class="absolute hidden top-4 left-1/2 transform -translate-x-1/2 text-center text-green-600 p-2 bg-gray-500 bg-opacity-95 rounded-sm z-50"
+    id="formError"> </p>
 {% if messages %}
-
 {% for message in messages %}
 <p
     class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center text-green-600 p-2 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
-    {{ message }}
-</p>
+    {{ message }} </p>
 {% endfor %}
 
 {% endif %}
@@ -43,47 +43,82 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
         <!-- Add drink Form -->
         <div class="bg-white rounded-sm shadow p-4">
-            <form method="POST" enctype="multipart/form-data">
-                {%csrf_token%}
+            <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                {% csrf_token %}
                 <!-- drink Name -->
                 <div class="mb-4">
                     <label for="drinkName" class="block text-gray-700 font-bold mb-2">نام : </label>
-                    <input id="drinkName" type="text" class="input" Name="title" placeholder="نام نوشیدنی را بنویسید">
+                    <input id="drinkName" type="text" class="input" name="title" required
+                        placeholder="نام نوشیدنی را بنویسید" />
                 </div>
 
                 <!-- drink price -->
                 <div class="mb-4">
-                    <label for="drinkPrice" class="block text-gray-700 font-bold mb-2"> قیمت: </label>
-                    <input id="drinkPrice" type="number" class="input" Name="price" placeholder="100">
+                    <label for="drinkPrice" class="block text-gray-700 font-bold mb-2">قیمت: </label>
+                    <input id="drinkPrice" type="number" class="input" name="price" placeholder="100" ceholder="100"
+                        oninvalid="setCustomValidity('لطفاً عدد وارد کنید')">
                 </div>
 
                 <!-- drink image -->
                 <div class="mb-4">
-                    <label class="block font-bold text-gray-700 ">عکس:</label>
-                    <div class="mt-2 ">
+                    <label class="block font-bold text-gray-700">عکس:</label>
+                    <div class="mt-2">
                         <label for="chose-image"
-                            class="p-2 text-gray-500 rounded-sm bg-gray-200 hover:cursor-pointer">انتخاب عکس</label>
+                            class="p-2 text-gray-500 rounded-sm bg-gray-200 hover:cursor-pointer">انتخاب
+                            عکس</label>
                     </div>
-                    <input type="file" name="image" id="chose-image" class="hidden" required />
+                    <input type="file" name="image" id="chose-image" class="hidden" />
                 </div>
 
-
-                {% comment %} <div class="mb-4">
-                    <label for="drinkImage" class="block text-gray-700 font-bold mb-2"> عکس: </label>
-                    <input id="drinkImage" type="file" class="input" Name="image">
-                </div> {% endcomment %}
-                <!-- drink Description -->
-                <div class="mb-4 ">
+                <div class="mb-4">
                     <label for="drinkDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-                    <textarea id="drinkDescription" class="input" Name="description" rows="4"
+                    <textarea id="drinkDescription" class="input" name="description" rows="4"
                         placeholder="توضیاحات در مورد نوشیدنی"></textarea>
                 </div>
+
+                <!-- Error Message -->
+                <!-- <div id="formError" class="text-red-500 hidden"></div> -->
 
                 <!-- Submit Button -->
                 <button type="submit" class="cbtn w-full">
                     اضافه کردن
                 </button>
+
             </form>
+
+            <script>
+                function validateForm() {
+                    var nameInput = document.getElementById("drinkName");
+                    var imageInput = document.getElementById("chose-image");
+                    var errorElement = document.getElementById("formError");
+
+                    var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+                    var imagePattern = /\.(jpg|jpeg|png|gif|svg)$/i;
+
+                    if (!namePattern.test(nameInput.value)) {
+                        errorElement.textContent = "نام نوشیدنی باید با حروف الفبا شروع شود و می‌تواند شامل حروف، اعداد، و _ باشد.";
+                        errorElement.classList.remove("hidden");
+                        setTimeout(function () {
+                            errorElement.classList.add("hidden");
+                        }, 5000);
+                        return false;
+                    }
+
+                    if (!imagePattern.test(imageInput.value)) {
+                        errorElement.textContent = "فرمت عکس باید jpg، jpeg، png، gif و یا svg باشد.";
+                        errorElement.classList.remove("hidden");
+                        setTimeout(function () {
+                            errorElement.classList.add("hidden");
+                        }, 5000);
+                        return false;
+                    }
+
+                    errorElement.classList.add("hidden");
+                    return true;
+                }
+            </script>
+
+
         </div>
 
         <!-- drinks List -->

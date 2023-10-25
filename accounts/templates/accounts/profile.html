@@ -1,0 +1,83 @@
+{% extends 'addProducts/layout.html' %}
+{%load static %}
+
+{%block mainContent%}
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>User Profile</title>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex flex-col items-center justify-center min-h-screen mt-40">
+        <!-- User Avatar -->
+        <div class="w-40 h-40 rounded-full overflow-hidden mb-4">
+            <img src="path_to_user_avatar" alt="User Avatar" class="w-full h-full object-cover border rounded-full">
+        </div>
+
+        <!-- Username -->
+        <h2 class="text-2xl font-bold mb-4">نام کاربری</h2>
+
+        <!-- User Information -->
+        <div class="bg-white p-4 rounded-md shadow-md w-80">
+            <form>
+                <!-- First Name -->
+                <div class="mb-4">
+                    <label for="firstName" class="block text-gray-700 font-bold mb-2">نام:</label>
+                    <input id="firstName" type="text" class="input" placeholder="نام" required>
+                </div>
+
+                <!-- Last Name -->
+                <div class="mb-4">
+                    <label for="lastName" class="block text-gray-700 font-bold mb-2">نام خانوادگی:</label>
+                    <input id="lastName" type="text" class="input" placeholder="نام خانوادگی" required>
+                </div>
+
+                <!-- Gender -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2">جنسیت:</label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio" name="gender" value="male">
+                        <span class="ml-2">مرد</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="radio" class="form-radio" name="gender" value="female">
+                        <span class="ml-2">زن</span>
+                    </label>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 font-bold mb-2">ایمیل:</label>
+                    <input id="email" type="email" class="input" placeholder="example@example.com" required>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="mb-4">
+                    <label for="phoneNumber" class="block text-gray-700 font-bold mb-2">شماره تماس:</label>
+                    <input id="phoneNumber" type="tel" class="input" placeholder="09123456789" required>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700 font-bold mb-2">رمز عبور:</label>
+                    <input id="password" type="password" class="input" placeholder="رمز عبور" required>
+                </div>
+
+                <!-- Save Button -->
+                <button type="submit" class="cbtn w-full">
+                    ذخیره
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+{%endblock%}

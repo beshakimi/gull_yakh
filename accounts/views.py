@@ -115,3 +115,6 @@ login_required(login_url="login")
 def logout_page(request):
     logout(request)
     return redirect("login")
+
+def profile_view(request):
+    return render(request,"accounts/profile.html")
