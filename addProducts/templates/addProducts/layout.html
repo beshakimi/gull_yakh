@@ -236,16 +236,6 @@
 
         <hr class="mb-6 border-gray-400 w-full" />
 
-        <button
-          type="button"
-          class="w-full block bg-white hover:bg-[#f5056d] focus:bg-gray-100 duration-500 text-gray-900 font-semibold rounded-sm px-4 py-2 border border-gray-300"
-        >
-          <div class="flex items-center justify-center">
-            <img src="{% static 'icons/google icon.png'%}" alt="" class="w-8 ml-2" />
-            <span class="font-medium"> با گوگل وارد شوید</span>
-          </div>
-        </button>
-
         <!-- <button
           type="button"
           class="w-full block mt-4 bg-white hover:bg-[#f5056d] focus:bg-gray-100 duration-500 text-gray-900 font-semibold rounded-sm px-4 py-2 border border-gray-300"
@@ -259,7 +249,7 @@
         <p class="mt-8">
           حساب ندارید؟
           <a
-            href="regestration form.html"
+            href="{% url 'register' %}"
             class="text-gray-600 hover:text-[#f5056d] duration-300 font-semibold"
           >
             ایجاد حساب

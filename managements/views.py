@@ -117,10 +117,10 @@ def create_post_view(request):
         title=request.POST['title']
         description= request.POST['description']
         date = request.POST['date']
-        image = request.FILS['image']
+        image = request.FILES['image']
 
         post=BlogModel(Title=title, Description=description, Date=date, Image=image)
-        post.save
+        post.save()
         return redirect('/manage/addPost')
     context={
         'posts':post
