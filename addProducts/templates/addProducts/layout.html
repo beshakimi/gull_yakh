@@ -45,24 +45,34 @@
           <!-- nav items -->
           <div class="hidden md:block lg:flex  justify-center items-center">
             <ul class="flex md:gap-5 lg:gap-10 ">
+
               <li>
-                <a href="/addProduct/home" class="li">صفحه اصلی</a>
+                <a href="{% url 'home' %}"
+                  class="li {% if request.path == '/addProduct/home' %} text-blue-600  {% endif %}">صفحه
+                  اصلی</a>
               </li>
-              <li><a href="/addProduct/about" class="li">در باره ما</a>
 
+              <li>
+                <a href="/addProduct/about" class="li">در باره ما</a>
               </li>
-              <li><a href="/addProduct/food/list" class="li">غذا ها</a>
 
+              <li>
+                <a href="/addProduct/food/list" class="li">غذا ها</a>
               </li>
+
               <li>
                 <a href="/addProduct/drink/list" class="li">نوشیدنی ها</a>
               </li>
+
               <li>
                 <a href="/addProduct/blog/list" class="li">بلاگ</a>
               </li>
+
               <li>
                 <a href="/addProduct/contacts" class="li  ">تماس با ما </a>
               </li>
+
+            </ul>
           </div>
 
           <div class="flex gap-3 md:gap-4 lg:gap-5  ">
@@ -86,12 +96,15 @@
               <div class="hidden w-28 flex-col bg-white rounded-sm absolute top-16 left-10 md:left-20 lg:left-32"
                 id="user-model">
                 <!-- strar item 1 -->
-                <a href="{% url 'login'  %}">
-                  <div class="flex items-center px-2 hover:bg-gray-100 hover:cursor-pointer" id="log-in-profile">
-                    <img src="{% static 'icons/user-regular.svg'%}" alt="" class="w-4 h-4">
-                    <h1 class="w-full text-sm p-2"> پروفایل</h1>
-                  </div>
-                </a>
+  {% if user.id %}
+  <a href="{% url 'profile_view' id=user.id %}">
+     <div class="flex items-center px-2 hover:bg-gray-100 hover:cursor-pointer" id="log-in-profile">
+        <img src="{% static 'icons/user-regular.svg'%}" alt="" class="w-4 h-4">
+        <h1 class="w-full text-sm p-2"> پروفایل</h1>
+     </div>
+  </a>
+  {% endif %} 
+
 
                 <!-- strar item 2 -->
                 <a href="/manage/dashboard" class="">

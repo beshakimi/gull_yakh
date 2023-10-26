@@ -5,10 +5,36 @@
 
 
 {% block mainContent %}
+
+
+
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:pr-60">
     <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> اضافه کردن غذا </h1>
 </div>
+
+<!-- error and succuss message -->
+<p class="absolute hidden text-sm text-white pr-8 py-4 pl-4 top-36 left-1/2 transform -translate-x-1/2 text-center   bg-yellow-500 bg-opacity-95 rounded-sm z-50"
+    id="formError">
+</p>
+{% if messages %}
+{% for message in messages %}
+<p
+    class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center text-green-600 p-2 bg-yellow-500 bg-opacity-95 rounded-sm z-50 error-message">
+    {{ message }} </p>
+{% endfor %}
+
+{% endif %}
+
+<script>
+    setTimeout(function () {
+        var errorMessage = document.querySelector('.error-message');
+        if (errorMessage) {
+            errorMessage.classList.add('hidden');
+        }
+    }, 5000);
+</script>
+
 
 <!-- back to priveuse page -->
 <div class="mt-4 pr-4 md:pr-64">
@@ -20,38 +46,137 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <!-- Add Food Form -->
         <div class="bg-white max-h-fit rounded-md shadow p-4">
-            <form method="POST" enctype="multipart/form-data">
-                {%csrf_token%}
-                <!-- Food Name -->
+            <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()"
+                class="bg-white p-4 rounded-md shadow-md">
+                {% csrf_token %}
+                <!-- food Name -->
                 <div class="mb-4">
-                    <label for="foodName" class="block text-gray-700 font-bold mb-2">نام : </label>
-                    <input id="foodName" type="text" class="input" Name="title" placeholder="نام غذا را بنویسید">
+                    <label for="foodName" class="block text-gray-700 font-bold mb-2">نام: </label>
+                    <input id="foodName" type="text" class="input" name="title" placeholder="نام نوشیدنی را بنویسید" />
                 </div>
 
                 <!-- food price -->
                 <div class="mb-4">
-                    <label for="foodPrice" class="block text-gray-700 font-bold mb-2"> قیمت: </label>
-                    <input id="foodPrice" type="number" class="input" Name="price" placeholder="100">
+                    <label for="foodPrice" class="block text-gray-700 font-bold mb-2">قیمت: </label>
+                    <input id="foodPrice" type="number" class="input" name="price" placeholder="100">
                 </div>
 
                 <!-- food image -->
                 <div class="mb-4">
-                    <label for="foodImage" class="block text-gray-700 font-bold mb-2"> عکس: </label>
-                    <input id="foodImage" type="file" class="input" Name="image">
-                </div>
-                <!-- Food Description -->
-                <div class="mb-4">
-                    <label for="foodDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-                    <textarea id="foodDescription" class="input" Name="description" rows="4"
-                        placeholder="توضیاحات در مورد غذا"></textarea>
+                    <label class="block font-bold text-gray-700">عکس:</label>
+                    <div class="mt-2">
+                        <label for="chose-image"
+                            class="p-2 text-gray-500 rounded-sm bg-gray-200 hover:cursor-pointer">انتخاب
+                            عکس</label>
+                    </div>
+                    <input type="file" name="image" id="chose-image" class="hidden" />
                 </div>
 
+                <div class="mb-4">
+                    <label for="foodDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
+                    <textarea id="foodDescription" class="input" name="description" rows="4"
+                        placeholder="توضیاحات در مورد نوشیدنی"></textarea>
+                </div>
+
+                <!-- Error Message -->
+                <!-- <div id="formError" class="text-red-500 hidden"></div> -->
+
                 <!-- Submit Button -->
-                <button type="submit" class="cbtn mb-0 w-full">
+                <button type="submit" class="cbtn w-full">
                     اضافه کردن
                 </button>
             </form>
         </div>
+
+
+        <script>
+            function validateForm() {
+                var nameInput = document.getElementById("foodName");
+                var priceInput = document.getElementById("foodPrice");
+                var imageInput = document.getElementById("chose-image");
+                var descriptionInput = document.getElementById("foodDescription");
+                var errorElement = document.getElementById("formError");
+
+                var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+                var imagePattern = /\.(jpg|jpeg|png|gif|svg)$/i;
+                var pricePattern = /^(?!0)\d+$/;
+
+                if (nameInput.value === "" && priceInput.value === "" && imageInput.value === "" && descriptionInput.value === "") {
+                    errorElement.textContent = "هیچ مقداری وارد نشده است";
+                    errorElement.classList.remove("hidden");
+                    setTimeout(function () {
+                        errorElement.classList.add("hidden");
+                    }, 5000);
+                    return false;
+                }
+
+                if (nameInput.value === "") {
+                    errorElement.textContent = "نام را وارد نکرده اید";
+                    errorElement.classList.remove("hidden");
+                    setTimeout(function () {
+                        errorElement.classList.add("hidden");
+                    }, 5000);
+                    return false;
+                }
+
+                if (!namePattern.test(nameInput.value)) {
+                    errorElement.textContent = "نام نامعتبر است";
+                    errorElement.classList.remove("hidden");
+                    setTimeout(function () {
+                        errorElement.classList.add("hidden");
+                    }, 5000);
+                    return false;
+                }
+
+                if (priceInput.value === "") {
+                    errorElement.textContent = "قیمت را وارد نکرده اید";
+                    errorElement.classList.remove("hidden");
+                    setTimeout(function () {
+                        errorElement.classList.add("hidden");
+                    }, 5000);
+                    return false;
+                }
+
+                if (!pricePattern.test(priceInput.value)) {
+                    errorElement.textContent = "قیمت نامعتبر است";
+                    errorElement.classList.remove("hidden");
+                    setTimeout(function () {
+                        errorElement.classList.add("hidden");
+                    }, 5000);
+                    return false;
+                }
+
+                if (imageInput.value === "") {
+                    errorElement.textContent = "عکس را وارد کنید";
+                    errorElement.classList.remove("hidden");
+                    setTimeout(function () {
+                        errorElement.classList.add("hidden");
+                    }, 5000);
+                    return false;
+                }
+
+                if (!imagePattern.test(imageInput.value)) {
+                    errorElement.textContent = "فرمت عکس نامعتبر است";
+                    errorElement.classList.remove("hidden");
+                    setTimeout(function () {
+                        errorElement.classList.add("hidden");
+                    }, 5000);
+                    return false;
+                }
+
+                if (descriptionInput.value === "") {
+                    errorElement.textContent = "توضیحات را وارد کنید";
+                    errorElement.classList.remove("hidden");
+                    setTimeout(function () {
+                        errorElement.classList.add("hidden");
+                    }, 5000);
+                    return false;
+                }
+
+                errorElement.classList.add("hidden");
+                return true;
+            }
+        </script>
 
         <!-- Foods List -->
         <div class="bg-white rounded-lg shadow p-4 ml-4 h-[600px] overflow-y-scroll">

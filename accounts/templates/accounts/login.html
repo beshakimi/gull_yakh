@@ -27,7 +27,7 @@
 
 <body dir="rtl" class="font-vazir relative">
   <img src="{%static 'images/bg-login.jpg'%}" alt="" class="w-screen h-screen object-cover z-0 blur-sm">
-  <div class="w-screen h-screen bg-black bg-opacity-80 absolute top-0"></div>
+  <div class="w-screen h-screen bg-black bg-opacity-60 absolute top-0"></div>
 
   <!-- log-in page -->
   <div class="fixed w-[100%] h-[100%] bg-black bg-opacity-80 z-30" id="log-in">
@@ -71,7 +71,7 @@
               class="absolute left-4 top-4 hover:cursor-pointer border rounded-sm p-1 hover:bg-[#f5056d] ease-in-out duration-300 " id="close-profil">
           </a>
 
-          <form class="mt-6" action="#" method="POST">
+          <form class="mt-6" action="#" method="post">
             {%csrf_token%}
 
             <div>
