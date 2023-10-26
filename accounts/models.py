@@ -52,19 +52,20 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 class Profile(models.Model):
+   GENDER_CHOCIES = (
+       ('MALE', 'MALE'),
+       ('FEMALE', 'FEMALE'),
+       ('NULL', 'NULL'),
+   )
    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
    first_name = models.CharField(max_length=255)
    last_name = models.CharField(max_length=255)
    avatar = models.ImageField(upload_to="media/user/images/",null=True,blank=True,default='static/assets/images/logo-light.png')
+   phone = models.CharField(max_length=50, null=True, blank=True)
+   gender = models.CharField(max_length=20, choices=GENDER_CHOCIES, default='NULL')
+
    
 
    def __str__(self):
-      return self.user.username
+      return self.first_name
    
-
-User = get_user_model()
-
-class PasswordResetToken(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    token = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)

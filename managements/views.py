@@ -189,6 +189,13 @@ def delete_post(request, post_id):
     if request.method == 'POST':
         post.delete()
         return redirect('create-post')
+    
+
+
+
+# users view 
+def user_list_view(request):
+    return render(request,'admin/user.html')
 
         
         

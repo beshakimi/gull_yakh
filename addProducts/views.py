@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from persiantools.jdatetime import JalaliDate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from addProducts.models import foodModel
 from addProducts.models import DringModel
 from addProducts.models import BlogModel
+from accounts.models import Profile
 
 # Create your views here.
 
@@ -140,3 +141,31 @@ def postDetailsView(request,post_id):
 # start contacts view 
 def contectView(request):
     return render(request,"addProducts/contacts.html")
+
+def profile_view(request, id):
+    profile = get_object_or_404(Profile, pk=id)
+    user = request.user
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        phone = request.POST['phone']
+        gender = request.POST['gender']
+        
+        
+        if 'avatar' in request.FILES:
+            avatar = request.FILES['avatar']
+            profile.avatar = avatar
+
+        profile.first_name =first_name
+        profile.last_name = last_name
+        profile.phone = phone
+        profile.gender = gender
+        profile.user = user
+      
+        
+        profile.save()
+        
+        return redirect('home')
+    else:
+        return render(request, 'addProducts/profile.html', {'profile': profile, 'user': user})
+    
