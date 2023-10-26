@@ -11,6 +11,7 @@ from accounts.models import Profile
 
 # start home view 
 def homeView(request):
+    user = request.user
     foods=foodModel.objects.all().order_by('-id')[:8]
     drink=DringModel.objects.all().order_by('-id')[:8]
     post=BlogModel.objects.all().order_by('-id')[:4]
@@ -18,6 +19,7 @@ def homeView(request):
             "foodlist":foods,
             "drinklist":drink,
             "postlist":post,
+            'user': user,
         }
     
     return render(request, "addProducts/home.html",context)
@@ -141,31 +143,3 @@ def postDetailsView(request,post_id):
 # start contacts view 
 def contectView(request):
     return render(request,"addProducts/contacts.html")
-
-def profile_view(request, id):
-    profile = get_object_or_404(Profile, pk=id)
-    user = request.user
-    if request.method == 'POST':
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        phone = request.POST['phone']
-        gender = request.POST['gender']
-        
-        
-        if 'avatar' in request.FILES:
-            avatar = request.FILES['avatar']
-            profile.avatar = avatar
-
-        profile.first_name =first_name
-        profile.last_name = last_name
-        profile.phone = phone
-        profile.gender = gender
-        profile.user = user
-      
-        
-        profile.save()
-        
-        return redirect('home')
-    else:
-        return render(request, 'addProducts/profile.html', {'profile': profile, 'user': user})
-    

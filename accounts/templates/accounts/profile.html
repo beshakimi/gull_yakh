@@ -5,66 +5,73 @@
 
 <div class="w-[80%] md:w-[70%] mx-auto flex flex-col items-center justify-center min-h-screen mt-20">
     <!-- User Avatar -->
-    <div class="w-40 h-40 rounded-full overflow-hidden mb-4">
-        <img src="{% static 'icons/profile-icon.png'%}" alt="User Avatar"
-            class="w-full h-full object-cover border rounded-full">
+    <div class="w-48 h-48 rounded-full border-8 border-pink-600 border-opacity-60 shadow-lg overflow-hidden mb-4">
+        <img src="{{profile.avatar.url}}" alt="User Avatar"
+            class="w-full h-full object-cover">
     </div>
 
     <!-- Username -->
-    <h2 class="text-2xl font-bold mb-4 ">نام کاربری</h2>
+    <h2 class="text-2xl font-bold mb-4 ">{{user.username}} </h2>
 
 
     <!-- User Information -->
     <div class="bg-white  p-4 rounded-md shadow-md w-full">
-        <form class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-x-4 " method="post" enctype="multipart/form-data">
+            {% csrf_token%}
             <div class="mb-4">
                 <label for="username" class="block text-gray-700 font-bold mb-2">نام کاربری:</label>
-                <input id="username" type="text" class="input" value="{{user.username}}" placeholder="نام کاربری"
-                    required>
+                <label
+                    class="block text-sm text-gray-400 border rounded-sm border-gray-300 bg-gray-100  p-2  font-bold mb-2">{{user.username}}</label>
+            </div>
+
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 font-bold mb-2">ایمل :</label>
+                <label
+                    class="block text-sm text-gray-400 border rounded-sm border-gray-300 bg-gray-100  p-2  font-bold mb-2">{{profile.user.email}}</label>
             </div>
 
             <!-- First Name -->
             <div class="mb-4">
                 <label for="firstName" class="block text-gray-700 font-bold mb-2">نام:</label>
-                <input id="firstName" type="text" class="input" placeholder="نام" required>
+                <input id="firstName" name="first_name" type="text" class="input text-gray-600 text-sm font-bold" value="{{profile.first_name}}"
+>
             </div>
 
             <!-- Last Name -->
             <div class="mb-4">
                 <label for="lastName" class="block text-gray-700 font-bold mb-2">نام خانوادگی:</label>
-                <input id="lastName" type="text" class="input" placeholder="نام خانوادگی" required>
+                <input id="lastName" name="last_name" type="text" class="input text-gray-700 text-sm font-bold" value="{{profile.last_name}}">
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mb-4">
+                <label for="phoneNumber" class="block text-gray-700 font-bold mb-2">شماره تماس:</label>
+                <input id="phoneNumber" name="phone" type="tel" class="input text-gray-700 text-sm font-bold" value="{{profile.phone}}">
             </div>
 
             <!-- Gender -->
             <div class="mb-4">
                 <label class="block text-gray-700 font-bold mb-2">جنسیت:</label>
                 <label class="inline-flex items-center">
-                    <input type="radio" class="form-radio" name="gender" value="male">
+                    <input type="radio" class="form-radio" name="gender" value="MALE">
                     <span class="mr-2 ml-4">مرد</span>
                 </label>
                 <label class="inline-flex items-center ml-6">
-                    <input type="radio" class="form-radio" name="gender" value="female">
+                    <input type="radio" class="form-radio" name="gender" value="FEMALE">
                     <span class="mr-2">زن</span>
                 </label>
+
             </div>
 
-            <!-- Email -->
+            <!-- chose image -->
             <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-bold mb-2">ایمیل:</label>
-                <input id="email" type="email" class="input" placeholder="example@example.com" required>
+                <label for="chose-image" class="block text-gray-700 font-bold mb-2">عکس :</label>
+                <input id="chose-image" name="avatar" type="file" class="input text-sm font-bold">
             </div>
 
-            <!-- Phone Number -->
-            <div class="mb-4">
-                <label for="phoneNumber" class="block text-gray-700 font-bold mb-2">شماره تماس:</label>
-                <input id="phoneNumber" type="tel" class="input" placeholder="09123456789" required>
-            </div>
 
-            <!-- Password -->
-            <div class="mb-4">
-                <label for="password" class="block text-gray-700 font-bold mb-2">رمز عبور:</label>
-                <input id="password" type="password" class="input" placeholder="رمز عبور" required>
-            </div>
+
+
 
             <!-- Save Button -->
             <button type="submit" class="cbtn md:mt-8">

@@ -1,10 +1,13 @@
 
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
 from addProducts.models import foodModel
 from addProducts.models import DringModel
 from addProducts.models import BlogModel
+from accounts.models import Profile,User
+from accounts import views
 
 # dashboar_view
 def dashboar_view(request):
@@ -195,8 +198,37 @@ def delete_post(request, post_id):
 
 # users view 
 def user_list_view(request):
-    return render(request,'admin/user.html')
+    
+    users=Profile.objects.all().order_by('-id')
+    page = request.GET.get('page')
 
+    # تعداد نوشیدنی‌ها در هر صفحه
+    items_per_page = 8
+
+    paginator = Paginator(users, items_per_page)
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        users = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        users = paginator.page(page)
+    
+    left_index = (int(page) - 2 )
+    if left_index < 1:
+        left_index = 1
+    
+    right_index = (int(page) + 2)
+    if right_index > paginator.num_pages:
+        right_index = paginator.num_pages
+
+    pagination_range = range(left_index, right_index + 1)
+    context={
+       "userlist":users,
+       "pagination_range": pagination_range,
+   }
+    return render(request,"admin/user.html",context)
         
         
 

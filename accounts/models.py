@@ -52,20 +52,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 class Profile(models.Model):
-   GENDER_CHOCIES = (
-       ('MALE', 'MALE'),
-       ('FEMALE', 'FEMALE'),
-       ('NULL', 'NULL'),
-   )
-   user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
-   first_name = models.CharField(max_length=255)
-   last_name = models.CharField(max_length=255)
-   avatar = models.ImageField(upload_to="media/user/images/",null=True,blank=True,default='static/assets/images/logo-light.png')
-   phone = models.CharField(max_length=50, null=True, blank=True)
-   gender = models.CharField(max_length=20, choices=GENDER_CHOCIES, default='NULL')
+    GENDER_CHOICES = (
+        ('MALE', 'MALE'),
+        ('FEMALE', 'FEMALE'),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    avatar = models.ImageField(upload_to="user/", null=True, blank=True, default='media/user/defult_image.png')
+    phone = models.CharField(max_length=50, null=True, blank=True, default='')
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default='')
 
-   
-
-   def __str__(self):
-      return self.first_name
+    def __str__(self):
+        return self.first_name
    

@@ -53,17 +53,19 @@ body.addEventListener("click", (event) => {
 });
 
 // start profile show and hide
-const logInProfile = document.getElementById("log-in-profile");
-const logIn = document.getElementById("log-in");
-const closeProfile = document.getElementById("close-profil");
+// const logInProfile = document.getElementById("log-in-profile");
+// const logIn = document.getElementById("log-in");
+// const closeProfile = document.getElementById("close-profil");
 
-logInProfile.addEventListener("click", () => {
-  logIn.classList.remove("hidden");
-});
+// logInProfile.addEventListener("click", () => {
+//   logIn.classList.remove("hidden");
+// });
 
-closeProfile.addEventListener("click", () => {
-  logIn.classList.add("hidden");
-});
+// closeProfile.addEventListener("click", () => {
+//   logIn.classList.add("hidden");
+// });
+
+
 
 // start slider script
 const slider = document.getElementById("slider");

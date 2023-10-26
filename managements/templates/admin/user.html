@@ -31,35 +31,28 @@
             <th class="px-6 py-3 bg-gray-50"></th>
           </tr>
         </thead>
+        {% for user in userlist %}
+        {% if user %}
         <tbody class="bg-white divide-y divide-gray-200">
           <tr>
             <td class="px-6 py-4 flex justify-center whitespace-nowrap">
-              <img class="h-8 w-8 rounded-full object-cover" src="./media/icons/male-user-48.png" alt="User Avatar">
+              <img class="h-8 w-8 rounded-full object-cover" src="{{user.avatar.url}}" alt="User Avatar">
             </td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">رضا</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">بهرام</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">reza@example.com</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">0799458896</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">{{ user.first_name }}</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.last_name}}</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">{{ user.email }}</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.phone}}</td>
             <td class="px-6 py-4 text-center whitespace-nowrap">
               <button class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-sm inline-block">فعال</button>
               <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">غیر فعال</button>
             </td>
           </tr>
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap flex justify-center">
-              <img class="h-8 w-8 rounded-full object-cover" src="./media/icons/male-user-48.png" alt="User Avatar">
-            </td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">مهدی</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">روشن</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">mahdi@example.com</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">0741259874</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">
-              <button class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-sm inline-block">فعال</button>
-              <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">غیر فعال</button>
-            </td>
-          </tr>
-          <!-- Add more user rows dynamically -->
         </tbody>
+        {% else %}
+        {% endif %}
+        
+        {% endfor %}
+        
       </table>
     </div>
   </div>
