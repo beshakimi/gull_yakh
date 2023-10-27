@@ -20,13 +20,17 @@ def homeView(request):
             "drinklist":drink,
             "postlist":post,
             'user': user,
+            'section':'home'
         }
     
     return render(request, "addProducts/home.html",context)
 
 # start about view 
 def aboutUsView(request):
-    return render(request,"addProducts/about.html")
+    context ={
+        'section':'about'
+    }
+    return render(request,"addProducts/about.html", context)
 
 
 # food list view 
@@ -59,6 +63,7 @@ def foodListView(request):
     context={
        "foodlist":foods,
        "pagination_range": pagination_range,
+       "section":"food"
    }
     return render(request,"addProducts/foodList.html",context)
    
@@ -105,6 +110,7 @@ def drinkListView(request):
     context = {
         'drinkList': drinks,
         'pagination_range': pagination_range,
+        'section':'drink'
     }
 
     return render(request, 'addProducts/drinkList.html', context)
@@ -127,6 +133,7 @@ def blogView(request):
 
     context={
         "postlist":posts,
+        'section':'blog',
     }
 
     return render(request,"addProducts/postList.html",context)
@@ -142,4 +149,4 @@ def postDetailsView(request,post_id):
 
 # start contacts view 
 def contectView(request):
-    return render(request,"addProducts/contacts.html")
+    return render(request,"addProducts/contacts.html", {'section':'contact'})

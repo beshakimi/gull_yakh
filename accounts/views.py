@@ -109,6 +109,7 @@ def profile_edit_view(request, id):
         phone = request.POST['phone']
         gender = request.POST['gender']
         
+        gender = request.POST.get('gender', profile.gender)
         
         if 'avatar' in request.FILES:
             avatar = request.FILES['avatar']

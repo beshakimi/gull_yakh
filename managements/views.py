@@ -11,7 +11,7 @@ from accounts import views
 
 # dashboar_view
 def dashboar_view(request):
-    return render(request, 'admin/dashboard.html')
+    return render(request, 'admin/dashboard.html',{'section':'dashboard'})
 
 
 # add food view 
@@ -34,7 +34,8 @@ def create_food_model_view(request):
         return redirect('/manage/addfood')
 
     context = {
-        'foods':foods
+        'foods':foods,
+        'section':'add_food'
     }
 
     return render(request, 'admin/addFood.html', context)
@@ -108,7 +109,8 @@ def create_drink_view(request):
         return redirect('/manage/addDrink')
 
     context = {
-        'drinks': drinks
+        'drinks': drinks,
+        'section':'add_drink'
     }
     return render(request, 'admin/addDrink.html', context)
 
@@ -157,7 +159,8 @@ def create_post_view(request):
         post.save()
         return redirect('/manage/addPost')
     context={
-        'posts':post
+        'posts':post,
+        'section':'add_post'
     }
     return render(request, 'admin/addPost.html',context)
     
@@ -227,6 +230,7 @@ def user_list_view(request):
     context={
        "userlist":users,
        "pagination_range": pagination_range,
+       'section':'user'
    }
     return render(request,"admin/user.html",context)
         

@@ -40,47 +40,80 @@
       </a>
 
       <!-- start dashboard -->
-      <a href="/manage/dashboard"
-        class="w-full py-[15px] px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
-        <img src="{%static 'admin/icons/dashboard.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1">داشبورد</h1>
-      </a>
+      <div class="{% if section == 'dashboard' %} bg-gray-600 
+       {% endif %}">
+        <a href="/manage/dashboard"
+          class="w-full py-[15px] px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/dashboard.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1">داشبورد</h1>
+        </a>
+      </div>
       <hr class="w-full border border-gray-500" />
       <!-- end dashboard -->
+
+
 
       <!-- start products -->
       <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
         <h1 class="font-bold">اضافه کردن</h1>
       </div>
+      <hr class="w-full border border-gray-500">
 
-      <a href="/manage/addfood"
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
-        <img src="{%static 'admin/icons/food.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1">غذا ها</h1>
-      </a>
 
-      <a href="/manage/addDrink"
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
-        <img src="{%static 'admin/icons/drink.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1">نوشیدنی ها</h1>
-      </a>
+      <!-- add foods  -->
+      <div class="{% if section == 'add_food' %} bg-gray-600 
+      {% endif %}">
+        <a href="/manage/addfood"
+          class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/food.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">غذا ها</h1>
+        </a>
+      </div>
 
-      <a href="/manage/addPost"
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
-        <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1">پست ها</h1>
-      </a>
+
+      <!-- add drinks  -->
+      <div class="{% if section == 'add_drink' %} bg-gray-600 
+      {% endif %}">
+        <a href="/manage/addDrink"
+          class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/drink.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">نوشیدنی ها</h1>
+        </a>
+      </div>
+
+
+      <!-- add posts -->
+      <div class="{% if section == 'add_post' %} bg-gray-600 
+      {% endif %}">
+        <a href="/manage/addPost"
+          class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">پست ها</h1>
+        </a>
+      </div>
       <!-- end products -->
+
+
+
 
       <!-- start genral -->
       <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
         <h1 class="font-bold"> کاربران</h1>
       </div>
-      <a href="/manage/user_list"
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
-        <img src="{%static 'admin/icons/users-icon.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1">لیست کاربران</h1>
-      </a>
+      <hr class="w-full border border-gray-500">
+
+
+      <!-- start list of users  -->
+      <div class="{% if section == 'user' %} bg-gray-600 
+      {% endif %}">
+        <a href="/manage/user_list"
+          class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/users-icon.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">لیست کاربران</h1>
+        </a>
+      </div>
+
+
 
       <a href=""
         class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
