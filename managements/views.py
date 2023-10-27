@@ -1,6 +1,6 @@
 
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
 from addProducts.models import foodModel
@@ -233,7 +233,8 @@ def user_list_view(request):
        'section':'user'
    }
     return render(request,"admin/user.html",context)
-        
+
+
         
 
 

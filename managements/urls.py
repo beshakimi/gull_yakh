@@ -19,6 +19,6 @@ urlpatterns = [
     path('delete-post/<int:post_id>/', views.delete_post, name='delete-post'),
 
     # user_list url
-    path('user_list', views.user_list_view, name='user-list')
+    path('user_list', views.user_list_view, name='user-list'),
   
 ]

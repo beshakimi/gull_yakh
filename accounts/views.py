@@ -38,7 +38,7 @@ def register(request):
             messages.error(request, "ایمیل آدرس اشباه است")
             return redirect('register')
         
-        if len(password) < 6:
+        if len(password) < 1:
             messages.error(request, "پسورد باید بزرگتر از 6 حرف باشد")
             return redirect('register')
 
