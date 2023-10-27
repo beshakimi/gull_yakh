@@ -199,7 +199,7 @@ def delete_post(request, post_id):
 # users view 
 def user_list_view(request):
     
-    users=Profile.objects.all().order_by('-id')
+    users=User.objects.all().order_by('-id')
     page = request.GET.get('page')
 
     # تعداد نوشیدنی‌ها در هر صفحه

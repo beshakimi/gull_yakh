@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig', 
     'tailwind',
     'managements',
+    'django.contrib.humanize',
 
 ]
 

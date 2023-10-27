@@ -1,6 +1,7 @@
 from django.db import models
 from django import forms
 from hijri_converter import Hijri
+from django.utils import timezone
 
 # Create your models here.
 
@@ -40,8 +41,9 @@ class BlogModel(models.Model):
         verbose_name_plural="پست ها"
     Title=models.CharField(max_length=100 ,verbose_name="عنوان پست")
     Image=models.ImageField(upload_to="blogeImage/", verbose_name="عکس")
-    Date=models.DateField(verbose_name="تاریخ")
     Description=models.CharField(max_length=500 ,verbose_name="توضیحات")
+    created_at = models.DateTimeField(default=timezone.now)
+
 
     def __str__(self):
         return self.Title
