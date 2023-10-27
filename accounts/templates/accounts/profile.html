@@ -55,14 +55,15 @@
             <div class="mb-4">
                 <label class="block text-gray-700 font-bold mb-2">جنسیت:</label>
                 <label class="inline-flex items-center">
-                    <input type="radio" class="form-radio" name="gender" value="MALE">
-                    <span class="mr-2 ml-4">مرد</span>
+                <input type="radio" class="form-radio" name="gender" value="MALE" 
+                {% if profile.gender == 'MALE' %}checked{% endif %}>
+                <span class="mr-2 ml-4">مرد</span>
                 </label>
                 <label class="inline-flex items-center ml-6">
-                    <input type="radio" class="form-radio" name="gender" value="FEMALE">
-                    <span class="mr-2">زن</span>
+                <input type="radio" class="form-radio" name="gender" value="FEMALE"
+                {% if profile.gender == 'FEMALE' %}checked{% endif %}>
+                <span class="mr-2">زن</span>
                 </label>
-
             </div>
 
             <!-- chose image -->

@@ -46,30 +46,41 @@
           <div class="hidden md:block lg:flex  justify-center items-center">
             <ul class="flex md:gap-5 lg:gap-10 ">
 
-              <li>
-                <a href="{% url 'home' %}"
-                  class="li {% if request.path == '/addProduct/home' %} text-blue-600  {% endif %}">صفحه
+              <li class="li">
+                <a href="{% url 'home' %}" class="{% if section == 'home' %}text-[#f5056d] pb-1 border-b-4
+                 border-b-[#f5056d]
+                  {% endif %}">صفحه
                   اصلی</a>
               </li>
 
-              <li>
-                <a href="/addProduct/about" class="li">در باره ما</a>
+              <li class="li">
+                <a href="/addProduct/about" class="{% if section == 'about' %}text-[#f5056d] pb-1 border-b-4
+                border-b-[#f5056d]
+                 {% endif %}">در باره ما</a>
               </li>
 
-              <li>
-                <a href="/addProduct/food/list" class="li">غذا ها</a>
+              <li class="li">
+                <a href="/addProduct/food/list" class="{% if section == 'food' %}text-[#f5056d] pb-1 border-b-4
+                border-b-[#f5056d]
+                 {% endif %}">غذا ها</a>
               </li>
 
-              <li>
-                <a href="/addProduct/drink/list" class="li">نوشیدنی ها</a>
+              <li class=" li">
+                <a href="/addProduct/drink/list" class="{% if section == 'drink' %}text-[#f5056d] pb-1 border-b-4
+                border-b-[#f5056d]
+                 {% endif %}">نوشیدنی ها</a>
               </li>
 
-              <li>
-                <a href="/addProduct/blog/list" class="li">بلاگ</a>
+              <li class="li">
+                <a href="/addProduct/blog/list" class="{% if section == 'blog' %}text-[#f5056d] pb-1 border-b-4
+                border-b-[#f5056d]
+                 {% endif %}">بلاگ</a>
               </li>
 
-              <li>
-                <a href="/addProduct/contacts" class="li  ">تماس با ما </a>
+              <li class="li">
+                <a href="/addProduct/contacts" class="{% if section == 'contact' %}text-[#f5056d] pb-1 border-b-4
+                border-b-[#f5056d]
+                 {% endif %}">تماس با ما </a>
               </li>
 
             </ul>

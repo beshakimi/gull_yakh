@@ -11,7 +11,7 @@
 
 @layer components {
   .li {
-    @apply text-black py-1 md:text-sm lg:text-base border-[#f5056d] border-b-4 border-opacity-0 hover:border-opacity-100 hover:text-[#f5056d] focus:text-[#f5056d] focus:border-[#f5056d] active:text-[#f5056d] active:border-[#f5056d] ease-in-out duration-300;
+    @apply text-black py-1 md:text-sm lg:text-base border-[#f5056d] border-b-4 border-opacity-0 hover:border-opacity-100 hover:text-[#f5056d] ease-in-out duration-300;
   }
 }
 

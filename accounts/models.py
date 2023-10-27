@@ -55,15 +55,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     GENDER_CHOICES = (
-        ('MALE', 'MALE'),
-        ('FEMALE', 'FEMALE'),
+        ('MALE', 'مرد'),
+        ('FEMALE', 'زن'),
+
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    avatar = models.ImageField(upload_to="user/", null=True, blank=True, default='media/user/defult_image.png')
+    avatar = models.ImageField(upload_to="user/", null=True, blank=True, default='user/defult_image.png')
     phone = models.CharField(max_length=50, null=True, blank=True, default='')
-    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default='')
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default='MALE')
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
