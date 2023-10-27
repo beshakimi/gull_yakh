@@ -80,7 +80,7 @@
             <!-- start shoppin cart -->
             <span class="relative">
               <a href="shop-card.html"> <img src="{% static 'icons/shopping-cart.png'%}" alt=""
-                  class=" md:ml-0 relative flex p-[2px] pb-0 0 border border-gray-300 rounded-md hover:bg-[#f5056d]  duration-500  w-[30px] h-[30px]  "></a>
+                  class=" md:ml-0 relative flex p-1 border-gray-300 rounded-md hover:bg-[#f5056d]  duration-500  w-9 h-9  "></a>
               <h2
                 class="absolute left-[8px] top-[-10px] text-center text-white font-semibold text-[12px] w-[16px] h-[16px]  rounded-full bg-blue-500 cursor-default">
                 3</h2>
@@ -89,24 +89,24 @@
 
             <!-- user icon -->
             <div>
-              <img src="{% static 'icons/user-regular.svg'%}"
-                class=" md:ml-0 flex p-1 border border-gray-300 rounded-md hover:bg-[#f5056d] hover:cursor-pointer duration-500 w-[30px] h-[30px] relative"
+              <img src="{{user.profile.avatar.url}}"
+                class=" md:ml-0 flex border rounded-full border-yellow-500  hover:bg-[#f5056d] hover:cursor-pointer duration-500 w-9 h-9 relative object-cover"
                 id="user-icon">
               <!-- user information -->
               <div class="hidden w-28 flex-col bg-white rounded-sm absolute top-16 left-10 md:left-20 lg:left-32"
                 id="user-model">
                 <!-- strar item 1 -->
-  {% if user.id %}
-  <a href="{% url 'profile_view' id=user.id %}">
-     <div class="flex items-center px-2 hover:bg-gray-100 hover:cursor-pointer" id="log-in-profile">
-        <img src="{% static 'icons/user-regular.svg'%}" alt="" class="w-4 h-4">
-        <h1 class="w-full text-sm p-2"> پروفایل</h1>
-     </div>
-  </a>
-  {% endif %} 
+                {% if user.id %}
+                <a href="{% url 'profile_view' id=user.id %}">
+                  <div class="flex items-center px-2 hover:bg-gray-100 hover:cursor-pointer" id="log-in-profile">
+                    <img src="{{user.profile.avatar.url}}" alt="" class="w-4 h-4">
+                    <h1 class="w-full text-sm p-2"> پروفایل</h1>
+                  </div>
+                </a>
+                {% endif %}
 
 
-                <!-- strar item 2 -->
+                <!-- strsar item 2 -->
                 <a href="/manage/dashboard" class="">
                   <div class="flex items-center px-2 hover:bg-gray-100">
                     <img src="{% static 'icons/user-regular.svg'%}" alt="" class="w-4 h-4">
@@ -114,13 +114,25 @@
                   </div>
                 </a>
 
-                <!-- strar item 2 -->
-                <a href="" class="">
+                <!-- strar item 3 -->
+                {% if not user.is_authenticated %}
+                <a href="{% url 'login' %}" class="">
                   <div class="flex items-center px-2 hover:bg-gray-100">
-                    <img src="{% static 'icons/logout.png'%}" alt="" class="w-4 h-4">
+                    <img src="{% static 'icons/logout.png' %}" alt="" class="w-4 h-4">
+                    <h1 class="w-full text-sm p-2">ورود</h1>
+                  </div>
+                </a>
+                {% endif %}
+
+                <!-- strar item 4 -->
+                {% if user.id %}
+                <a href="{% url 'logout' %}" class="">
+                  <div class="flex items-center px-2 hover:bg-gray-100">
+                    <img src="{% static 'icons/logout.png' %}" alt="" class="w-4 h-4">
                     <h1 class="w-full text-sm p-2"> خروج</h1>
                   </div>
                 </a>
+                {% endif %}
 
 
               </div>
@@ -129,7 +141,7 @@
             <!-- fullscreen-icon -->
             <span id="fullscreen-icon">
               <img src="{% static 'icons/icons8-full-screen-48.png'%}" alt=""
-                class=" md:ml-0 flex p-[2px] border border-gray-300 rounded-md hover:cursor-pointer hover:bg-[#f5056d] duration-500 w-[30px] h-[30px]  ">
+                class=" md:ml-0 flex p-1 rounded-md hover:cursor-pointer hover:bg-[#f5056d] duration-500 w-9 h-9  ">
             </span>
 
             <div class=" md:hidden  flex items-center justify-center">

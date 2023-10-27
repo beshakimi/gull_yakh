@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
+from accounts.models import Profile
 
 # from .forms import MyPasswordChangeForm
 from . import models
@@ -97,19 +98,16 @@ def logout_page(request):
     logout(request)
     return redirect("login")
  
-#  profile view 
-def profile_view(request):
-    return render(request,"accounts/profile.html")
-
 
 # profile edit view
-# @login_required(login_url='accounts/login/')
-def profile_edit_view (request, profile_id):
-    profile = get_object_or_404(models.Profile, id=profile_id)
+def profile_edit_view(request, id):
+    profile = get_object_or_404(Profile, pk=id)
     user = request.user
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
+        phone = request.POST['phone']
+        gender = request.POST['gender']
         
         
         if 'avatar' in request.FILES:
@@ -118,15 +116,16 @@ def profile_edit_view (request, profile_id):
 
         profile.first_name =first_name
         profile.last_name = last_name
+        profile.phone = phone
+        profile.gender = gender
         profile.user = user
       
         
         profile.save()
         
-        return redirect('profile', profile.id)
+        return redirect('home')
     else:
-        return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
-    
+        return render(request, 'accounts/profile.html', {'profile': profile, 'user': user}) 
 
 
 

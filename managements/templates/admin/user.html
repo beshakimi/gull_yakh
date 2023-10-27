@@ -1,23 +1,24 @@
 {% extends "admin/admin_base.html" %}
 {% load static %}
+{% load humanize %}
 
 
 
 {% block mainContent %}
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:mr-60">
-    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> لیست کاربران</h1>
+  <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> لیست کاربران</h1>
 </div>
 
 <!-- back to priveuse page -->
 <div class="mt-4 pr-4 md:pr-64">
-    <a href="/manage/dashboard" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
+  <a href="/manage/dashboard" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
 </div>
 
 
 <!-- start users -->
 <div class="mx-auto pt-4 md:mr-64">
- 
+
   <div class="bg-white rounded-lg ">
     <div class="overflow-x-auto">
       <table class="min-w-full divide-y divide-gray-200 w-fit">
@@ -28,38 +29,36 @@
             <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">نام خانوادگی</th>
             <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">ایمل</th>
             <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">شماره تماس</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">تاریخ پیوستن</th>
             <th class="px-6 py-3 bg-gray-50"></th>
           </tr>
         </thead>
+        {% for user in userlist %}
+        {% if user %}
         <tbody class="bg-white divide-y divide-gray-200">
           <tr>
             <td class="px-6 py-4 flex justify-center whitespace-nowrap">
-              <img class="h-8 w-8 rounded-full object-cover" src="./media/icons/male-user-48.png" alt="User Avatar">
+              <img class="h-8 w-8 rounded-full object-cover" src="{{user.profile.avatar.url}}" alt="User Avatar">
             </td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">رضا</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">بهرام</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">reza@example.com</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">0799458896</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.profile.first_name}}</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.profile.last_name}}</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.email}}</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.profile.phone}}</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">
+
+              {{ user.profile.created_at|naturaltime }}
+            </td>
             <td class="px-6 py-4 text-center whitespace-nowrap">
               <button class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-sm inline-block">فعال</button>
               <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">غیر فعال</button>
             </td>
           </tr>
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap flex justify-center">
-              <img class="h-8 w-8 rounded-full object-cover" src="./media/icons/male-user-48.png" alt="User Avatar">
-            </td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">مهدی</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">روشن</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">mahdi@example.com</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">0741259874</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">
-              <button class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-sm inline-block">فعال</button>
-              <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">غیر فعال</button>
-            </td>
-          </tr>
-          <!-- Add more user rows dynamically -->
         </tbody>
+        {% else %}
+        {% endif %}
+
+        {% endfor %}
+
       </table>
     </div>
   </div>

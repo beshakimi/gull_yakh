@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig', 
     'tailwind',
     'managements',
+    'django.contrib.humanize',
 
 ]
 
@@ -127,8 +128,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-MEDIA_URL="/Images/"
-MEDIA_ROOT=os.path.join(BASE_DIR,"Images")
+MEDIA_URL="/media/"
+MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
 
 # Default primary key field type
