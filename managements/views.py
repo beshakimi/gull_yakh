@@ -1,6 +1,6 @@
 
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
 from addProducts.models import foodModel
@@ -126,11 +126,11 @@ def update_drink_model_view(request, drink_id):
         if 'image' in request.FILES:
             Image = request.FILES['image']
             drink.Image = Image
-        
         drink.Title = Title
         drink.Price = Price
         drink.Description = Description
         drink.save()
+        messages.success(request, ' با موفقیت تغییر کرد.')
         
         return redirect('create-drink')
     else:
@@ -204,6 +204,7 @@ def user_list_view(request):
     
     users=User.objects.all().order_by('-id')
     page = request.GET.get('page')
+    
 
     # تعداد نوشیدنی‌ها در هر صفحه
     items_per_page = 8
@@ -233,7 +234,17 @@ def user_list_view(request):
        'section':'user'
    }
     return render(request,"admin/user.html",context)
-        
+
+def user_details(request, id):
+    user = User.objects.get(pk=id)
+    if request.method == 'POST':
+        user_type = request.POST.get('user_type')
+        user.user_type = user_type
+        user.save()
+        messages.success(request, 'User type changed successfully.')
+
+    return render(request,"admin/userDetails.html", {'user': user}) 
+
         
 
 

@@ -1,5 +1,6 @@
 {% extends "admin/admin_base.html" %}
 {%load static %}
+{% load humanize %}
 
 
 
@@ -22,7 +23,7 @@
 {% endfor %}
 
 {% endif %}
-
+<!-- {% comment %}
 <script>
     setTimeout(function () {
         var errorMessage = document.querySelector('.error-message');
@@ -30,7 +31,7 @@
             errorMessage.classList.add('hidden');
         }
     }, 5000);
-</script>
+</script> {% endcomment %} -->
 
 
 <!-- back to priveuse page -->
@@ -44,19 +45,18 @@
         <!-- Add drink Form -->
         <div class="bg-white rounded-sm shadow p-4">
 
-            <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()"
-                class="bg-white p-4 rounded-md shadow-md">
+            <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                 {% csrf_token %}
                 <!-- drink Name -->
                 <div class="mb-4">
-                    <label for="drinkName" class="block text-gray-700 font-bold mb-2">نام: </label>
-                    <input id="drinkName" type="text" class="input" name="title" placeholder="نام نوشیدنی را بنویسید" />
+                    <label for="name" class="block text-gray-700 font-bold mb-2">نام: </label>
+                    <input id="name" type="text" class="input" name="title" placeholder="نام نوشیدنی را بنویسید" />
                 </div>
 
                 <!-- drink price -->
                 <div class="mb-4">
-                    <label for="drinkPrice" class="block text-gray-700 font-bold mb-2">قیمت: </label>
-                    <input id="drinkPrice" type="number" class="input" name="price" placeholder="100" ceholder="100"
+                    <label for="price" class="block text-gray-700 font-bold mb-2">قیمت: </label>
+                    <input id="price" type="number" class="input" name="price" placeholder="100" ceholder="100"
                         oninvalid="setCustomValidity('لطفاً عدد وارد کنید')">
                 </div>
 
@@ -72,8 +72,8 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="drinkDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-                    <textarea id="drinkDescription" class="input" name="description" rows="4"
+                    <label for="description" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
+                    <textarea id="description" class="input" name="description" rows="4"
                         placeholder="توضیاحات در مورد نوشیدنی"></textarea>
                 </div>
 
@@ -88,7 +88,8 @@
         </div>
 
 
-        <script>
+
+        <!-- <script>
             function validateForm() {
                 var nameInput = document.getElementById("drinkName");
                 var priceInput = document.getElementById("drinkPrice");
@@ -97,7 +98,7 @@
                 var errorElement = document.getElementById("formError");
 
                 var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
-                var imagePattern = /\.(jpg|jpeg|png|gif|svg)$/i;
+                var imagePattern = /\.(jpg|jpeg|png|gif|svg|webp)$/i;
                 var pricePattern = /^(?!0)\d+$/;
 
                 if (nameInput.value === "" && priceInput.value === "" && imageInput.value === "" && descriptionInput.value === "") {
@@ -175,66 +176,68 @@
                 errorElement.classList.add("hidden");
                 return true;
             }
-        </script>
+        </script> -->
 
         <!-- drinks List -->
         <div class="bg-white rounded-sm shadow p-4 ml-4 h-[600px] overflow-y-scroll">
             <h2 class="text-xl font-bold mb-4">آخرین نوشیدنی ها</h2>
             <ul>
-                {% for drink in drinks %}
 
+                {% for drink in drinks %}
                 <li class="border-b border-gray-300 py-2">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold"> {{drink.Title}}</h3>
-                            <p class="text-gray-500 text-sm">{{ drink.Description|slice:":20" }}
-                                {% if drink.Description|length > 20 %}
-                                ...
-                                {% else %}
-                                {% endif %}
+                            <h3 class="font-bold">{{drink.Title}}</h3>
+                            <p class="text-gray-500 text-sm">{{ drink.Created|naturaltime }}
                             </p>
                         </div>
                         <div>
                             <a href="{% url 'update-drink' drink.id %}"
                                 class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block mb-2 sm:mb-0">ویرایش</a>
-                            <p class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block hover:cursor-pointer"
-                                id="deleteBotton">حذف</p>
+                            <p class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block hover:cursor-pointer deleteButton"
+                                id="deleteButton_{{ drink.id }}">حذف</p>
 
-                            <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
-                                id="deleteModel">
-                                <div class=" w-full h-full flex justify-center items-center">
-                                    <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
+
+
+                            <div class="hidden " id="deleteModel_{{ drink.id }}">
+                                <div
+                                    class="fixed inset-0 w-screen h-screen flex items-center justify-center bg-black bg-opacity-80 z-50">
+                                    <div class="w-80 bg-gray-100 px-6 py-4 rounded-sm">
                                         <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
-                                        <div class="">
+                                        <div>
                                             <form action="{% url 'delete-drink' drink_id=drink.id %}"
                                                 class="flex gap-8 mt-4" method="post">
-                                                {%csrf_token%}
+                                                {% csrf_token %}
                                                 <input type="submit" value="بلی"
-                                                    class="px-2 text-sm flex items-center hover:cursor-pointer  rounded-sm text-white bg-red-600">
+                                                    class="px-2 text-sm flex items-center hover:cursor-pointer rounded-sm text-white bg-red-600">
                                                 <a href=""
                                                     class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
-
                                             </form>
-
-
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </li>
-
-
-
-
                 {% endfor %}
             </ul>
+
+            <!-- <script>
+                var deleteButtons = document.querySelectorAll('.deleteButton');
+                deleteButtons.forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        var ithemId = button.id.split('_')[1];
+                        var deleteModel = document.getElementById('deleteModel_' + ithemId);
+                        deleteModel.classList.toggle('hidden');
+                    });
+                });
+            </script>  -->
         </div>
     </div>
 </div>
+
 
 
 

@@ -24,13 +24,110 @@ notificationIcon.addEventListener("click", () => {
 notificationModel.classList.toggle("hidden");
 });
 
-// start delete script
-const deleteBotton = document.getElementById("deleteBotton");
-const deleteModel = document.getElementById("deleteModel");
 
-deleteBotton.addEventListener("click", () => {
-deleteModel.classList.toggle("hidden");
+
+// error message script
+setTimeout(function () {
+  var errorMessage = document.querySelector('.error-message');
+  if (errorMessage) {
+      errorMessage.classList.add('hidden');
+  }
+}, 5000);
+
+// show delete model script 
+var deleteButtons = document.querySelectorAll('.deleteButton');
+deleteButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+        var ithemId = button.id.split('_')[1];
+        var deleteModel = document.getElementById('deleteModel_' + ithemId);
+        deleteModel.classList.toggle('hidden');
+    });
 });
 
+// form validation script 
+function validateForm() {
+    var nameInput = document.getElementById("name");
+    var priceInput = document.getElementById("price");
+    var imageInput = document.getElementById("chose-image");
+    var descriptionInput = document.getElementById("description");
+    var errorElement = document.getElementById("formError");
 
-// form validation
+    var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+    var imagePattern = /\.(jpg|jpeg|png|gif|svg|webp)$/i;
+    var pricePattern = /^(?!0)\d+$/;
+
+    if (nameInput.value === "" && priceInput.value === "" && imageInput.value === "" && descriptionInput.value === "") {
+        errorElement.textContent = "هیچ مقداری وارد نشده است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (nameInput.value === "") {
+        errorElement.textContent = "نام را وارد نکرده اید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (!namePattern.test(nameInput.value)) {
+        errorElement.textContent = "نام نامعتبر است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (priceInput.value === "") {
+        errorElement.textContent = "قیمت را وارد نکرده اید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (!pricePattern.test(priceInput.value)) {
+        errorElement.textContent = "قیمت نامعتبر است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (descriptionInput.value === "") {
+        errorElement.textContent = "توضیحات را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (imageInput.value === "") {
+      errorElement.textContent = "عکس را وارد کنید";
+      errorElement.classList.remove("hidden");
+      setTimeout(function () {
+          errorElement.classList.add("hidden");
+      }, 5000);
+      return false;
+  }
+
+  if (!imagePattern.test(imageInput.value)) {
+      errorElement.textContent = "فرمت عکس نامعتبر است";
+      errorElement.classList.remove("hidden");
+      setTimeout(function () {
+          errorElement.classList.add("hidden");
+      }, 5000);
+      return false;
+  }
+
+    errorElement.classList.add("hidden");
+    return true;
+}

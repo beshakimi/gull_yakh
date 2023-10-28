@@ -1,0 +1,88 @@
+{% extends 'admin/admin_base.html' %}
+{%load static %}
+
+{%block mainContent%}
+
+<div class="mx-auto flex flex-col items-center justify-center min-h-screen mt-20 md:mt-0 md:mr-64">
+
+
+    <!-- User Avatar -->
+    <div class="w-48 h-48 rounded-full border-8 border-pink-600 border-opacity-60 shadow-lg overflow-hidden mb-4">
+        <img src="{{user.profile.avatar.url}}" alt="User Avatar" class="w-full h-full object-cover">
+    </div>
+
+    <!-- Username -->
+    <h2 class="text-2xl font-bold mb-4 ">{{user.username}} </h2>
+
+
+    <!-- User Information -->
+    <div class="bg-white  p-4 rounded-md shadow-md w-full">
+        <form class="grid grid-cols-1 md:grid-cols-4 gap-x-4 " method="post" enctype="multipart/form-data">
+            {% csrf_token%}
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 font-bold mb-2">نام کاربری:</label>
+                <label
+                    class="block text-sm text-gray-400 border rounded-sm border-gray-300 bg-gray-100 p-2  font-bold mb-2">{{user.username}}</label>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">ایمل:</label>
+                <label
+                    class="block text-sm text-gray-400 border rounded-sm border-gray-300 bg-gray-100  p-2  font-bold mb-2">{{user.email}}</label>
+            </div>
+
+            <!-- First Name -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">نام:</label>
+                <label
+                    class="block text-sm text-gray-400 border rounded-sm border-gray-300 bg-gray-100 py-2 font-bold mb-2">{{user.profile.first_name}} <samp class=" text-gray-100">1</samp></label>
+            </div>
+
+            <!-- Last Name -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">نام خانوادگی:</label>
+                <label
+                    class="block text-sm text-gray-400 border rounded-sm border-gray-300 bg-gray-100 py-2 font-bold mb-2">{{user.profile.last_name}} <samp class="text-gray-100">1</samp></label>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mb-4 md:mb-0">
+                <label class="block text-gray-700 font-bold mb-2">شماره تماس :</label>
+                <label
+                    class="block text-sm text-gray-400 border rounded-sm border-gray-300 bg-gray-100 p-2  font-bold mb-2">{{user.profile.phone}} <samp class="text-gray-100">1</samp></label>
+            </div>
+
+            <!-- Gender -->
+            <div class="mb-4 md:mb-0">
+                <label class="block text-gray-700 font-bold mb-2">جنسیت:</label>
+                {% if user.profile.gender == 'MALE' %}
+                <p class="p-2 text-sm text-gray-400 font-semibold rounded-sm bg-gray-100 border border-gray-300 ">مرد</p>
+                {%else%}
+                <p class="p-2 text-sm text-gray-400 font-semibold rounded-sm bg-gray-100 border border-gray-300 ">زن</p>
+                {% endif %}
+
+            </div>
+            <div class="mb-4 md:mb-0">
+                <label class="block text-gray-700 font-bold mb-2">نوع کاربر:</label>
+                <select name="user_type" class="bg-slate-700 hover:cursor-pointer w-full p-2 text-sm font-semibold rounded-sm text-white">
+                    <option value="ادمین" {% if user.user_type == 'ادمین' %}selected{% endif %}>ادمین</option>
+                    <option value="کاربر عادی" {% if user.user_type == 'کاربر عادی' %}selected{% endif %}>کاربر عادی</option>
+                </select>
+            </div>
+
+
+                <button type="submit" class="cbtn my-0 h-10 md:mt-8">
+                    ذخیره
+                </button>
+           
+            
+        </form>
+
+    </div>
+
+</div>
+
+
+</html>
+
+{%endblock%}

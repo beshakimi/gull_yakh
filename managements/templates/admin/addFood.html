@@ -182,8 +182,8 @@
         <div class="bg-white rounded-lg shadow p-4 ml-4 h-[600px] overflow-y-scroll">
             <h2 class="text-xl font-bold mb-4">آخرین غذا ها</h2>
             <ul>
+                {% if food %}
                 {% for food in foods %}
-
                 <li class="border-b border-gray-300 py-2">
                     <div class="flex justify-between items-center">
                         <div>
@@ -227,11 +227,10 @@
 
                     </div>
                 </li>
-
-
-
-
                 {% endfor %}
+                {%else%}
+                <p class="text-red-600"> غذای موجود نمی باشد!</p>
+                {%endif%}
             </ul>
         </div>
     </div>
