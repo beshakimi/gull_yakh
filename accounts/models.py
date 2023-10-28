@@ -33,12 +33,19 @@ class UserAccountManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    USER_CHOICES = (
+        ('ادمین', 'ادمین'),
+        ('کاربر عادی', 'کاربر عادی'),
+    )
     email = models.EmailField(max_length=300, unique=True)
     username = models.CharField(max_length=255)
     
-    is_staff = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    user_type = models.CharField(max_length=20, choices= USER_CHOICES , default='USER')
+    is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+
+
 
 
     objects = UserAccountManager()

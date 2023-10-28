@@ -29,6 +29,7 @@ class DringModel(models.Model):
     Price=models.IntegerField(verbose_name="قیمت")
     Image=models.ImageField(upload_to="dringImage/" ,verbose_name="عکس")
     Description=models.CharField(max_length=500 ,verbose_name="توضیحات")
+    Created = models.DateTimeField(default=timezone.now)
 
 
     def __str__(self):

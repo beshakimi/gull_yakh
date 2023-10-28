@@ -126,7 +126,7 @@ def profile_edit_view(request, id):
         
         return redirect('home')
     else:
-        return render(request, 'accounts/profile.html', {'profile': profile, 'user': user}) 
+        return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
 
 
 

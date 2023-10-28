@@ -30,7 +30,9 @@
             <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">ایمل</th>
             <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">شماره تماس</th>
             <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">تاریخ پیوستن</th>
-            <th class="px-6 py-3 bg-gray-50"></th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap"> نوعیت :کاربر</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap"> عملیات</th>
+            
           </tr>
         </thead>
         {% for user in userlist %}
@@ -45,12 +47,21 @@
             <td class="px-6 py-4 text-center whitespace-nowrap">{{user.email}}</td>
             <td class="px-6 py-4 text-center whitespace-nowrap">{{user.profile.phone}}</td>
             <td class="px-6 py-4 text-center whitespace-nowrap">
-
               {{ user.profile.created_at|naturaltime }}
             </td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.user_type}}</td>
+              
+              <!-- <form action="" method="post">
+                {%csrf_token%}
+                <select name="" id="">
+                  <option value="" name="admin">ادمین</option>
+                  <option value="" name="user">یوذر عادی</option>
+                </select>
+              </form> -->
+            </td>
             <td class="px-6 py-4 text-center whitespace-nowrap">
-              <button class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-sm inline-block">فعال</button>
-              <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">غیر فعال</button>
+              <a href="{% url 'user-details' user.id %}" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-sm inline-block">جزیات کاربر</a>
+              <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">حذف</button>
             </td>
           </tr>
         </tbody>
