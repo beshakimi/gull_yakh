@@ -3,7 +3,7 @@
 
 {%block mainContent%}
 
-<div class="w-[80%] md:w-[70%] mx-auto flex flex-col items-center justify-center min-h-screen mt-20">
+<div class="w-[80%] md:w-[70%] mx-auto flex flex-col items-center justify-center min-h-screen mt-20 mb-10">
 
 
     <!-- User Avatar -->
@@ -72,14 +72,14 @@
                 <input id="chose-image" name="avatar" type="file" class="input text-sm font-bold">
             </div>
 
+            <div class="flex gap-10 h-10 items-center w-full mt-8 ">
+                <a href="{%url 'change_password'%}" class="p-2 w-48 bg-slate-800 text-white rounded-md text-center border hover:bg-slate-900">تغییر رمز عبور</a>
 
-
-
-
-            <!-- Save Button -->
-            <button type="submit" class="cbtn md:mt-8">
+                <!-- Save Button -->
+                <button type="submit" class="cbtn my-0 rounded-md  w-48">
                 ذخیره
-            </button>
+                </button>
+            </div>
         </form>
     </div>
 </div>

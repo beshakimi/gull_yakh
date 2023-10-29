@@ -35,10 +35,10 @@
                 </div>
 
                 <!-- post date -->
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <label for="postDate" class="block text-gray-700 font-bold mb-2"> تاریخ: </label>
                     <input id="postDate" type="date" class="input" Name="date" value="" placeholder="100">
-                </div>
+                </div> -->
 
 
                 <!-- post Description -->
@@ -59,7 +59,7 @@
         <div class="bg-white rounded-lg shadow p-4 ml-4 h-[500px] overflow-y-scroll">
             <h2 class="text-xl font-bold mb-4">آخرین پست ها</h2>
             <ul>
-                {% if post %}
+                
                 {% for post in posts %}
 
                 <li class="border-b border-gray-300 py-2">
@@ -103,10 +103,6 @@
                     </div>
                 </li>
                 {% endfor %}
-
-                {% else %}
-                <p class="text-red-600 ">پست موجود نمی باشد</p>
-                {%endif%}
 
             </ul>
         </div>
