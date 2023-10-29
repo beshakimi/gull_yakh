@@ -13,4 +13,6 @@ urlpatterns = [
     path('blog/list' ,views.blogView),
     path('post/<int:post_id>',views.postDetailsView),
     path('contacts' ,views.contectView),
+    path('shop_cart' ,views.shop_cart, name='shop_cart'),
+    path('user_info' ,views.user_info, name='user_info'),
 ]

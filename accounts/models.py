@@ -41,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255)
     
     is_staff = models.BooleanField(default=False)
-    user_type = models.CharField(max_length=20, choices= USER_CHOICES , default='USER')
+    user_type = models.CharField(max_length=20, choices= USER_CHOICES , default='کاربر عادی')
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
