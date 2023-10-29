@@ -48,6 +48,14 @@ class BlogModel(models.Model):
 
     def __str__(self):
         return self.Title
+
+class Cart(models.Model):
+    food = models.ManyToManyField(foodModel, null=True, blank=True)
+    drink = models.ManyToManyField(DringModel, null=True, blank=True)
+    total_price = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     
 
 

@@ -90,7 +90,7 @@
 
             <!-- start shoppin cart -->
             <span class="relative">
-              <a href="shop-card.html"> <img src="{% static 'icons/shopping-cart.png'%}" alt=""
+              <a href="{% url 'shop_cart' %}"> <img src="{% static 'icons/shopping-cart.png'%}" alt=""
                   class=" md:ml-0 relative flex p-1 border-gray-300 rounded-md hover:bg-[#f5056d]  duration-500  w-9 h-9  "></a>
               <h2
                 class="absolute left-[8px] top-[-10px] text-center text-white font-semibold text-[12px] w-[16px] h-[16px]  rounded-full bg-blue-500 cursor-default">
@@ -110,7 +110,7 @@
                 {% if user.id %}
                 <a href="{% url 'profile_view' id=user.id %}">
                   <div class="flex items-center px-2 hover:bg-gray-100 hover:cursor-pointer" id="log-in-profile">
-                    <img src="{{user.profile.avatar.url}}" alt="" class="w-4 h-4">
+                    <img src="{{user.profile.avatar.url}}" alt="" class="w-5 h-5 border-2 border-slate-900 rounded-full object-cover">
                     <h1 class="w-full text-sm p-2"> پروفایل</h1>
                   </div>
                 </a>
@@ -118,7 +118,7 @@
 
 
                 <!-- strsar item 2 -->
-                {% if user.user_type == 'ADMIN'%}
+                {% if user.user_type == 'ادمین'%}
                 <a href="/manage/dashboard" class="">
                   <div class="flex items-center px-2 hover:bg-gray-100">
                     <img src="{% static 'icons/user-regular.svg'%}" alt="" class="w-4 h-4">
@@ -222,9 +222,6 @@
   <!-- end navbar -->
 
 
-  </div>
-  </div>
-
   {%block mainContent%}
 
   {%endblock%}
@@ -232,7 +229,7 @@
 
 
   <!-- start footer -->
-  <footer id="footer" class="bg-gray-800 text-[#f5056d]">
+  <footer id="footer" class="bg-gray-800 text-[#f5056d] w-full">
     <div class="container mx-auto px-10">
       <div class="flex flex-wrap -mx-4">
         <div class="w-full md:w-1/2 lg:w-1/4 px-4">

@@ -1,0 +1,101 @@
+{% extends "addProducts/layout.html"%}
+{% load static%}
+
+{%block mainContent%}
+
+<!-- start hero -->
+<div class="relative">
+    <img src="{%static 'images/18.jpg'%}" alt="Image"
+        class=" flex-col justify-center items-center w-full h-[200px] md:h-[300px] lg:h-[350px] object-cover">
+
+
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+
+
+    <div class=" absolute w-full mx-auto top-28 md:top-36 lg:top-44 ">
+
+        <h1 class="  text-2xl mx-auto text-white text-center  md:text-4xl font-bold drop-shadow-lg ">
+            به وب
+            سایت گل
+            یخ خوش آمدید
+        </h1>
+
+    </div>
+</div>
+
+<div class="my-10 flex flex-col">
+    <div class="overflow-x-auto  md:w-full sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <table class="min-w-full justify-center items-center text-sm font-light">
+                    <thead class="border-b font-medium dark:border-neutral-300">
+                        <tr>
+                            <th scope="col" class="px-6 py-4"> حذف </th>
+                            <th scope="col" class="px-6 py-4">تصویر</th>
+                            <th scope="col" class="px-6 py-4">نام</th>
+                            <th scope="col" class="px-6 py-4">قیمت</th>
+                            <th scope="col" class="px-6 py-4">تعداد</th>
+                            <th scope="col" class=" py-4 ">قمیت مجموع</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <tr class="border-b dark:border-neutral-300">
+                            <td class="whitespace-nowrap px-6 py-4 font-medium"><i class="fa-solid fa-xmark hover:cursor-pointer "></i>
+                            </td>
+                            <td class=" py-2 flex justify-center items-center"><img src="./images/10.jpg" alt=""
+                                    class="w-[60px] h-[60px] object-cover"></td>
+                            <td class="whitespace-nowrap px-6 py-4">پیتزا</td>
+                            <td class="whitespace-nowrap px-6 py-4">85Af</td>
+                            <td class="whitespace-nowrap px-6 py-4"><input type="number" value="1" min="1"
+                                    class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 ">
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4">85Af</td>
+                        </tr>
+
+                    </tbody>
+                    <tbody class="text-center">
+                        <tr class="border-b dark:border-neutral-300">
+                            <td class="whitespace-nowrap px-6 py-4 font-medium"><i class="fa-solid fa-xmark hover:cursor-pointer"></i>
+                            </td>
+                            <td class=" py-2 flex justify-center items-center"><img src="./images/8.jpg" alt=""
+                                    class="w-[60px] h-[60px]  object-cover"></td>
+                            <td class="whitespace-nowrap px-6 py-4">پیتزا</td>
+                            <td class="whitespace-nowrap px-6 py-4">85Af</td>
+                            <td class="whitespace-nowrap px-6 py-4"><input type="number" value="1" min="1"
+                                    class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 ">
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4">85Af</td>
+                        </tr>
+
+                    </tbody>
+
+                    <tbody class="text-center">
+                        <tr class="border-b dark:border-neutral-300">
+                            <td class="whitespace-nowrap px-6 py-4 font-medium"><i class="fa-solid fa-xmark hover:cursor-pointer"></i>
+                            </td>
+                            <td class=" py-2 flex justify-center items-center"><img src="./images/11.jpg" alt=""
+                                    class="w-[60px] h-[60px]  object-cover"></td>
+                            <td class="whitespace-nowrap px-6 py-4">پیتزا</td>
+                            <td class="whitespace-nowrap px-6 py-4">85Af</td>
+                            <td class="whitespace-nowrap px-6 py-4"><input type="number" value="1" min="1"
+                                    class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 ">
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4">85Af</td>
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="mr-6">
+        <a href="{% url 'user_info'%}">
+            <button type="submit"
+                class=" cbtn w-20 my-0">خرید
+            </button>
+        </a>
+    </div>
+</div>
+{%endblock%}

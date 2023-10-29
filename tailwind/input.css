@@ -60,7 +60,7 @@
 /* this style for input  */
 @layer components {
   .input {
-    @apply w-full border border-gray-300 bg-gray-100 rounded-sm p-2 focus:bg-white focus:outline-none focus:border-[#f5056d];
+    @apply w-full border border-gray-300 bg-gray-100 rounded-sm p-2 focus:bg-white focus:outline-none focus:border-blue-700;
   }
 }
 

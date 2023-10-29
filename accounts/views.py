@@ -127,6 +127,28 @@ def profile_edit_view(request, id):
         return redirect('home')
     else:
         return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
+    
+
+# forget password view 
+def forget_password_view(request):
+    return render(request, "accounts/forget_password.html")
+
+
+# forget confirm message view 
+def confirm_message_view(request):
+    return render(request, "accounts/confirm_message.html")
+
+# forget new password view 
+def new_password_view(request):
+    return render(request, "accounts/new_password.html")
+
+# forget new password view 
+def confirm_change_password_view(request):
+    return render(request, "accounts/confirm_change_password.html")
+
+# forget change password view 
+def change_password_view(request):
+    return render(request, "accounts/change_password.html")
 
 
 
