@@ -15,4 +15,9 @@ urlpatterns = [
     path('contacts' ,views.contectView),
     path('shop_cart' ,views.shop_cart, name='shop_cart'),
     path('user_info' ,views.user_info, name='user_info'),
+    # cart
+    path('add-to-cart/<str:id>/', views.add_to_cart, name='add_to_cart'),
+    path('cart-detail' ,views.view_cart, name='cart-detail'),
+    
+    
 ]

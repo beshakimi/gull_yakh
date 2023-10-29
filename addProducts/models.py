@@ -2,6 +2,7 @@ from django.db import models
 from django import forms
 from hijri_converter import Hijri
 from django.utils import timezone
+from accounts.models import User
 
 # Create your models here.
 
@@ -50,6 +51,7 @@ class BlogModel(models.Model):
         return self.Title
 
 class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     food = models.ManyToManyField(foodModel, null=True, blank=True)
     drink = models.ManyToManyField(DringModel, null=True, blank=True)
     total_price = models.IntegerField(default=0)

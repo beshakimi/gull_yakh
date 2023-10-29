@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from persiantools.jdatetime import JalaliDate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from addProducts.models import foodModel
-from addProducts.models import DringModel
+from addProducts.models import DringModel, Cart
 from addProducts.models import BlogModel
 from accounts.models import Profile
 
@@ -176,3 +176,22 @@ def user_info(request):
 #             # Add the food and drink items to the cart
 #             cart.food.set(food_items)
 #             cart.drink.set(drink_items)
+
+
+def add_to_cart(request, id):  
+    product = foodModel.objects.get(id=id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    if product:
+        cart.food.add(product)
+        cart.save()
+    else:
+        return redirect('cart-detail')
+        
+    return redirect('cart-detail')
+
+def view_cart(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    foods = cart.food.all()
+    drinks = cart.drink.all()
+    
+    return render(request, 'addProducts/shop_cart.html', {"cart": cart, "foods": foods, "drinks": drinks})
