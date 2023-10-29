@@ -160,23 +160,6 @@ def shop_cart(request):
 def user_info(request):
     return render(request,"addProducts/user_info.html")
 
-# def add_to_cart(request):
-#     if request.method == 'POST':
-#         # Optional: If you want to use a form for adding items to the cart, create an instance of the form
-#         form = AddToCartForm(request.POST)  # Replace AddToCartForm with your actual form class
-
-#         if form.is_valid():
-#             # Get the selected food and drink items from the form
-#             food_items = form.cleaned_data['food']
-#             drink_items = form.cleaned_data['drink']
-
-#             # Create a new instance of the Cart model
-#             cart = Cart.objects.create()
-
-#             # Add the food and drink items to the cart
-#             cart.food.set(food_items)
-#             cart.drink.set(drink_items)
-
 
 def add_to_cart(request, id):  
     product = foodModel.objects.get(id=id)
