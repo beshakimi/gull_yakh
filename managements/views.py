@@ -152,10 +152,9 @@ def create_post_view(request):
     if request.method == 'POST':
         title=request.POST['title']
         description= request.POST['description']
-        date = request.POST['date']
         image = request.FILES['image']
 
-        post=BlogModel(Title=title, Description=description, Date=date, Image=image)
+        post=BlogModel(Title=title, Description=description, Image=image)
         post.save()
         return redirect('/manage/addPost')
     context={
@@ -170,9 +169,6 @@ def update_post_view(request, post_id):
     
     if request.method == 'POST':
         Title = request.POST['title']
-        if 'date' in request.DATES:
-            Date = request.POST['date']
-            post.Date = Date
         Description = request.POST['description']
         
         if 'image' in request.FILES:
@@ -241,7 +237,8 @@ def user_details(request, id):
         user_type = request.POST.get('user_type')
         user.user_type = user_type
         user.save()
-        messages.success(request, 'User type changed successfully.')
+        messages.success(request, 'نوعیت کاربر با موفقیت تغییر کرد')
+        return redirect('user-list')
 
     return render(request,"admin/userDetails.html", {'user': user}) 
 

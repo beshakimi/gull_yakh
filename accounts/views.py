@@ -142,13 +142,40 @@ def confirm_message_view(request):
 def new_password_view(request):
     return render(request, "accounts/new_password.html")
 
-# forget new password view 
+# new password view 
 def confirm_change_password_view(request):
     return render(request, "accounts/confirm_change_password.html")
 
-# forget change password view 
+# change password view 
+# @login_required
 def change_password_view(request):
+    if request.method == 'POST':
+        old_password = request.POST['old_password']
+        new_password1 = request.POST['new_password1']
+        new_password2 = request.POST['new_password2']
+
+        # بررسی صحت رمز عبور قبلی
+        if request.user.check_password(old_password):
+            # بررسی تطابق رمز عبور جدید
+            if new_password1 == new_password2:
+                # تغییر رمز عبور
+                request.user.set_password(new_password1)
+                request.user.save()
+                redirect('confirm_message')
+
+                update_session_auth_hash(request, request.user)  # رفع خطر از دست دادن جلسه ورود
+                messages.success(request, 'رمز عبور شما با موفقیت تغییر کرد.')
+                return redirect('login')  # تغییر مسیر به جایی که دلخواهید
+            else:
+                messages.error(request, 'رمز عبور جدید با تایید رمز عبور مطابقت ندارد.')
+        else:
+            messages.error(request, 'رمز عبور فعلی اشتباه است.')
+    
     return render(request, "accounts/change_password.html")
+
+
+
+    
 
 
 

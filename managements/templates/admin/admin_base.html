@@ -115,7 +115,7 @@
 
 
 
-      <a href=""
+      <a href="{% url 'logout' %}"
         class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
         <img src="{%static 'admin/icons/logout.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
         <h1 class="mr-1 mb-1"> خروج</h1>
@@ -256,9 +256,9 @@
         <!-- start profile  -->
         <a href="./profile.html">
           <div class="hidden md:flex w-fit items-center justify-srart ml-6 px-2 rounded-sm hover:cursor-pointer">
-            <img src="{%static 'admin/icons/male-user-48.png'%}" alt="" class="rounded-full w-[30px] h-[30px]" />
+            <img src="{{ user.profile.avatar.url }}" alt="" class="rounded-full w-[30px] h-[30px] object-cover" />
 
-            <p class="font-semibold text-white items-center mr-2 mb-1">رضا رضایی</p>
+            <p class="font-semibold text-white items-center mr-2 ">{{user.profile.first_name}} {{user.profile.last_name}}</p>
           </div>
         </a>
 

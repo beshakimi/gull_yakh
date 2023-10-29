@@ -245,14 +245,18 @@
         <p>نوشیدنی یافت نشد!</p>
         {%endif%}
         {%endfor%}
+
+        
+        </div>
+
+        <div class="flex justify-center items-center">
+
+            <a href="/addProduct/drink/list"> <input type="button" value=" موارد بیشتر " class="cbtn">
+    
+            </a>
     </div>
 
-    <div class="flex justify-center items-center">
-
-        <a href="/addProduct/drink/list"> <input type="button" value=" موارد بیشتر " class="cbtn">
-
-        </a>
-    </div>
+    
 </div>
 <!-- end drink menu -->
 
@@ -293,9 +297,266 @@
 
     </div>
     <div class="flex justify-center items-center">
-        <a href="/addProduct/drink/list"> <input type="button" value=" پست های بیشتر " class="cbtn"></a>
+        <a href="{% url 'post_list'%}"> <input type="button" value=" پست های بیشتر " class="cbtn"></a>
     </div>
 </div>
+
+
+
+    <!-- start display comments  -->
+<div class="w-full h-[800px] pb-20 bg-gray-800 flex flex-col  items-center relative lg:h-[700px] ">
+        <h1 class="pt-6 text-[#f5056d] text-3xl font-bold  ">نظر های شما</h1>
+        <p class="py-8 leading-6  text-white text-md xl:w-[60%] mx-7 text-justify
+        xl:text-center">هر پست در این بلاگ، یک داستان جدیدی را با خوانندگان عزیز به
+            ما
+            درباره‌ی تأسیس
+            رستورانت، تعهد
+            ما به استفاده از مواد تازه و محلی، و روش‌های منحصربه‌فرد تهیه غذاهایمان صحبت خواهیم کرد. می‌خواهیم شما را در
+            سفری جذاب به پشت صحنه‌ی رستورانت خود ببریم و برای شما بگوییم که چرا ما متفاوت هستیم.</p>
+    
+
+        <div id="slideshow" class="flex justify-center items-center">
+
+
+        <div
+        class="slide w-full h-fit mx-auto text-center gap-6 flex-col justify-center items-center  absolute top-80  bg-white px-9 py-6 rounded-sm  sm:w-[60%] sm:mx-auto sm:top-60 sm:text-center  ">
+        <p class=" text-md leading-6 text-justify xl:text-center">
+            هر پست در این بلاگ، یک داستان جدیدی را با خوانندگان عزیز به اشتراک می‌گذارد. ما درباره‌ی تأسیس رستورانت،
+            تعهد ما به استفاده از مواد تازه و محلی، و روش‌های منحصربه‌فرد تهیه غذاهایمان صحبت خواهیم کرد. می‌خواهیم
+            شما را در سفری جذاب به پشت صحنه‌ی رستورانت خود ببریم و برای شما بگوییم که چرا ما متفاوت هستیم.
+        </p>
+        <div class="flex flex-col justify-center items-center p-5 ">
+            <img src="./images/chef/1.jpg" alt="" class="w-[120px] h-[120px] border object-cover">
+
+            <h2>Reza Bahram</h2>
+            <div class="flex">
+                <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+                <label for="star5" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                    <i class="fas fa-star"></i>
+                </label>
+                <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+                <label for="star4" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                    <i class="fas fa-star"></i>
+                </label>
+                <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+                <label for="star3" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                    <i class="fas fa-star"></i>
+                </label>
+                <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+                <label for="star2" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                    <i class="fas fa-star"></i>
+                </label>
+                <input type="radio" id="star1" name="rating" value="1" class="hidden" />
+                <label for="star1" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                    <i class="fas fa-star"></i>
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <div
+    class="slide w-full mx-auto text-center gap-6 flex-col justify-center items-center  absolute top-80  bg-white px-9 py-6 rounded-sm sm:w-[60%] sm:mx-auto sm:top-60 sm:text-center ">
+    <p class=" text-md leading-6 text-justify xl:text-center">
+        هر پست در این بلاگ، یک داستان جدیدی را با خوانندگان عزیز به اشتراک می‌گذارد. ما درباره‌ی تأسیس رستورانت،
+        تعهد ما به استفاده از مواد تازه و محلی، و روش‌های منحصربه‌فرد تهیه غذاهایمان صحبت خواهیم کرد. می‌خواهیم
+       
+    </p>
+    <div class="flex flex-col justify-center items-center p-5 ">
+        <img src="./images/chef/2.jpg" alt="" class="w-[120px] h-[120px] border object-cover">
+
+        <h2>Ali Rezai</h2>
+        <div class="flex">
+            <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+            <label for="star5" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                <i class="fas fa-star"></i>
+            </label>
+            <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+            <label for="star4" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                <i class="fas fa-star"></i>
+            </label>
+            <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+            <label for="star3" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                <i class="fas fa-star"></i>
+            </label>
+            <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+            <label for="star2" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                <i class="fas fa-star"></i>
+            </label>
+            <input type="radio" id="star1" name="rating" value="1" class="hidden" />
+            <label for="star1" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+                <i class="fas fa-star"></i>
+            </label>
+        </div>
+    </div>
+</div>
+
+
+<div
+class="slide w-full mx-auto text-center gap-6 flex-col justify-center items-center  absolute top-80  bg-white px-9 py-6 rounded-sm sm:w-[60%] sm:mx-auto sm:top-60 sm:text-center ">
+<p class=" text-md leading-6 text-justify xl:text-center">
+    هر پست در این بلاگ، یک داستان جدیدی را با خوانندگان عزیز به اشتراک می‌گذارد. ما درباره‌ی تأسیس رستورانت،
+    تعهد ما به استفاده از مواد تازه و محلی، و روش‌های منحصربه‌فرد تهیه غذاهایمان صحبت خواهیم کرد. می‌خواهیم
+    شما را در سفری جذاب به پشت صحنه‌ی رستورانت خود ببریم و برای شما بگوییم که چرا ما متفاوت هستیم.
+</p>
+<div class="flex flex-col justify-center items-center p-5 ">
+    <img src="./images/chef/3.webp" alt="" class="w-[120px] h-[120px] border object-cover">
+
+    <h2>Reza Bahram</h2>
+    <div class="flex">
+        <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+        <label for="star5" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+        <label for="star4" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+        <label for="star3" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+        <label for="star2" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star1" name="rating" value="1" class="hidden" />
+        <label for="star1" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+    </div>
+</div>
+</div>
+
+<div
+class="slide w-full mx-auto text-center gap-6 flex-col justify-center items-center  absolute top-80  bg-white px-9 py-6 rounded-sm sm:w-[60%] sm:mx-auto sm:top-60 sm:text-center  ">
+<p class=" text-md leading-6 text-justify xl:text-center">
+    هر پست در این بلاگ، یک داستان جدیدی را با خوانندگان عزیز به اشتراک می‌گذارد. ما درباره‌ی تأسیس رستورانت،
+    تعهد ما به استفاده از مواد تازه و محلی، و روش‌های منحصربه‌فرد تهیه غذاهایمان صحبت خواهیم کرد. می‌خواهیم
+    شما را در سفری جذاب به پشت صحنه‌ی رستورانت خود ببریم و برای شما بگوییم که چرا ما متفاوت هستیم.
+</p>
+<div class="flex flex-col justify-center items-center p-5 ">
+    <img src="./images/chef/4.jpg" alt="" class="w-[120px] h-[120px] border">
+
+    <h2>Reza Bahram</h2>
+    <div class="flex">
+        <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+        <label for="star5" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+        <label for="star4" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+        <label for="star3" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+        <label for="star2" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star1" name="rating" value="1" class="hidden" />
+        <label for="star1" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+    </div>
+</div>
+</div>
+
+
+<div
+class=" slide w-full mx-auto text-center gap-6 flex-col justify-center items-center  absolute top-80  bg-white px-9 py-6 rounded-sm sm:w-[60%] sm:mx-auto sm:top-60 sm:text-center ">
+<p class=" text-md leading-6 text-justify xl:text-center">
+    هر پست در این بلاگ، یک داستان جدیدی را با خوانندگان عزیز به اشتراک می‌گذارد. ما درباره‌ی تأسیس رستورانت،
+    تعهد ما به استفاده از مواد تازه و محلی، و روش‌های منحصربه‌فرد تهیه غذاهایمان صحبت خواهیم کرد. می‌خواهیم
+    شما را در سفری جذاب به پشت صحنه‌ی رستورانت خود ببریم و برای شما بگوییم که چرا ما متفاوت هستیم.
+</p>
+<div class="flex flex-col justify-center items-center p-5 ">
+    <img src="./images/chef/1.jpg" alt="" class="w-[120px] h-[120px] border object-cover">
+
+    <h2>Reza Bahram</h2>
+    <div class="flex">
+        <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+        <label for="star5" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+        <label for="star4" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+        <label for="star3" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+        <label for="star2" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" id="star1" name="rating" value="1" class="hidden" />
+        <label for="star1" class="text-yellow-400 hover:text-yellow-500 cursor-pointer">
+            <i class="fas fa-star"></i>
+        </label>
+    </div>
+</div>
+</div>
+      </div>
+    
+
+
+
+      </div>
+    <!-- end display comments  -->
+
+
+
+      <!-- ============================================================ -->
+    <!-- start writ comment -->
+    <div class="w-[80%] py-8 md:w-[70%] mx-auto">
+        <h2 class="text-2xl font-bold mb-4"> ثبت نظر </h2>
+
+        <form>
+            <div class="flex flex-wrap w-full ">
+                <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+                    <label for="name" class="text-gray-700 font-semibold">نام</label>
+                    <input type="text" id="name" name="name"
+                        class="input">
+                </div>
+                <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+                    <label for="email" class="text-gray-700 font-semibold">آدرس ایمیل</label>
+                    <input type="email" id="email" name="email"
+                        class="input">
+                </div>
+                <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+                    <label for="phone" class="text-gray-700 font-semibold">شماره تماس</label>
+                    <input type="tel" id="phone" name="phone"
+                        class="input">
+                </div>
+                <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+                    <label for="location" class="text-gray-700 font-semibold">موقعیت</label>
+                    <input type="text" id="location" name="location"
+                        class="input">
+                </div>
+            </div>
+
+           
+
+            <div class=" w-full mx-auto mt-4 p-2">
+                <label for="comment" class="text-gray-700 font-semibold">نظر</label>
+                <textarea id="comment" name="comment"
+                    class="input min-h-60"></textarea>
+            </div>
+
+            <div class="mt-4  flex justify-center items-center">
+                <input type="button" value=" ارسال نظر "
+                    class=" p-[10px] text-white  mt-6 w-28 text-sm font-bold bg-[#f5056d] rounded-sm hover:cursor-pointer hover:bg-white hover:text-black hover:drop-shadow-lg ease-in-out duration-500">
+            </div>
+        </form>
+    </div>
+    <!-- end writ comment -->
+
+
+
 
 
 

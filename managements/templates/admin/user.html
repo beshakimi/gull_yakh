@@ -5,6 +5,31 @@
 
 
 {% block mainContent %}
+
+  <!-- error message -->
+  {% for message in messages %}
+  {% if message.tags == 'error' %}
+  <p class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center
+     text-white p-2 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
+    {{ message }}
+  </p>
+  {% elif message.tags == 'success' %}
+  <p
+    class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center text-green-600 p-2 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
+    {{ message }}
+  </p>
+  {% endif %}
+  {% endfor %}
+
+  <script>
+    setTimeout(function () {
+      var errorMessage = document.querySelector('.error-message');
+      if (errorMessage) {
+        errorMessage.classList.add('hidden');
+      }
+    }, 5000);
+  </script>
+
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:mr-60">
   <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> لیست کاربران</h1>
@@ -24,14 +49,14 @@
       <table class="min-w-full divide-y divide-gray-200 w-fit">
         <thead>
           <tr>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">عکس</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">نام</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">نام خانوادگی</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">ایمل</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">شماره تماس</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap">تاریخ پیوستن</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap"> نوعیت :کاربر</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-medium text-gray-500 whitespace-nowrap"> عملیات</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">عکس</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">نام</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">نام خانوادگی</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">ایمل</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">شماره تماس</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">تاریخ پیوستن</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap"> نوعیت کاربر</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap"> عملیات</th>
             
           </tr>
         </thead>
@@ -42,14 +67,14 @@
             <td class="px-6 py-4 flex justify-center whitespace-nowrap">
               <img class="h-8 w-8 rounded-full object-cover" src="{{user.profile.avatar.url}}" alt="User Avatar">
             </td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.profile.first_name}}</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.profile.last_name}}</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.email}}</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.profile.phone}}</td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">
+            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.profile.first_name}}</td>
+            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.profile.last_name}}</td>
+            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.email}}</td>
+            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.profile.phone}}</td>
+            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
               {{ user.profile.created_at|naturaltime }}
             </td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">{{user.user_type}}</td>
+            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.user_type}}</td>
               
               <!-- <form action="" method="post">
                 {%csrf_token%}
@@ -60,8 +85,8 @@
               </form> -->
             </td>
             <td class="px-6 py-4 text-center whitespace-nowrap">
-              <a href="{% url 'user-details' user.id %}" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-sm inline-block">جزیات کاربر</a>
-              <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">حذف</button>
+              <a href="{% url 'user-details' user.id %}" class="text-sm  bg-blue-500 hover:bg-blue-600 text-white ml-1 py-1 px-2 rounded-sm inline-block">جزیات کاربر</a>
+              <button class="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">حذف</button>
             </td>
           </tr>
         </tbody>
