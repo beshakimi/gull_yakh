@@ -64,18 +64,39 @@
                     class="w-full border border-gray-300 rounded-sm px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
-            <div class="w-full border m-2 flex flex-col">
-              <h1>لیست غذا های که انتخاب کرده اید</h1>
+            <div class="w-full border m-2 flex flex-col shadow-sm">
+              <h1 class="px-2 py-4 font-semibold w-full text-center">لیست موارد که انتخاب کرده اید</h1>
               <div>
-                
+                <table class="w-full border-collapse">
+                    <thead>
+                      <tr class="border-y bg-gray-200">
+                        <th class="p-2">عکس </th>
+                        <th class="p-2">نام </th>
+                        <th class="p-2">قیمت</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-center ">
+                      <tr class="border-b">
+                        <td class="p-2 flex justify-center"><img src="path_to_image1.jpg" class="max-w-100 max-h-100 "></td>
+                        <td class="p-2">پیتزا</td>
+                        <td class="p-2"> 690 Af</td>
+                      </tr>
+                      <tr class="border-b">
+                        <td class="p-2 flex justify-center"><img src="path_to_image2.jpg" class="max-w-100 max-h-100  "></td>
+                        <td class="p-2">جوس کیله</td>
+                        <td class="p-2"> 690 Af</td>
+                      </tr>
+                      <!-- ردیف‌های بیشتر -->
+                    </tbody>
+                  </table>
               </div>
                 
             </div>
 
 
-            <div class="flex justify-center items-center">
-                <label for=""> قیمت مجموعی:</label>
-               <p class=" px-2 py-1 text-white bg-slate-800 rounded-md hover:cursor-default mr-4">950 Af </p>
+            <div class="flex justify-center items-center mt-2">
+                <label for="" class="mx-2 font-semibold"> قیمت مجموعی:</label>
+               <div class="w-16 h-6 pt-[3px] text-white text-sm flex items-center justify-center bg-slate-800 rounded-md hover:cursor-default mr-2">950 Af </div>
             </div>
 
             
@@ -83,7 +104,7 @@
 
         <div class=" block justify-center items-center">
             <input type="button" value=" سفارش "
-                class=" cbtn  ">
+                class=" cbtn mx-2  ">
         </div>
     </form>
 </div>
