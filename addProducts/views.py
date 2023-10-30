@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from persiantools.jdatetime import JalaliDate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from addProducts.models import foodModel
-from addProducts.models import DringModel, Cart
+from addProducts.models import DringModel, Cart, CartItem
 from addProducts.models import BlogModel
 from accounts.models import Profile
 
@@ -160,33 +160,27 @@ def shop_cart(request):
 def user_info(request):
     return render(request,"addProducts/user_info.html")
 
-# def add_to_cart(request):
-#     if request.method == 'POST':
-#         # Optional: If you want to use a form for adding items to the cart, create an instance of the form
-#         form = AddToCartForm(request.POST)  # Replace AddToCartForm with your actual form class
+def add_to_cart(request, id, model):
+    if model == 'food':
+        product_model = foodModel
+    elif model == 'drink':
+        product_model = DringModel
+    else:
+        return redirect('home')  # Invalid model provided
 
-#         if form.is_valid():
-#             # Get the selected food and drink items from the form
-#             food_items = form.cleaned_data['food']
-#             drink_items = form.cleaned_data['drink']
-
-#             # Create a new instance of the Cart model
-#             cart = Cart.objects.create()
-
-#             # Add the food and drink items to the cart
-#             cart.food.set(food_items)
-#             cart.drink.set(drink_items)
-
-
-def add_to_cart(request, id):  
-    product = foodModel.objects.get(id=id)
+    product = product_model.objects.get(id=id)
     cart, created = Cart.objects.get_or_create(user=request.user)
+    
     if product:
-        cart.food.add(product)
+        if model == 'food':
+            cart.food.add(product)
+        elif model == 'drink':
+            cart.drink.add(product)
+        
         cart.save()
     else:
         return redirect('cart-detail')
-        
+    
     return redirect('cart-detail')
 
 def view_cart(request):
@@ -195,3 +189,21 @@ def view_cart(request):
     drinks = cart.drink.all()
     
     return render(request, 'addProducts/shop_cart.html', {"cart": cart, "foods": foods, "drinks": drinks})
+
+
+def create_cart_item(request, id):
+    cart = Cart.objects.get(id=id)
+
+    if request.method == 'POST':
+        total_price = request.POST["total_price"]
+
+        cart_item = CartItem.objects.create(cart=cart, total_price=total_price)
+
+        # Update the total price of the cart
+        
+        cart.save()
+
+        return redirect('user_info')
+
+    return render(request, 'addProducts/user_info.html')
+

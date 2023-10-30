@@ -43,29 +43,127 @@
                         <tr class="border-b dark:border-neutral-300">
                             <td class="whitespace-nowrap px-6 py-4 font-medium"><i class="fa-solid fa-xmark hover:cursor-pointer "></i>
                             </td>
-                            <td class=" py-2 flex justify-center items-center"><img src="{{ cart.Image.url }}" alt=""
+                            <td class="py-2 flex justify-center items-center"><img src="{{ cart.Image.url }}" alt=""
                                     class="w-[60px] h-[60px] object-cover"></td>
-                            <td class="whitespace-nowrap px-6 py-4">{{cart.Title}}</td>
-                            <td class="whitespace-nowrap px-6 py-4">{{cart.Price}}</td>
-                            <td class="whitespace-nowrap px-6 py-4"><input type="number" value="1" min="1"
-                                    class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 ">
+                            <td class="whitespace-nowrap px-6 py-4">{{ cart.Title }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 price">{{ cart.Price }}</td>
+                            <td class="whitespace-nowrap px-6 py-4">
+                                <input type="number" value="1" min="1"
+                                    class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 quantity">
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4">85Af</td>
+                            <td class="whitespace-nowrap px-6 py-4 totalPrice">{{ cart.Price }}</td>
                         </tr>
-                        {% endfor %}
+                    {% endfor %}
+                    
+                    {% for drink in drinks %}
+                        <tr class="border-b dark:border-neutral-300">
+                            <td class="whitespace-nowrap px-6 py-4 font-medium"><i class="fa-solid fa-xmark hover:cursor-pointer "></i>
+                            </td>
+                            <td class="py-2 flex justify-center items-center"><img src="{{ drink.Image.url }}" alt=""
+                                    class="w-[60px] h-[60px] object-cover"></td>
+                            <td class="whitespace-nowrap px-6 py-4">{{ drink.Title }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 price">{{ drink.Price }}</td>
+                            <td class="whitespace-nowrap px-6 py-4">
+                                <input type="number" value="1" min="1"
+                                    class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 quantity">
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 totalPrice">{{ drink.Price }}</td>
+                        </tr>
+                    {% endfor %}
 
                     </tbody>
-                    
+
                 </table>
             </div>
         </div>
     </div>
     <div class="mr-6">
         <a href="{% url 'user_info'%}">
-            <button type="submit"
-                class=" cbtn w-20 my-0">خرید
+            <button type="submit" class=" cbtn w-20 my-0">خرید
             </button>
         </a>
+        <input type="text" id="default_total_price" readonly>
+        <script>
+            function submitForm() {
+                var formElement = document.getElementById("my-form");
+                var formData = new FormData(formElement);
+        
+                var xhr = new XMLHttpRequest();
+                xhr.open(formElement.method, formElement.action);
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Handle the successful response
+                    }
+                };
+        
+                xhr.send(formData);
+            }
+        </script>
+        
+        <form id="my-form" method="post" action="{% url 'cart-item' cart.id %}">
+            {% csrf_token %}
+            <input type="number"  name="total_price" id="changed_total_price" readonly style="border: 1px solid gray;">
+            <input type="submit" onclick="submitForm()" value="sumbit" id="changed_total_price" readonly style="border: 1px solid gray;">
+        </form>
     </div>
 </div>
+
+<script>
+
+    // Get all the quantity inputs, price elements, and total price elements
+    var quantityInputs = document.querySelectorAll(".quantity");
+    var priceElements = document.querySelectorAll(".price");
+    var totalPriceElements = document.querySelectorAll(".totalPrice");
+    var defaultTotalPriceInput = document.getElementById("default_total_price");
+    var changedTotalPriceInput = document.getElementById("changed_total_price");
+    
+    if (parseFloat(changedTotalPriceInput.value) !== 0) {
+        defaultTotalPriceInput.value = changedTotalPriceInput.value;
+      }
+    // Calculate the sum of default total prices
+    var defaultSum = 0;
+    totalPriceElements.forEach(function (totalPriceElement) {
+        var price = parseFloat(totalPriceElement.textContent);
+        if (!isNaN(price)) {
+            defaultSum += price;
+        }
+    });
+
+    // Set the default sum as the initial value
+    defaultTotalPriceInput.value = defaultSum.toFixed(2);
+
+    // Add event listeners to each quantity input
+    quantityInputs.forEach(function (quantityInput) {
+        quantityInput.addEventListener("input", function () {
+            updateTotalPrice(this);
+        });
+    });
+
+    // Function to update the total price for a specific row
+    function updateTotalPrice(quantityInput) {
+        var row = quantityInput.parentNode.parentNode;
+        var priceElement = row.querySelector(".price");
+        var totalPriceElement = row.querySelector(".totalPrice");
+        var quantity = parseFloat(quantityInput.value);
+        var price = parseFloat(priceElement.textContent);
+        var totalPrice = quantity * price;
+
+        if (!isNaN(totalPrice)) {
+            totalPriceElement.textContent = totalPrice.toFixed(2);
+        }
+
+        // Recalculate the sum of changed total prices
+        var changedSum = 0;
+        totalPriceElements.forEach(function (totalPriceElement) {
+            var price = parseFloat(totalPriceElement.textContent);
+            if (!isNaN(price)) {
+                changedSum += price;
+            }
+        });
+
+        changedTotalPriceInput.value = changedSum.toFixed(2);
+    }
+</script>
 {%endblock%}

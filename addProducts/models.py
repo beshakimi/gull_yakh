@@ -54,12 +54,15 @@ class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     food = models.ManyToManyField(foodModel, null=True, blank=True)
     drink = models.ManyToManyField(DringModel, null=True, blank=True)
-    total_price = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    
 
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    total_price = models.CharField(max_length=200)
+    
+    
 
     
 
