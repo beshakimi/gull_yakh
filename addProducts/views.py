@@ -230,7 +230,7 @@ def create_checkout(request, id):
             tazkra_number=tazkra_number,
             address=address
         )
-        checkout.save()
+       
         
         # Redirect to a success page or perform further actions
         
@@ -239,3 +239,7 @@ def create_checkout(request, id):
 
     }
     return render(request, 'addProducts/user_info.html', context)
+
+# def list_checkout(request):
+#     checkout = Checkout.objects.all().order_by('-id')
+#     return render(request, '')

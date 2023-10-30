@@ -17,11 +17,12 @@
     <h2 class="text-2xl font-semibold mb-2">{{drinkDetails.Title}}</h2>
     <p class="text-gray-600 mb-4 text-justify">{{drinkDetails.Description}}</p>
     <p class="text-sm text-gray-00 font-semibold mb-4">{{drinkDetails.Price}}Af </p>
-    <button
-      class="cbtn font-bold"
-    >
-      افزودن به سبد خرید
-    </button>
+    <form method="POST" action="{% url 'add_to_cart' drinkDetails.id 'drink' %}">
+      {% csrf_token %}
+      <button type="submit">
+          <img src="{% static 'icons/shopping-cart.png' %}" alt="" class="menu-shop-cart">
+      </button>
+  </form>
 
     <div class=" ">
       <p
