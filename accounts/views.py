@@ -6,6 +6,14 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from accounts.models import Profile
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from accounts.models import User
+
 # from .forms import MyPasswordChangeForm
 from . import models
 import uuid
@@ -131,23 +139,24 @@ def profile_edit_view(request, id):
 
 # forget password view 
 def forget_password_view(request):
+     
     return render(request, "accounts/forget_password.html")
 
 
-# forget confirm message view 
+#  confirm message view 
 def confirm_message_view(request):
     return render(request, "accounts/confirm_message.html")
 
-# forget new password view 
+# # forget new password view 
 def new_password_view(request):
     return render(request, "accounts/new_password.html")
 
-# new password view 
+# # new password view 
 def confirm_change_password_view(request):
     return render(request, "accounts/confirm_change_password.html")
 
 # change password view 
-# @login_required
+@login_required
 def change_password_view(request):
     if request.method == 'POST':
         old_password = request.POST['old_password']
@@ -165,7 +174,7 @@ def change_password_view(request):
 
                 update_session_auth_hash(request, request.user)  # رفع خطر از دست دادن جلسه ورود
                 messages.success(request, 'رمز عبور شما با موفقیت تغییر کرد.')
-                return redirect('login')  # تغییر مسیر به جایی که دلخواهید
+                return redirect('confirm_change_password')  # تغییر مسیر به جایی که دلخواهید
             else:
                 messages.error(request, 'رمز عبور جدید با تایید رمز عبور مطابقت ندارد.')
         else:
@@ -176,6 +185,10 @@ def change_password_view(request):
 
 
     
+
+
+
+
 
 
 
