@@ -78,35 +78,40 @@
         </div>
     </div>
     <div class="mr-6">
-        <a href="{% url 'user_info'%}">
-            <button type="submit" class=" cbtn w-20 my-0">خرید
-            </button>
-        </a>
-        <input type="text" id="default_total_price" readonly>
+      
+        
+        <form id="my-form" method="post" action="{% url 'cart-item' cart.id %}">
+            {% csrf_token %}
+            <input type="text" name="default_total_price" id="default_total_price" readonly>
+            <input type="hidden" name="total_price" id="changed_total_price" style="border: 1px solid gray;">
+            <input type="submit" onclick="submitForm()" value="خرید" class=" cbtn w-20 my-0">
+        </form>
+        
         <script>
             function submitForm() {
+                var changedTotalPriceInput = document.getElementById("changed_total_price");
+                var total_price = changedTotalPriceInput.value;
+                
+                if (total_price.trim() === "") {
+                    changedTotalPriceInput.removeAttribute("name");
+                }
+                
                 var formElement = document.getElementById("my-form");
                 var formData = new FormData(formElement);
-        
+                
                 var xhr = new XMLHttpRequest();
                 xhr.open(formElement.method, formElement.action);
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-        
+                
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         // Handle the successful response
                     }
                 };
-        
+                
                 xhr.send(formData);
             }
         </script>
-        
-        <form id="my-form" method="post" action="{% url 'cart-item' cart.id %}">
-            {% csrf_token %}
-            <input type="number"  name="total_price" id="changed_total_price" readonly style="border: 1px solid gray;">
-            <input type="submit" onclick="submitForm()" value="sumbit" id="changed_total_price" readonly style="border: 1px solid gray;">
-        </form>
     </div>
 </div>
 
@@ -163,7 +168,7 @@
             }
         });
 
-        changedTotalPriceInput.value = changedSum.toFixed(2);
+        defaultTotalPriceInput.value = changedSum.toFixed(2);
     }
 </script>
 {%endblock%}

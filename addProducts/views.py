@@ -195,9 +195,12 @@ def create_cart_item(request, id):
     cart = Cart.objects.get(id=id)
 
     if request.method == 'POST':
-        total_price = request.POST["total_price"]
+       
+        default_total_price = request.POST['default_total_price']
+        print(default_total_price)
+          
 
-        cart_item = CartItem.objects.create(cart=cart, total_price=total_price)
+        cart_item = CartItem.objects.create(cart=cart, total_price=default_total_price)
 
         # Update the total price of the cart
         
