@@ -52,8 +52,8 @@ class BlogModel(models.Model):
 
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    food = models.ManyToManyField(foodModel, null=True, blank=True)
-    drink = models.ManyToManyField(DringModel, null=True, blank=True)
+    food = models.ManyToManyField(foodModel)
+    drink = models.ManyToManyField(DringModel)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -63,7 +63,17 @@ class CartItem(models.Model):
     total_price = models.CharField(max_length=200)
     
     
-
+class Checkout(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    cart_item = models.ForeignKey(CartItem, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=100)
+    email = models.CharField(max_length=200)
+    phone_number1=models.CharField(max_length=100)
+    phone_number2 = models.CharField(max_length=100, null=True, blank=True)
+    tazkra_number = models.CharField(max_length=100)
+    address = models.TextField()
     
+    def __str__(self):
+        return self.name
 
 

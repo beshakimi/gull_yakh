@@ -19,6 +19,7 @@ urlpatterns = [
     path('add-to-cart/<int:id>/<str:model>/', views.add_to_cart, name='add_to_cart'),
     path('cart-detail' ,views.view_cart, name='cart-detail'),
     path('cart-item/<int:id>' ,views.create_cart_item, name='cart-item'),
+    path('checkout/<int:id>' ,views.create_checkout, name='checkout'),
     
     
 ]
