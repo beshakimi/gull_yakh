@@ -68,6 +68,22 @@
               <h1>لیست غذا های که انتخاب کرده اید</h1>
               <div>
                 
+                <h2>Food Items in Cart:</h2>
+<ul>
+  {% for food_item in cart_item.cart.food.all %}
+    <li>{{ food_item.Title }}</li>
+    <!-- Display other food item information as needed -->
+  {% endfor %}
+</ul>
+
+<h2>Drink Items in Cart:</h2>
+<ul>
+  {% for drink_item in cart_item.cart.drink.all %}
+    <li>{{ drink_item.Title }}</li>
+    <!-- Display other drink item information as needed -->
+  {% endfor %}
+</ul>
+                
               </div>
                 
             </div>

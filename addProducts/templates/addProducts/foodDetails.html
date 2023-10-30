@@ -14,7 +14,7 @@
     <h2 class="text-3xl font-semibold mb-4">{{foodDetails.Title}}</h2>
     <p class="text-gray-600 mb-4 text-justify">{{foodDetails.Description}}</p>
     <p class="text-lg font-semibold mb-4">{{foodDetails.Price}}</p>
-    <form method="POST" action="{% url 'add_to_cart' foodDetails.id %}">
+    <form method="POST" action="{% url 'add_to_cart' foodDetails.id 'food' %}">
       {% csrf_token %}
       <button type="submit">Add to Cart</button>
     </form>
