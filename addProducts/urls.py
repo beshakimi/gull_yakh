@@ -34,8 +34,13 @@ urlpatterns = [
     path('cart-item/<int:id>' ,views.create_cart_item, name='cart-item'),
 
 
+
     # search
     path('search_result' ,views.search_result_view, name='search_result'),
    
+
+    path('checkout/<int:id>' ,views.create_checkout, name='checkout'),
+    
+
     
 ]

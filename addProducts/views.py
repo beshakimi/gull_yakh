@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from persiantools.jdatetime import JalaliDate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from addProducts.models import DringModel, foodModel, Cart, CartItem
+from addProducts.models import foodModel
+from addProducts.models import DringModel, Cart, CartItem, Checkout
+
 from addProducts.models import BlogModel
 from accounts.models import Profile
 
@@ -198,25 +200,49 @@ def create_cart_item(request, id):
     cart = Cart.objects.get(id=id)
 
     if request.method == 'POST':
-        total_price = request.POST["total_price"]
+       
+        default_total_price = request.POST['default_total_price']
+        print(default_total_price)
+          
 
-        cart_item = CartItem.objects.create(cart=cart, total_price=total_price)
+        cart_item = CartItem.objects.create(cart=cart, total_price=default_total_price)
 
         # Update the total price of the cart
         
-        cart.save()
+        cart_item.save()
 
-        return redirect('user_info')
-
-    return render(request, 'addProducts/user_info.html')
+        return redirect('checkout', cart_item.id)
 
 
-
-
-
-
-
-
+def create_checkout(request, id):
+    cart_item = get_object_or_404(CartItem, id=id)
+    
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        phone_number1 = request.POST['phone_number1']
+        phone_number2 = request.POST['phone_number2']
+        tazkra_number = request.POST['tazkra_number']
+        address = request.POST['address']
+        
+        checkout = Checkout.objects.get_or_create(
+            user=request.user,
+            cart_item=cart_item,
+            name=name,
+            email=email,
+            phone_number1=phone_number1,
+            phone_number2=phone_number2,
+            tazkra_number=tazkra_number,
+            address=address
+        )
+        checkout.save()
+        
+        # Redirect to a success page or perform further actions
+        
+    context = {
+        'cart_item': cart_item,
+         }
+    return render(request, 'addProducts/user_info.html', context)
 
 
 
@@ -239,8 +265,5 @@ def search_result_view(request):
     return render(request, 'addProducts/search_result.html', context)
 
 
-
-
-
-
+ 
 
