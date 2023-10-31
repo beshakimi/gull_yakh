@@ -242,6 +242,27 @@ def user_details(request, id):
 
     return render(request,"admin/userDetails.html", {'user': user}) 
 
+
+
+
+def admin_users(request):
+    users = User.objects.filter(user_type="ادمین").order_by('-id')
+
+    context={
+       "userlist":users,
+   }
+
+    return render(request,'admin/admin_users.html',context)
+
+def users(request):
+    users = User.objects.filter(user_type="کاربر عادی").order_by('-id')
+
+    context={
+       "userlist":users,
+   }
+
+    return render(request,'admin/admin_users.html',context)
+
         
 
 
