@@ -21,5 +21,8 @@ urlpatterns = [
     # user_list url
     path('user_list', views.user_list_view, name='user-list'),
     path('user_details/<int:id>', views.user_details, name='user-details'),
-  
+
+    # user_type
+    path('admin_users', views.admin_users, name='admin_users'),
+    path('users', views.users, name='users'),
 ]
