@@ -75,7 +75,7 @@ def foodListView(request):
 
 # food details view 
 def foodDetailsView(request,food_id):
-    food=foodModel.objects.get(pk=food_id)
+    food=get_object_or_404(foodModel,pk=food_id)
 
     context={
       "foodDetails":food,  

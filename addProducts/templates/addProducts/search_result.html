@@ -42,16 +42,10 @@
         موارد یافت شده
     </h2>
 
-
-
-
-
-
-
-    <!-- start food items  -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
 
         {% for item in food_results %}
+
         <div class="menu-cont">
             <a href="/addProduct/food/{{ item.id }}">
                 <div class="menu-child">
@@ -86,16 +80,11 @@
             </a>
         </div>
         {% empty %}
-        <p class="">نتیجه ای یافت نشد!</p>
+
         {% endfor %}
-    </div>
-
-
-
-    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {% for item in drink_results %}
         <div class="menu-cont">
-            <a href="/addProduct/food/{{ item.id }}">
+            <a href="/addProduct/drink/{{ item.id }}">
                 <div class="menu-child">
                     <img src="{{ item.Image.url }}" alt="food Item 1" class="menu-image" />
 
@@ -145,9 +134,13 @@
             </a>
         </div>
         {% empty %}
-        <p class="">نتیجه ای یافت نشد!</p>
+
         {% endfor %}
     </div>
+
+
+
+
 
     <!-- start pagenation -->
     <ul class="my-10 flex gap-1 justify-center items-center">
