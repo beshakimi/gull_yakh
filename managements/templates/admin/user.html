@@ -9,13 +9,14 @@
 <!-- error message -->
 {% for message in messages %}
 {% if message.tags == 'error' %}
-<p class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center
-     text-white p-2 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
+
+<p class="error-message">
+  <i class="fa-solid fa-circle-exclamation ml-2"></i>
   {{ message }}
 </p>
 {% elif message.tags == 'success' %}
-<p
-  class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center text-green-600 p-2 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
+<p class="success-message">
+  <i class="fa-solid fa-circle-exclamation ml-2"></i>
   {{ message }}
 </p>
 {% endif %}
@@ -41,12 +42,12 @@
     <a href="/manage/dashboard" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
   </div>
 
-  <div class="flex gap-4 items-center justify-end w-full mx-4">
-    <a href="{% url 'user-list'%}" class="px-2 py-1 bg-blue-600 rounded-md hover:bg-blue-800 text-white text-sm">همه</a>
-    <a href="{% url 'users' %}" class="px-2 py-1 bg-blue-600 rounded-md hover:bg-blue-800 text-white text-sm">کاربر
+  <div class="flex gap-2 items-center justify-end w-full mx-12">
+    <a href="{% url 'user-list'%}" class="px-2 py-1 bg-blue-600 rounded-sm hover:bg-blue-800 text-white text-sm">همه</a>
+    <a href="{% url 'users' %}" class="px-2 py-1 bg-slate-800 rounded-sm hover:bg-slate-600 text-white text-sm">کاربر
       عادی</a>
     <a href="{% url 'admin_users' %}"
-      class="px-2 py-1 bg-blue-600 rounded-md hover:bg-blue-800 text-white text-sm">ادمین</a>
+      class="px-2 py-1 bg-[#f5056d] rounded-sm hover:bg-[#f5056dbe] text-white text-sm">ادمین</a>
 
   </div>
 </div>
@@ -92,13 +93,6 @@
             </td>
             <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.user_type}}</td>
 
-            <!-- <form action="" method="post">
-                {%csrf_token%}
-                <select name="" id="">
-                  <option value="" name="admin">ادمین</option>
-                  <option value="" name="user">یوذر عادی</option>
-                </select>
-              </form> -->
             </td>
             <td class="px-6 py-4 text-center whitespace-nowrap">
               <a href="{% url 'user-details' user.id %}"

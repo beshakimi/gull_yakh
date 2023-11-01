@@ -243,13 +243,15 @@ def user_details(request, id):
     return render(request,"admin/userDetails.html", {'user': user})
 
 
-from django.shortcuts import get_object_or_404
-
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
     if request.method == 'POST':
-        user.delete()
+        if user.user_type != "ادمین":
+            user.delete()
+            messages.success(request, 'کاربر با موفقیت حذف شد.')
+        else:
+            messages.error(request, 'شما نمی‌توانید کاربران ادمین را حذف کنید.')
         return redirect('user-list')
 
     context = {
@@ -257,7 +259,6 @@ def delete_user(request, user_id):
     }
 
     return render(request, 'admin/user_list.html', context)
-
 
 
 
