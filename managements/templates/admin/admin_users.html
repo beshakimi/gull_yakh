@@ -41,13 +41,15 @@
         <a href="/manage/dashboard" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
     </div>
 
-    <div class="flex gap-4 items-center justify-end w-full mx-4">
+    <div class="flex gap-2 items-center justify-end w-full 
+    mx-12">
         <a href="{% url 'user-list'%}"
-            class="px-2 py-1 bg-blue-600 rounded-md hover:bg-blue-800 text-white text-sm">همه</a>
-        <a href="{% url 'users' %}" class="px-2 py-1 bg-blue-600 rounded-md hover:bg-blue-800 text-white text-sm">کاربر
+            class="px-2 py-1 bg-blue-600 rounded-sm hover:bg-blue-800 text-white text-sm">همه</a>
+        <a href="{% url 'users' %}"
+            class="px-2 py-1 bg-slate-800 rounded-sm hover:bg-slate-600 text-white text-sm">کاربر
             عادی</a>
         <a href="{% url 'admin_users' %}"
-            class="px-2 py-1 bg-blue-600 rounded-md hover:bg-blue-800 text-white text-sm">ادمین</a>
+            class="px-2 py-1 bg-[#f5056d] rounded-sm hover:bg-[#f5056dbe] text-white text-sm">ادمین</a>
 
     </div>
 </div>
@@ -107,22 +109,38 @@
                         <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.user_type}}
                         </td>
 
-                        <!-- <form action="" method="post">
-        {%csrf_token%}
-        <select name="" id="">
-          <option value="" name="admin">ادمین</option>
-          <option value="" name="user">یوذر عادی</option>
-        </select>
-      </form> -->
                         </td>
                         <td class="px-6 py-4 text-center whitespace-nowrap">
                             <a href="{% url 'user-details' user.id %}"
                                 class="text-sm  bg-blue-500 hover:bg-blue-600 text-white ml-1 py-1 px-2 rounded-sm inline-block">جزیات
                                 کاربر</a>
                             <button
-                                class="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">حذف</button>
+                                class="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block deleteButton"
+                                id="deleteButton_{{ user.id }}">حذف</button>
                         </td>
                     </tr>
+                    <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
+                        id="deleteModel_{{ user.id }}">
+                        <div class=" w-full h-full flex justify-center items-center">
+                            <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
+                                <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
+                                <div class="">
+
+                                    <form action="{% url 'delete-user' user_id=user.id %}" method="post">
+                                        {%csrf_token%}
+                                        <div class="flex gap-8 mt-4">
+                                            <input type="submit" value="بلی"
+                                                class="px-2 text-sm flex items-center hover:cursor-pointer  rounded-sm text-white bg-red-600">
+                                            <a href=""
+                                                class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </tbody>
                 {%endfor%}
                 {%endif%}
@@ -151,22 +169,38 @@
                         <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.user_type}}
                         </td>
 
-                        <!-- <form action="" method="post">
-        {%csrf_token%}
-        <select name="" id="">
-          <option value="" name="admin">ادمین</option>
-          <option value="" name="user">یوذر عادی</option>
-        </select>
-      </form> -->
                         </td>
                         <td class="px-6 py-4 text-center whitespace-nowrap">
                             <a href="{% url 'user-details' user.id %}"
                                 class="text-sm  bg-blue-500 hover:bg-blue-600 text-white ml-1 py-1 px-2 rounded-sm inline-block">جزیات
                                 کاربر</a>
                             <button
-                                class="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">حذف</button>
+                                class="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block deleteButton"
+                                id="deleteButton_{{ user.id }}">حذف</button>
                         </td>
                     </tr>
+                    <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
+                        id="deleteModel_{{ user.id }}">
+                        <div class=" w-full h-full flex justify-center items-center">
+                            <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
+                                <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
+                                <div class="">
+
+                                    <form action="{% url 'delete-user' user_id=user.id %}" method="post">
+                                        {%csrf_token%}
+                                        <div class="flex gap-8 mt-4">
+                                            <input type="submit" value="بلی"
+                                                class="px-2 text-sm flex items-center hover:cursor-pointer  rounded-sm text-white bg-red-600">
+                                            <a href=""
+                                                class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </tbody>
                 {%endfor%}
                 {%endif%}
