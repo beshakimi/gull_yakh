@@ -2,10 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from persiantools.jdatetime import JalaliDate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 from addProducts.models import foodModel
 from addProducts.models import DringModel, Cart, CartItem, Checkout
+
 from addProducts.models import BlogModel
 from accounts.models import Profile
+
+from django.db.models import Q
+
 
 # Create your views here.
 
@@ -244,10 +249,30 @@ def create_checkout(request, id):
         
     context = {
         'cart_item': cart_item,
-
-    }
+         }
     return render(request, 'addProducts/user_info.html', context)
 
-# def list_checkout(request):
-#     checkout = Checkout.objects.all().order_by('-id')
-#     return render(request, '')
+
+
+def search_result_view(request):
+    query = request.GET.get('query')
+    if query:
+        food_results = foodModel.objects.filter(Q(Title__icontains=query))
+        drink_results = DringModel.objects.filter(Q(Title__icontains=query))
+        # food_results = foodModel.objects.filter(Q(Title__icontains=query) | Q(Category__icontains=query))
+        # drink_results = DringModel.objects.filter(Q(Title__icontains=query) | Q(Category__icontains=query))
+    else:
+        food_results = []
+        drink_results = []
+
+    context = {
+        'query': query,
+        'food_results': food_results,
+        'drink_results': drink_results,
+    }
+
+    return render(request, 'addProducts/search_result.html', context)
+
+
+ 
+
