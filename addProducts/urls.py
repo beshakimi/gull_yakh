@@ -40,6 +40,7 @@ urlpatterns = [
    
 
     path('checkout/<int:id>' ,views.create_checkout, name='checkout'),
+    path('delete-cart/<int:id>' ,views.cart_delete, name='delete-cart'),
     
 
     

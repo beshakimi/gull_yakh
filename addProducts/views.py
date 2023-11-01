@@ -196,6 +196,14 @@ def view_cart(request):
     return render(request, 'addProducts/shop_cart.html', {"cart": cart, "foods": foods, "drinks": drinks})
 
 
+def cart_delete(request, id):
+    cart = get_object_or_404(Cart, id=id)
+    cart.food.clear()  # Remove all food items from the cart
+    cart.drink.clear()  # Remove all drink items from the cart
+    
+    return redirect('cart-detail')
+
+
 def create_cart_item(request, id):
     cart = Cart.objects.get(id=id)
 
@@ -235,7 +243,7 @@ def create_checkout(request, id):
             tazkra_number=tazkra_number,
             address=address
         )
-        checkout.save()
+       
         
         # Redirect to a success page or perform further actions
         
@@ -262,6 +270,7 @@ def search_result_view(request):
         'food_results': food_results,
         'drink_results': drink_results,
     }
+
     return render(request, 'addProducts/search_result.html', context)
 
 

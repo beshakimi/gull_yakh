@@ -175,13 +175,12 @@
             <div class="flex justify-between items-center mt-5">
               <p class="text-gray-500">{{drink.Price}}Af</p>
 
-              <a href="#">
-                <img
-                  src="{%static 'icons/shopping-cart.png'%}"
-                  alt=""
-                  class="menu-shop-cart"
-                />
-              </a>
+              <form method="POST" action="{% url 'add_to_cart' drink.id 'drink' %}">
+                {% csrf_token %}
+                <button type="submit">
+                    <img src="{% static 'icons/shopping-cart.png' %}" alt="" class="menu-shop-cart">
+                </button>
+            </form>
             </div>
           </div>
         </a>
