@@ -191,6 +191,14 @@ def view_cart(request):
     return render(request, 'addProducts/shop_cart.html', {"cart": cart, "foods": foods, "drinks": drinks})
 
 
+def cart_delete(request, id):
+    cart = get_object_or_404(Cart, id=id)
+    cart.food.clear()  # Remove all food items from the cart
+    cart.drink.clear()  # Remove all drink items from the cart
+    
+    return redirect('cart-detail')
+
+
 def create_cart_item(request, id):
     cart = Cart.objects.get(id=id)
 

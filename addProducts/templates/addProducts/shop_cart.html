@@ -41,7 +41,7 @@
                     <tbody class="text-center">
                         {% for cart in foods %}
                         <tr class="border-b dark:border-neutral-300">
-                            <td class="whitespace-nowrap px-6 py-4 font-medium"><i class="fa-solid fa-xmark hover:cursor-pointer "></i>
+                            <td class="whitespace-nowrap px-6 py-4 font-medium"><a href="{% url 'delete-cart' cart.id %}"><i class="fa-solid fa-xmark hover:cursor-pointer "></a></i>
                             </td>
                             <td class="py-2 flex justify-center items-center"><img src="{{ cart.Image.url }}" alt=""
                                     class="w-[60px] h-[60px] object-cover"></td>
@@ -57,7 +57,7 @@
                     
                     {% for drink in drinks %}
                         <tr class="border-b dark:border-neutral-300">
-                            <td class="whitespace-nowrap px-6 py-4 font-medium"><i class="fa-solid fa-xmark hover:cursor-pointer "></i>
+                            <td class="whitespace-nowrap px-6 py-4 font-medium"><a href="{% url 'delete-cart' drink.id %}"><i class="fa-solid fa-xmark hover:cursor-pointer "></a></i>
                             </td>
                             <td class="py-2 flex justify-center items-center"><img src="{{ drink.Image.url }}" alt=""
                                     class="w-[60px] h-[60px] object-cover"></td>
