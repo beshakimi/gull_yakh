@@ -240,7 +240,23 @@ def user_details(request, id):
         messages.success(request, 'نوعیت کاربر با موفقیت تغییر کرد')
         return redirect('user-list')
 
-    return render(request,"admin/userDetails.html", {'user': user}) 
+    return render(request,"admin/userDetails.html", {'user': user})
+
+
+from django.shortcuts import get_object_or_404
+
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        user.delete()
+        return redirect('user-list')
+
+    context = {
+        'user': user,
+    }
+
+    return render(request, 'admin/user_list.html', context)
 
 
 

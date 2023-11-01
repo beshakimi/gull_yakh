@@ -46,19 +46,18 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <!-- Add Food Form -->
         <div class="bg-white max-h-fit rounded-md shadow p-4">
-            <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()"
-                class="bg-white p-4 rounded-md shadow-md">
+            <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                 {% csrf_token %}
                 <!-- food Name -->
                 <div class="mb-4">
-                    <label for="foodName" class="block text-gray-700 font-bold mb-2">نام: </label>
-                    <input id="foodName" type="text" class="input" name="title" placeholder="نام نوشیدنی را بنویسید" />
+                    <label for="name" class="block text-gray-700 font-bold mb-2">نام: </label>
+                    <input id="name" type="text" class="input" name="title" placeholder="نام نوشیدنی را بنویسید" />
                 </div>
 
                 <!-- food price -->
                 <div class="mb-4">
-                    <label for="foodPrice" class="block text-gray-700 font-bold mb-2">قیمت: </label>
-                    <input id="foodPrice" type="number" class="input" name="price" placeholder="100">
+                    <label for="price" class="block text-gray-700 font-bold mb-2">قیمت: </label>
+                    <input id="price" type="number" class="input" name="price" placeholder="100">
                 </div>
 
                 <!-- food image -->
@@ -73,8 +72,8 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="foodDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-                    <textarea id="foodDescription" class="input" name="description" rows="4"
+                    <label for="description" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
+                    <textarea id="description" class="input" name="description" rows="4"
                         placeholder="توضیاحات در مورد نوشیدنی"></textarea>
                 </div>
 
@@ -182,7 +181,7 @@
         <div class="bg-white rounded-lg shadow p-4 ml-4 h-[600px] overflow-y-scroll">
             <h2 class="text-xl font-bold mb-4">آخرین غذا ها</h2>
             <ul>
-                {% if food %}
+
                 {% for food in foods %}
                 <li class="border-b border-gray-300 py-2">
                     <div class="flex justify-between items-center">
@@ -198,11 +197,11 @@
                         <div>
                             <a href="{% url 'update-food' food_id=food.id %}"
                                 class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block mb-2 sm:mb-0">ویرایش</a>
-                            <p class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block hover:cursor-pointer"
-                                id="deleteBotton">حذف</p>
+                            <p class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block hover:cursor-pointer deleteButton"
+                                id="deleteButton_{{ food.id }}">حذف</p>
 
                             <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
-                                id="deleteModel">
+                                id="deleteModel_{{ food.id }}">
                                 <div class=" w-full h-full flex justify-center items-center">
                                     <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
                                         <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
@@ -227,10 +226,10 @@
 
                     </div>
                 </li>
-                {% endfor %}
-                {%else%}
+                {% empty %}
                 <p class="text-red-600"> غذای موجود نمی باشد!</p>
-                {%endif%}
+
+                {% endfor %}
             </ul>
         </div>
     </div>
