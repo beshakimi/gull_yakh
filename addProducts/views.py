@@ -43,6 +43,15 @@ def foodListView(request):
     foods=foodModel.objects.all().order_by('-id')
     page = request.GET.get('page')
 
+    if request.method == 'POST':
+        if 'name_checkbox' in request.POST:
+            foods = foods.order_by('Title')  
+
+        min_price = request.POST.get('min_price')
+        max_price = request.POST.get('max_price')
+        if min_price and max_price:
+            foods = foods.filter(Price__range=(min_price, max_price))
+    
     # تعداد نوشیدنی‌ها در هر صفحه
     items_per_page = 8
 
@@ -88,6 +97,16 @@ def drinkListView(request):
     # دریافت همه نوشیدنی‌ها
     drinks = DringModel.objects.all().order_by('-id')
     page = request.GET.get('page')
+
+    if request.method == 'POST':
+        if 'name_checkbox' in request.POST:
+            drinks = drinks.order_by('Title')  
+
+        min_price = request.POST.get('min_price')
+        max_price = request.POST.get('max_price')
+        if min_price and max_price:
+            drinks = drinks.filter(Price__range=(min_price, max_price))
+    
 
     # تعداد نوشیدنی‌ها در هر صفحه
     items_per_page = 8

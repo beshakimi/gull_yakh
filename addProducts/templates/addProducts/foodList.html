@@ -42,130 +42,151 @@
     غذا ها
   </h2>
   <!-- start filter -->
-  <h1 class="w-full py-2 px-4 font-bold bg-blue-500">فلتر</h1>
-  <form action="" method="post">
-    {%csrf_token%}
-    <div class="flex bg-gray-400 flex-col gap-4 sm:flex-row md:gap-14 lg:gap-20 my-4 border p-6">
-
+  <div id="filterToggle"
+    class="flex font-bold py-2 px-4 mb-4 items-center justify-center rounded-sm w-20 bg-[#f5056d] hover:bg-[#f5056db9] hover:cursor-pointer ease-in duration-200">
+    <h1 class="   "> فلتر
+    </h1>
+    <?xml version="1.0" ?><svg fill="none" height="24" viewBox="0 0 24 24" width="24"
+      xmlns="http://www.w3.org/2000/svg">
+      <path clip-rule="evenodd"
+        d="M7 3C7.55228 3 8 3.44772 8 4V14C8 14.5523 7.55228 15 7 15C6.44772 15 6 14.5523 6 14V4C6 3.44772 6.44772 3 7 3Z"
+        fill="black" fill-rule="evenodd" />
+      <path clip-rule="evenodd"
+        d="M17 9C17.5523 9 18 9.44772 18 10V20C18 20.5523 17.5523 21 17 21C16.4477 21 16 20.5523 16 20V10C16 9.44772 16.4477 9 17 9Z"
+        fill="black" fill-rule="evenodd" />
+      <path clip-rule="evenodd"
+        d="M6.29289 3.29289C6.68342 2.90237 7.31658 2.90237 7.70711 3.29289L10.7071 6.29289C11.0976 6.68342 11.0976 7.31658 10.7071 7.70711C10.3166 8.09763 9.68342 8.09763 9.29289 7.70711L7 5.41421L4.70711 7.70711C4.31658 8.09763 3.68342 8.09763 3.29289 7.70711C2.90237 7.31658 2.90237 6.68342 3.29289 6.29289L6.29289 3.29289Z"
+        fill="black" fill-rule="evenodd" />
+      <path clip-rule="evenodd"
+        d="M17.7071 20.7071C17.3166 21.0976 16.6834 21.0976 16.2929 20.7071L13.2929 17.7071C12.9024 17.3166 12.9024 16.6834 13.2929 16.2929C13.6834 15.9024 14.3166 15.9024 14.7071 16.2929L17 18.5858L19.2929 16.2929C19.6834 15.9024 20.3166 15.9024 20.7071 16.2929C21.0976 16.6834 21.0976 17.3166 20.7071 17.7071L17.7071 20.7071Z"
+        fill="black" fill-rule="evenodd" />
+    </svg>
+  </div>
+  <form action="" method="post" id="filterModel" class="hidden">
+    {% csrf_token %}
+    <div class="flex  flex-col gap-4 sm:flex-row md:gap-14 lg:gap-20 mb-4 border p-6">
       <div class="flex items-center py-1">
-        <label for="">نام:</label>
-        <input type="checkbox" class="w-4 h-4 mx-2 ">
+        <label for="id_name_checkbox">نام:</label>
+        <input type="checkbox" id="id_name_checkbox" name="name_checkbox" class="w-4 h-4 mx-2">
       </div>
 
       <div class="flex items-center">
-        <label for="">قیمت:</label>
-        <input type="number" class="border w-14  pr-2 py-[3px] mr-2 text-sm">
+        <label for="id_min_price">قیمت:</label>
+        <input type="number" id="id_min_price" name="min_price"
+          class="border w-14 pr-2 py-[3px] mr-2 text-sm focus:outline-none ">
         <p class="mx-1">تا</p>
-        <input type="number" class="border w-14 pr-2 py-[3px]  text-sm">
+        <input type="number" id="id_max_price" name="max_price"
+          class="border w-14 pr-2 py-[3px] text-sm focus:outline-none">
       </div>
 
-      <div class=" flex items-center">
-        <select name="" id="" class="border ">
-          <option value="" class="p-1">برگر</option>
-          <option value="">بولانی</option>
-          <option value=" ">چکن وینز</option>
-          <option value="">پیتزا</option>
-        </select>
-      </div>
+      <input type="submit" class="cbtn py-2 sm:py-0 my-0" value="اعمال">
 
-      <input type="submit" class="cbtn py-0 my-0" value="اعمال">
+
+    </div>
+
+    <script>
+      const filterToggle = document.getElementById('filterToggle');
+      const filterModel = document.getElementById('filterModel');
+
+      filterToggle.addEventListener('click', function () {
+        filterModel.classList.toggle('hidden');
+      });
+    </script>
   </form>
-</div>
 
-<!-- start food items  -->
-<div class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-  <!-- food Item 1 -->
 
-  {%for food in foodlist %}
-  {%if food %}
-  <div class="menu-cont">
-    <a href="/addProduct/food/{{food.id}}">
-      <div class="menu-child">
-        <img src="{{food.Image.url}}" alt="food Item 1" class="menu-image" />
+  <!-- start food items  -->
+  <div class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+    <!-- food Item 1 -->
 
-        <!-- start reating -->
-        <div class="pt-4">
-          <div class="flex gap-1">
-            <p>امیتاز(5)</p>
-            <div class="flex">
-              <input type="radio" id="star5" name="rating" value="5" class="hidden" />
-              <label for="star5" class="text-yellow-400 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
+    {%for food in foodlist %}
+    {%if food %}
+    <div class="menu-cont">
+      <a href="/addProduct/food/{{food.id}}">
+        <div class="menu-child">
+          <img src="{{food.Image.url}}" alt="food Item 1" class="menu-image" />
 
-              <input type="radio" id="star4" name="rating" value="4" class="hidden" />
-              <label for="star4" class="text-yellow-400 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
+          <!-- start reating -->
+          <div class="pt-4">
+            <div class="flex gap-1">
+              <p>امیتاز(5)</p>
+              <div class="flex">
+                <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+                <label for="star5" class="text-yellow-400 cursor-pointer">
+                  <i class="fas fa-star"></i>
+                </label>
 
-              <input type="radio" id="star3" name="rating" value="3" class="hidden" />
-              <label for="star3" class="text-yellow-400 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
+                <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+                <label for="star4" class="text-yellow-400 cursor-pointer">
+                  <i class="fas fa-star"></i>
+                </label>
 
-              <input type="radio" id="star2" name="rating" value="2" class="hidden" />
-              <label for="star2" class="text-yellow-400 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
+                <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+                <label for="star3" class="text-yellow-400 cursor-pointer">
+                  <i class="fas fa-star"></i>
+                </label>
 
-              <input type="radio" id="star1" name="rating" value="1" class="hidden" />
-              <label for="star1" class="text-yellow-400 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
+                <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+                <label for="star2" class="text-yellow-400 cursor-pointer">
+                  <i class="fas fa-star"></i>
+                </label>
+
+                <input type="radio" id="star1" name="rating" value="1" class="hidden" />
+                <label for="star1" class="text-yellow-400 cursor-pointer">
+                  <i class="fas fa-star"></i>
+                </label>
+              </div>
             </div>
+          </div>
+
+          <h1 class="text- font-semibold mb-2">{{food.Title}}</h1>
+
+          <div class="flex justify-between items-center mt-5">
+            <p class="text-gray-500">{{food.Price}}Af</p>
+
+
+            <form method="POST" action="{% url 'add_to_cart' food.id 'food' %}">
+              {% csrf_token %}
+              <button type="submit">
+                <img src="{% static 'icons/shopping-cart.png' %}" alt="" class="menu-shop-cart">
+              </button>
+            </form>
+
           </div>
         </div>
+      </a>
+    </div>
+    {%else %}
+    <p class="">غذا موجود نمی باشد</p>
+    {%endif%}
+    {%endfor%}
 
-        <h1 class="text- font-semibold mb-2">{{food.Title}}</h1>
-
-        <div class="flex justify-between items-center mt-5">
-          <p class="text-gray-500">{{food.Price}}Af</p>
-
-
-              <form method="POST" action="{% url 'add_to_cart' food.id 'food' %}">
-                {% csrf_token %}
-                <button type="submit">
-                    <img src="{% static 'icons/shopping-cart.png' %}" alt="" class="menu-shop-cart">
-                </button>
-            </form>
-            
-            </div>
-          </div>
-        </a>
-      </div>
-      {%else %}
-      <p class="">غذا موجود نمی باشد</p>
-      {%endif%} {%endfor%}
-
-      </div>
-    </a>
   </div>
-  {%else %}
-  <p class="">غذا موجود نمی باشد</p>
-  {%endif%} {%endfor%}
-</div>
+  </a>
 
-<!-- start pagenation -->
-<ul class="my-10 flex gap-1 justify-center items-center">
-  {% if foodlist.has_previous %}
-  <li>
-    <a href="?page={{foodlist.previous_page_number}}" class="pagn"> <i class="fa-solid fa-arrow-right"></i> </a>
-  </li>
-  {% endif %}
 
-  {% for num in pagination_range %}
-  <li>
-    <a href="?page={{num}}" class="pagn"> {{ num }} </a>
-  </li>
-  {% endfor %}
 
-  {% if foodlist.has_next %}
-  <li>
-    <a href="?page={{foodlist.next_page_number}}" class="pagn"> <i class="fa-solid fa-arrow-left"></i> </a>
-  </li>
-  {% endif %}
-</ul>
-<!-- end pagenation -->
+  <!-- start pagenation -->
+  <ul class="my-10 flex gap-1 justify-center items-center">
+    {% if foodlist.has_previous %}
+    <li>
+      <a href="?page={{foodlist.previous_page_number}}" class="pagn"> <i class="fa-solid fa-arrow-right"></i> </a>
+    </li>
+    {% endif %}
+
+    {% for num in pagination_range %}
+    <li>
+      <a href="?page={{num}}" class="pagn"> {{ num }} </a>
+    </li>
+    {% endfor %}
+
+    {% if foodlist.has_next %}
+    <li>
+      <a href="?page={{foodlist.next_page_number}}" class="pagn"> <i class="fa-solid fa-arrow-left"></i> </a>
+    </li>
+    {% endif %}
+  </ul>
+  <!-- end pagenation -->
 </div>
 <!-- end foods menu -->
 
