@@ -26,4 +26,10 @@ urlpatterns = [
     # user_type
     path('admin_users', views.admin_users, name='admin_users'),
     path('users', views.users, name='users'),
+
+
+    # chackout
+    path('chackout', views.chackout_view, name='chackout'),
+    path('chackout_details', views.chackout_details_view, name='chackout_details'),
+
 ]

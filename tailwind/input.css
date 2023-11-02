@@ -79,6 +79,28 @@
   }
 }
 
+.custom-scrollbar {
+  scrollbar-width: none; /* Remove the scrollbar line */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0rem; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Color of the scrollbar thumb */
+  /* Rounded corners of the scrollbar thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: transparent; /* Color of the scrollbar thumb on hover */
+}
+
 /* this style for success messages  */
 @layer components {
   .success-message {

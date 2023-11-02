@@ -280,6 +280,15 @@ def users(request):
 
     return render(request,'admin/admin_users.html',context)
 
+# chackout 
+def chackout_view(request):
+    return render(request,"admin/chackout.html")
+
+# chackout details 
+def chackout_details_view(request):
+    return render(request,"admin/chackout_details.html")
+
+
         
 
 
