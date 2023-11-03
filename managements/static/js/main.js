@@ -101,6 +101,24 @@ function validateForm() {
         return false;
     }
 
+    if (imageInput.value === "") {
+        errorElement.textContent = "عکس را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+  
+    if (!imagePattern.test(imageInput.value)) {
+        errorElement.textContent = "فرمت عکس نامعتبر است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
     if (descriptionInput.value === "") {
         errorElement.textContent = "توضیحات را وارد کنید";
         errorElement.classList.remove("hidden");
@@ -110,23 +128,6 @@ function validateForm() {
         return false;
     }
 
-    if (imageInput.value === "") {
-      errorElement.textContent = "عکس را وارد کنید";
-      errorElement.classList.remove("hidden");
-      setTimeout(function () {
-          errorElement.classList.add("hidden");
-      }, 5000);
-      return false;
-  }
-
-  if (!imagePattern.test(imageInput.value)) {
-      errorElement.textContent = "فرمت عکس نامعتبر است";
-      errorElement.classList.remove("hidden");
-      setTimeout(function () {
-          errorElement.classList.add("hidden");
-      }, 5000);
-      return false;
-  }
 
     errorElement.classList.add("hidden");
     return true;
@@ -190,8 +191,8 @@ function update_validateForm() {
     }
 
 
-imageInput.addEventListener('change', function() {
-    if (!imagePattern.test(imageInput.value)) {
+    imageInput.addEventListener('change', function() {
+        if (!imagePattern.test(imageInput.value)) {
         errorElement.textContent = "فرمت عکس نامعتبر است";
         errorElement.classList.remove("hidden");
         setTimeout(function () {
@@ -199,8 +200,8 @@ imageInput.addEventListener('change', function() {
         }, 5000);
         imageInput.value = ""; // پاک کردن مقدار ورودی عکس در صورت فرمت نامعتبر
         return false;
-    }
-});
+        }
+    });
 
   if (descriptionInput.value === "") {
         errorElement.textContent = "توضیحات را وارد کنید";

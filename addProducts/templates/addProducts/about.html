@@ -2,86 +2,180 @@
 {%load static %}
 
 {% block mainContent %}
-    <!-- start hero -->
-    <div class="relative">
-    <img
-      src="{% static 'images/10.jpg'%}"
-      alt="Image"
-      class="flex-col justify-center items-center w-full h-[200px] md:h-[300px] lg:h-[350px] object-cover"
-    />
-  
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-  
-    <div class="absolute w-full mx-auto top-20 md:top-36 lg:top-40">
-      <div class="flex items-center justify-center">
-        <hr class="w-5 h-full border-[1.5px] md:border-2 ml-2 mt-3" />
-        <h1
-          class="text-2xl text-white text-center font-bold drop-shadow-lg md:text-4xl"
-        >
-          به وب سایت گل یخ خوش آمدید
-        </h1>
-        <hr class="w-5 h-full border-[1.5px] md:border-2 mr-2 mt-3" />
+<!-- start hero -->
+<div class="relative">
+  <img src="{% static 'images/10.jpg'%}" alt="Image"
+    class="flex-col justify-center items-center w-full h-[200px] md:h-[300px] lg:h-[350px] object-cover" />
+
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+
+  <div class="absolute w-full mx-auto top-20 md:top-36 lg:top-40">
+    <div class="flex items-center justify-center">
+      <hr class="w-5 h-full border-[1.5px] md:border-2 ml-2 mt-3" />
+      <h1 class="text-2xl text-white text-center font-bold drop-shadow-lg md:text-4xl">
+        به وب سایت گل یخ خوش آمدید
+      </h1>
+      <hr class="w-5 h-full border-[1.5px] md:border-2 mr-2 mt-3" />
+    </div>
+
+    <form class="flex justify-center mt-4 lg:mt-8 items-center">
+      <!-- <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label> -->
+      <div class="relative">
+        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+          <img src="{% static 'icons/search-icon.png'%}" alt="" class="w-4 h-4 text-gray-500" />
+        </div>
+
+        <input type="search" id="default-search"
+          class="block bg-transparent ] w-72 md:w-80 lg:w-96 h-10 p-4 pb-5 pr-10 text-sm text-white border lg:border-2 border-gray-300 rounded-3xl focus:outline-none focus:right-2 focus:ring-[#f5056d] lg:focus:border-2 focus:border-[#f5056d] placeholder-gray-300"
+          placeholder=" جستجو . . ." required />
+
+        <button type="button"
+          class="text-white h-8 absolute left-1 bottom-1 bg-[#f5056d] hover:bg-[#d41e63] focus:outline-none font-medium rounded-3xl rounded-r-none text-sm px-4 pb-1 duration-150">
+          جستجو
+        </button>
       </div>
-  
-      <form class="flex justify-center mt-4 lg:mt-8 items-center">
-        <!-- <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label> -->
-        <div class="relative">
-          <div
-            class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
-          >
-            <img
-              src="{% static 'icons/search-icon.png'%}"
-              alt=""
-              class="w-4 h-4 text-gray-500"
-            />
-          </div>
-  
-          <input
-            type="search"
-            id="default-search"
-            class="block bg-transparent ] w-72 md:w-80 lg:w-96 h-10 p-4 pb-5 pr-10 text-sm text-white border lg:border-2 border-gray-300 rounded-3xl focus:outline-none focus:right-2 focus:ring-[#f5056d] lg:focus:border-2 focus:border-[#f5056d] placeholder-gray-300"
-            placeholder=" جستجو . . ."
-            required
-          />
-  
-          <button
-            type="button"
-            class="text-white h-8 absolute left-1 bottom-1 bg-[#f5056d] hover:bg-[#d41e63] focus:outline-none font-medium rounded-3xl rounded-r-none text-sm px-4 pb-1 duration-150"
-          >
-            جستجو
-          </button>
-        </div>
-      </form>
-    </div>
-    </div>
-    <!-- end hero -->
+    </form>
+  </div>
+</div>
+<!-- end hero -->
 
 
-    <!-- start about us  -->
-    <div id="abuot" class="mx-auto my-6 w-[96%] bg-white rounded-lg shadow-md overflow-hidden 
+<!-- start about us  -->
+<div id="abuot" class="mx-auto my-6 w-[96%] bg-white rounded-lg shadow-md overflow-hidden 
             md:w-[80%] ">
-        <div class="md:flex ">
-            <div class="md:shrink-0 ">
-                <img class="h-48 w-full object-cover md:h-full md:w-60 xl:w-[400px] xl:h-[500px]" src="{% static 'images/10.jpg'%}"
-                    alt="about amage">
-            </div>
-            <div class="p-8 xl:h-fulls flex flex-col justify-center gap-4 my-auto ">
-                <div class=" tracking-wide text-lg text-[#f5056d] font-semibold md:text-xl lg:text-3xl">درباره ما</div>
-
-                <p class="mt-2 text-slate-500 text-justify text-sm xl:text-md">بازدیدکننده عزیز، خوش‌آمدید به
-                    رستورانمان!
-                    رستوران ما یک مقصد منحصربه‌فرد برای عاشقان غذا و تجربه‌های لذیذ است. با تمرکز بر کیفیت، خلاقیت و
-                    خدمات بی‌نظیر، ما به شما تجربه‌ای بی‌نظیر در دنیای طعم و تجربه ارائه می‌دهیم.
-                    <br><br>
-                    تیم ما از آشپزان باتجربه و علاقه‌مند تشکیل شده است که با استفاده از بهترین مواد اولیه و روش‌های
-                    آشپزی خلاقانه، غذاهایی را تهیه می‌کنند که شما را به سفری جذاب و لذت‌بخش به دنیای طعم و تجربه دعوت
-                    می‌کنند. هر غذا در رستوران ما، یک ترکیب هنر، عشق و اندیشه است که با دقت و عنایت به جزئیات
-                </p>
-                <input type="button" value=" سفارش آنلاین"
-                    class=" cbtn w-fit">
-            </div>
-        </div>
+  <div class="md:flex ">
+    <div class="md:shrink-0 ">
+      <img class="h-48 w-full object-cover md:h-full md:w-60 xl:w-[400px] xl:h-[500px]"
+        src="{% static 'images/10.jpg'%}" alt="about amage">
     </div>
-    <!-- end about us  -->
+    <div class="p-8 xl:h-fulls flex flex-col justify-center gap-4 my-auto ">
+      <div class=" tracking-wide text-lg text-[#f5056d] font-semibold md:text-xl lg:text-3xl">درباره ما</div>
+
+      <p class="mt-2 text-slate-500 text-justify text-sm xl:text-md">بازدیدکننده عزیز، خوش‌آمدید به
+        رستورانمان!
+        رستوران ما یک مقصد منحصربه‌فرد برای عاشقان غذا و تجربه‌های لذیذ است. با تمرکز بر کیفیت، خلاقیت و
+        خدمات بی‌نظیر، ما به شما تجربه‌ای بی‌نظیر در دنیای طعم و تجربه ارائه می‌دهیم.
+        <br><br>
+        تیم ما از آشپزان باتجربه و علاقه‌مند تشکیل شده است که با استفاده از بهترین مواد اولیه و روش‌های
+        آشپزی خلاقانه، غذاهایی را تهیه می‌کنند که شما را به سفری جذاب و لذت‌بخش به دنیای طعم و تجربه دعوت
+        می‌کنند. هر غذا در رستوران ما، یک ترکیب هنر، عشق و اندیشه است که با دقت و عنایت به جزئیات
+      </p>
+      <input type="button" value=" سفارش آنلاین" class=" cbtn w-fit">
+    </div>
+  </div>
+</div>
+<!-- end about us  -->
+
+<!-- start our team -->
+<div class="mb-16 w-[85%] md:w-[80%] mx-auto overflow-x-scroll ">
+  <!-- Code block starts -->
+  <div>
+    <p class="text-lg text-center py-6 font-bold">تیم ما</p>
+  </div>
+  <div class=" px-10  flex gap-12 justify-center items-center">
+
+
+
+    <!-- item -1  -->
+    <div role="listitem" class=" relative mt-16 mb-32 sm:mb-24 w-60 py-8">
+      <div class="rounded overflow-hidden shadow-lg bg-white">
+        <div class="absolute -mt-20 w-full flex justify-center">
+          <div class="w-36 h-36">
+            <img src="{%static 'admin/profile/2.jpg'%}" class="rounded-full object-cover h-full w-full shadow-md" />
+          </div>
+        </div>
+        <div class="px-6 mt-[70px]">
+          <h1 class="font-bold text-2xl text-center mb-1">حسین راموز</h1>
+          <p class=" text-sm font-semibold text-[#f5056d] text-center">مؤسس رستورانت گل یخ</p>
+          <p class="text-center text-gray-600 text-sm pt-3 font-normal">The CEO's role in
+            raising a company's corporate IQ is to establish an atmosphere that promotes
+            knowledge sharing and collaboration.</p>
+
+          <!-- sotial media icons -->
+          <div class="w-full flex justify-center pt-5 pb-5">
+            <a href="javascript:void(0)" class="mx-5">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="javascript:void(0)" class="mx-5">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="javascript:void(0)" class="mx-5">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- item -2  -->
+    <div role="listitem" class=" relative mt-16 mb-32 sm:mb-24 w-60 py-8">
+      <div class="rounded overflow-hidden shadow-lg bg-white">
+        <div class="absolute -mt-20 w-full flex justify-center">
+          <div class="w-36 h-36">
+            <img src="{%static 'admin/profile/3.jpg'%}" class="rounded-full object-cover h-full w-full shadow-md" />
+          </div>
+        </div>
+        <div class="px-6 mt-[70px]">
+          <h1 class="font-bold text-2xl text-center mb-1">حسین راموز</h1>
+          <p class=" text-sm font-semibold text-[#f5056d] text-center">مؤسس رستورانت گل یخ</p>
+          <p class="text-center text-gray-600 text-sm pt-3 font-normal">The CEO's role in
+            raising a company's corporate IQ is to establish an atmosphere that promotes
+            knowledge sharing and collaboration.</p>
+
+          <!-- sotial media icons -->
+          <div class="w-full flex justify-center pt-5 pb-5">
+            <a href="javascript:void(0)" class="mx-5">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="javascript:void(0)" class="mx-5">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="javascript:void(0)" class="mx-5">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- item -3  -->
+    <div role="listitem" class=" relative mt-16 mb-32 sm:mb-24 w-60 py-8">
+      <div class="rounded overflow-hidden shadow-lg bg-white">
+        <div class="absolute -mt-20 w-full flex justify-center">
+          <div class="w-36 h-36">
+            <img src="https://cdn.tuk.dev/assets/photo-1564061170517-d3907caa96ea.jfif"
+              class="rounded-full object-cover h-full w-full shadow-md" />
+          </div>
+        </div>
+        <div class="px-6 mt-[70px]">
+          <h1 class="font-bold text-2xl text-center mb-1">حسین راموز</h1>
+          <p class=" text-sm font-semibold text-[#f5056d] text-center">مؤسس رستورانت گل یخ</p>
+          <p class="text-center text-gray-600 text-sm pt-3 font-normal">The CEO's role in
+            raising a company's corporate IQ is to establish an atmosphere that promotes
+            knowledge sharing and collaboration.</p>
+
+          <!-- sotial media icons -->
+          <div class="w-full flex justify-center pt-5 pb-5">
+            <a href="javascript:void(0)" class="mx-5">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="javascript:void(0)" class="mx-5">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="javascript:void(0)" class="mx-5">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+  <!-- Code block ends -->
+  <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+</div>
 
 {%endblock %}
