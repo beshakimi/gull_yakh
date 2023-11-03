@@ -81,7 +81,7 @@
                 <!-- <div id="formError" class="text-red-500 hidden"></div> -->
 
                 <!-- Submit Button -->
-                <button type="submit" class="cbtn w-full">
+                <button type="submit" class="cbtn w-full my-0">
                     اضافه کردن
                 </button>
             </form>
@@ -179,7 +179,7 @@
         </script> -->
 
         <!-- drinks List -->
-        <div class="bg-white rounded-sm shadow p-4 ml-4 h-[600px] overflow-y-scroll">
+        <div class="bg-white rounded-sm shadow p-4 ml-4 h-[500px] overflow-y-scroll">
             <h2 class="text-xl font-bold mb-4">آخرین نوشیدنی ها</h2>
             <ul>
 
@@ -188,13 +188,13 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <h3 class="font-bold">{{drink.Title}}</h3>
-                            <p class="text-gray-500 text-sm">{{ drink.Created|naturaltime }}
+                            <p class="text-gray-500 text-xs">{{ drink.Created|naturaltime }}
                             </p>
                         </div>
                         <div>
                             <a href="{% url 'update-drink' drink.id %}"
-                                class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block mb-2 sm:mb-0">ویرایش</a>
-                            <p class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block hover:cursor-pointer deleteButton"
+                                class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm  py-1 px-2 rounded-sm inline-block mb-2 sm:mb-0">ویرایش</a>
+                            <p class="bg-red-500 hover:bg-red-600 text-white text-sm  py-1 px-2 rounded-sm inline-block hover:cursor-pointer deleteButton"
                                 id="deleteButton_{{ drink.id }}">حذف</p>
 
 

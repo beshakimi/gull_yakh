@@ -15,6 +15,7 @@ class foodModel(models.Model):
     Price=models.IntegerField( verbose_name="قیمت")
     Image=models.ImageField(upload_to="foodImage/" ,verbose_name="عکس")
     Description=models.CharField(max_length=500 ,verbose_name="توضیحات")
+    Created = models.DateTimeField(default=timezone.now)
     # Category = models.CharField(max_length=100,blank=True, null=True, verbose_name="دسته بندی")
 
     def __str__(self):
