@@ -1,28 +1,26 @@
 {%extends "addProducts/layout.html"%}
 {%load static%}
+{% load humanize %}
 
 {%block mainContent %}
 <!-- start blog details -->
 
-<div class="w-[90%] mx-auto px-4 py-8 mt-20 ">
-    <div class="flex flex-col md:flex-row">
-      <div class="md:w-1/2 md:ml-8">
-        <div class="w-full">
-          <div class="overflow-hidden h-[200px] md:h-[300px] lg:h-[400px] relative ">
-            <img
-              id="mainImage"
-              src="{{postDetails.Image.url}}"
-              alt="Selected Post Image"
-              class="w-full h-full shadow post-image object-cover hover:cursor-pointer hover:scale-110 ease-in-out duration-500"
-            />
+<div class="w-[95%] mx-auto px-4 py-8 mt-20 ">
+  <div class="flex flex-col md:flex-row">
+    <div class="md:w-1/2 md:ml-8 ">
+      <div class="w-full">
+        <div class="overflow-hidden border p-1 shadow-lg h-[300px] md:h-[300px] lg:h-[450px] relative ">
+          <img id="mainImage" src="{{postDetails.Image.url}}" alt="Selected Post Image"
+            class="w-full h-full shadow post-image object-cover hover:cursor-pointer hover:scale-110 ease-in-out duration-500" />
 
-            <div class="  bg-black bg-opacity-60 flex flex-col justify-center items-center border w-12 h-12 p-2 absolute top-4 left-4 z-10">
-                <h2 class="font-semibold text-center text-sm leading-5 text-white">{{ postDetails.Date|date:"d F"}}<h2>
-              <!-- <p class="text-white text-[12px]">سنبله</p> -->
-          </div>
+          <!-- <div
+            class="  bg-black bg-opacity-60 flex flex-col justify-center items-center border w-12 h-12 p-2 absolute top-4 left-4 z-10">
+            <h2 class="font-semibold text-center text-sm leading-5 text-white">{{ postDetails.Date|date:"d F"}}<h2>
+                <p class="text-white text-[12px]">سنبله</p>
+          </div> -->
 
-          </div>
-          <!-- <div class="grid grid-cols-3 md:grid-cols-3">
+        </div>
+        <!-- <div class="grid grid-cols-3 md:grid-cols-3">
             <div
               id="image1"
               class="cursor-pointer h-28 md:32 lg:h-40 relative"
@@ -67,67 +65,87 @@
               ></div>
             </div>
           </div> -->
-        </div>
       </div>
+    </div>
 
-      <div class="md:w-1/2">
-       
+    <div class="md:w-1/2">
 
-        <h2 class="text-2xl font-bold my-4">{{postDetails.Title}}</h2>
-        <p class="text-gray-500 text-sm md:text-[16px] md:leading-6  text-justify">
-          {{postDetails.Description}}
-        </p>
+      <h2 class=" text-right text-[14px] mt-3  text-gray-500 ">
+        {{ postDetails.created_at|naturaltime }}</h2>
+      <h2 class="text-lg font-bold my-2">{{postDetails.Title}}</h2>
+      <p class="text-gray-600 text-sm  md:leading-6  text-justify">
+        {{postDetails.Description}}
+      </p>
 
-        <div class="flex justify-between items-center mt-4">
-          <button
-            class="p-[10px] mt-6 w-28 text-sm font-bold bg-[#f5056d] rounded-sm text-white shadow-lg hover:cursor-pointer hover:bg-white hover:text-black ease-in duration-300"
-            onclick="toggleCommentForm()"
-          >
-            نظر دهید
-          </button>
-        </div>
-        <form id="commentForm" class="mt-4" style="display: none">
-          <label for="author" class="block text-gray-700 font-bold"
-            >نام شما</label
-          >
-          <input
-            type="text"
-            id="author"
-            class="w-full border border-gray-300 rounded py-2 px-3 mb-2 outline-none focus:border-[#f5056d]"
-          />
-          <label for="content" class="block text-gray-700 font-bold"
-            >نظر</label
-          >
-          <textarea
-            id="content"
-            class="w-full border border-gray-300 rounded py-2 px-3 h-28 outline-none hover:outline-none focus:border-[#f5056d]"
-          ></textarea>
-          <button
-            type="submit"
-            class="p-[10px] mt-4 w-28 text-sm font-bold bg-[#f5056d] rounded-sm text-white shadow-lg hover:cursor-pointer hover:bg-white hover:text-black ease-in duration-300"
-          >
+
+      <div class="md:flex gap-2 my-4">
+
+        <form id="commentForm" class="mt-4 md:w-1/2 px-4 border">
+          <h1 class="w-14 py-2 text-sm font-bold border-b-2 border-gray-500">نظر دهید</h1>
+          <label for="author" class="block text-gray-700 text-sm pt-2 font-bold">نام شما</label>
+          <input type="text" id="author" class="input my-1" />
+          <label for="content" class="block mt-2 text-gray-700 text-sm font-bold">نظر</label>
+          <textarea id="content" class="input my-1"></textarea>
+          <button type="submit" class="cbtn py-2 my-2">
             ارسال نظر
           </button>
         </form>
+
+        <div class="md:w-1/2 h-full mt-4 px-4 border py-2  ">
+          <h1 class="w-12 pb-2 text-sm font-bold border-b-2 border-gray-500">نظر ها</h1>
+          <!-- comment -1  -->
+          <div>
+            <div class="flex gap-2 items-center my-2 ">
+              <img src="{{user.profile.avatar.url}}" alt="" class="w-8 h-8 rounded-full object-cover">
+              <p class="text-sm font-bold">رضا بهرام</p>
+            </div>
+
+            <div class="mt-2">
+              <p class="text-xs text-gray-400"> تشکر از گل یخ بابت غذا های بی نظیر شاتشکر از گل یخ بابت غذا های بی نظیر
+                شاتشکر از گل یخ بابت غذا های بی نظیر شان</p>
+            </div>
+            <hr class="border-p-1 w-full my-2">
+          </div>
+          <!-- comment -2  -->
+          <div>
+            <div class="flex gap-2 items-center my-2 ">
+              <img src="{{user.profile.avatar.url}}" alt="" class="w-8 h-8 rounded-full object-cover">
+              <p class="text-sm font-bold">رضا بهرام</p>
+            </div>
+
+            <div class="mt-2">
+              <p class="text-xs text-gray-400"> تشکر از گل یخ بابت غذا های بی نظیر شاتشکر از گل یخ بابت غذا های بی نظیر
+                شاتشکر از گل یخ بابت غذا های بی نظیر شان</p>
+            </div>
+            <hr class="border-p-1 w-full my-2">
+          </div>
+          <!-- comment -3  -->
+          <div>
+            <div class="flex gap-2 items-center my-2 ">
+              <img src="{{user.profile.avatar.url}}" alt="" class="w-8 h-8 rounded-full object-cover">
+              <p class="text-sm font-bold">رضا بهرام</p>
+            </div>
+
+            <div class="mt-2">
+              <p class="text-xs text-gray-400"> تشکر از گل یخ بابت غذا های بی نظیر شاتشکر از گل یخ بابت غذا های بی نظیر
+                شاتشکر از گل یخ بابت غذا های بی نظیر شان</p>
+            </div>
+            <hr class="border-p-1 w-full my-2">
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    function showImage(imageIndex) {
-      const mainImage = document.getElementById("mainImage");
-      const smallImage = document
-        .getElementById("image" + imageIndex)
-        .getElementsByTagName("img")[0];
-      mainImage.src = smallImage.src;
-    }
+<!-- <script>
 
-    function toggleCommentForm() {
-      const commentForm = document.getElementById("commentForm");
-      commentForm.style.display =
-        commentForm.style.display === "none" ? "block" : "none";
-    }
-  </script>
+  function toggleCommentForm() {
+    const commentForm = document.getElementById("commentForm");
+    commentForm.style.display =
+      commentForm.style.display === "none" ? "block" : "none";
+  }
+</script> -->
 
 
 {%endblock%}

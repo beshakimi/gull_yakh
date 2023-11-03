@@ -154,9 +154,35 @@ def drinkDetailsView(request,drink_id):
 # start post list view
 def blogView(request):
     posts = BlogModel.objects.all().order_by('-id')
+    page = request.GET.get('page')
+
+
+        # تعداد نوشیدنی‌ها در هر صفحه
+    items_per_page = 8
+
+    paginator = Paginator(posts, items_per_page)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        posts = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        posts = paginator.page(page)
+    
+    left_index = (int(page) - 2 )
+    if left_index < 1:
+        left_index = 1
+    
+    right_index = (int(page) + 2)
+    if right_index > paginator.num_pages:
+        right_index = paginator.num_pages
+
+    pagination_range = range(left_index, right_index + 1)
 
     context={
         "postlist":posts,
+        'pagination_range': pagination_range,
         'section':'blog',
     }
 
