@@ -30,33 +30,30 @@
 
 <!-- start adddrinks -->
 <div class=" md:mr-64 md:ml-4 ">
-    <div class="grid grid-cols-1 my-4">
+    <div class="grid grid-cols-1 my-4 mx-4">
         <!-- Add drink Form -->
-        <div class="bg-white rounded-lg shadow p-4">
-            <form method="post" enctype="multipart/form-data" onsubmit="return validateForm()"
-                class="md:grid grid-cols-2 gap-x-4">
+        <div class="bg-white rounded-sm shadow p-4 w-1/2">
+            <form method="post" enctype="multipart/form-data" onsubmit="return update_validateForm()" class="">
                 {%csrf_token%}
 
 
                 <!-- drink price -->
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 font-bold mb-2">نام : </label>
-                    <input id="name" type="text" class="input" Name="title" value="{{drink.Title}}"
-                        placeholder="نام غذا را بنویسید">
+                    <input id="name" type="text" class="input" Name="title" value="{{drink.Title}}">
                 </div>
 
                 <!-- drink price -->
                 <div class="mb-4">
                     <label for="price" class="block text-gray-700 font-bold mb-2"> قیمت: </label>
-                    <input id="price" type="number" class="input" Name="price" value="{{drink.Price}}"
-                        placeholder="100">
+                    <input id="price" type="number" class="input" Name="price" value="{{drink.Price}}">
                 </div>
 
                 <!-- drink image -->
                 <div class="mb-4">
                     <label for="chose-image" class="block text-gray-700 font-bold mb-2">
                         عکس: {{drink.Image.url}}</label>
-                    <input id="" type="file" value="{{drink.Image.url}}" class="input" name="image">
+                    <input id="chose-image" type="file" value="{{drink.Image.url}}" class="input" name="image">
                 </div>
 
                 <!-- <div class="mb-4">
@@ -68,8 +65,8 @@
                 <!-- drink Description -->
                 <div class="mb-4">
                     <label for="description" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-                    <textarea id="description" class="input" name="description" rows="4"
-                        placeholder="توضیحات در مورد غذا">{{ drink.Description }}</textarea>
+                    <textarea id="description" class="input" name="description"
+                        rows="4">{{ drink.Description }}</textarea>
                 </div>
                 <!-- Submit Button -->
                 <button type="submit" class="cbtn w-20 my-0 flex justify-center">

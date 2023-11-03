@@ -12,6 +12,7 @@ from accounts.models import Profile
 from django.db.models import Q
 
 
+
 # Create your views here.
 
 # start home view 
@@ -155,7 +156,6 @@ def drinkDetailsView(request,drink_id):
 def blogView(request):
     posts = BlogModel.objects.all().order_by('-id')
     page = request.GET.get('page')
-
 
         # تعداد نوشیدنی‌ها در هر صفحه
     items_per_page = 8
