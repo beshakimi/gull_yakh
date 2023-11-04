@@ -1,1 +1,6 @@
 jdatetime
+hijri_converter
+persintools
+jalaliDate
+pytz
+pillow
