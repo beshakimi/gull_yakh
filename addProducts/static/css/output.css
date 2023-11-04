@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com
+! tailwindcss v3.3.5 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -993,6 +993,10 @@ video {
   margin: 0.5rem;
 }
 
+.m-8 {
+  margin: 2rem;
+}
+
 .-mx-4 {
   margin-left: -1rem;
   margin-right: -1rem;
@@ -1078,6 +1082,11 @@ video {
   margin-bottom: auto;
 }
 
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
 .-mt-20 {
   margin-top: -5rem;
 }
@@ -1100,10 +1109,6 @@ video {
 
 .mb-2 {
   margin-bottom: 0.5rem;
-}
-
-.mb-32 {
-  margin-bottom: 8rem;
 }
 
 .mb-4 {
@@ -1196,6 +1201,10 @@ video {
 
 .mt-\[70px\] {
   margin-top: 70px;
+}
+
+.ml-8 {
+  margin-left: 2rem;
 }
 
 .block {
@@ -1456,6 +1465,10 @@ video {
   width: 36px;
 }
 
+.w-\[400px\] {
+  width: 400px;
+}
+
 .w-\[420px\] {
   width: 420px;
 }
@@ -1505,39 +1518,24 @@ video {
   width: 100vw;
 }
 
-.min-w-full {
-  min-width: 100%;
-}
-
-.min-w-max {
-  min-width: -moz-max-content;
-  min-width: max-content;
-}
-
-.min-w-min {
-  min-width: -moz-min-content;
-  min-width: min-content;
-}
-
-.min-w-fit {
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-}
-
-.min-w-\[160px\] {
-  min-width: 160px;
+.w-\[350px\] {
+  width: 350px;
 }
 
 .min-w-\[240px\] {
   min-width: 240px;
 }
 
-.max-w-lg {
-  max-width: 32rem;
+.min-w-full {
+  min-width: 100%;
 }
 
 .max-w-\[240px\] {
   max-width: 240px;
+}
+
+.max-w-lg {
+  max-width: 32rem;
 }
 
 .flex-1 {
@@ -2666,10 +2664,6 @@ video {
     margin-bottom: 0px;
   }
 
-  .sm\:mb-24 {
-    margin-bottom: 6rem;
-  }
-
   .sm\:w-\[60\%\] {
     width: 60%;
   }
@@ -3016,8 +3010,8 @@ video {
     width: 24rem;
   }
 
-  .lg\:w-\[85\%\] {
-    width: 85%;
+  .lg\:w-\[80\%\] {
+    width: 80%;
   }
 
   .lg\:grid-cols-2 {
