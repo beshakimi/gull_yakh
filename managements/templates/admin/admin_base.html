@@ -262,11 +262,11 @@
 
         <!-- start profile  -->
         <a href="./profile.html">
-          <div class="hidden md:flex w-fit items-center justify-srart ml-6 px-2 rounded-sm hover:cursor-pointer">
-            <img src="{{ user.profile.avatar.url }}" alt="" class="rounded-full w-[30px] h-[30px] object-cover" />
 
-            <p class="font-semibold text-white items-center mr-2 ">{{user.profile.first_name}}
+          <div class="hidden md:flex w-fit items-center justify-srart ml-6 px-2 rounded-sm hover:cursor-pointer">
+            <p class="text-sm font-semibold text-white items-center ml-2 ">{{user.profile.first_name}}
               {{user.profile.last_name}}</p>
+            <img src="{{ user.profile.avatar.url }}" alt="" class="rounded-full w-[34px] h-[34px] object-cover" />
           </div>
         </a>
 
