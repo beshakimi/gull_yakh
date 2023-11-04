@@ -261,7 +261,7 @@
 
 
         <!-- start profile  -->
-        <a href="./profile.html">
+        <a href="{% url "profile" id=user.id %}">
 
           <div class="hidden md:flex w-fit items-center justify-srart ml-6 px-2 rounded-sm hover:cursor-pointer">
             <p class="text-sm font-semibold text-white items-center ml-2 ">{{request.user.profile.first_name}}

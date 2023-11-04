@@ -61,9 +61,15 @@
                         <img src="{% static 'icons/search-icon.png'%}" alt="" class="w-4 h-4 text-gray-500">
                     </div>
 
-                    <input type="search" id="search-input"
-                        class="block bg-transparent w-72 md:w-80 lg:w-96 h-10 p-4 pr-10 text-sm text-white border lg:border-2 border-gray-300 rounded-3xl focus:outline-none focus:right-2 focus:ring-[#f5056d] lg:focus:border-2 focus:border-[#f5056d] placeholder-gray-300"
-                        placeholder="دنبال چیزی هستید؟ جستجو کنید" name="query" required>
+                    <div class="relative">
+                        <input type="search" id="search-input"
+                            class="block bg-transparent w-72 md:w-80 lg:w-96 h-10 p-4 pr-10 text-sm text-white border lg:border-2 border-gray-300 rounded-3xl focus:outline-none focus:right-2 focus:ring-[#f5056d] lg:focus:border-2 focus:border-[#f5056d] placeholder-gray-300"
+                            placeholder="دنبال چیزی هستید؟ جستجو کنید" name="query" required>
+                        <!-- the autocomplete list -->
+                        <ul id="autocompleteList"
+                            class="hidden absolute left-0 top-full w-full mt-0.5 max-h-64 overflow-y-auto bg-gray-50  border-gray-200 rounded shadow text-gray-700 text-xs leading-5">
+                        </ul>
+                    </div>
 
                     <button type="submit"
                         class="text-white h-8 absolute left-1 bottom-1 bg-[#f5056d] hover:bg-[#d41e63] focus:outline-none font-medium rounded-3xl rounded-r-none text-sm px-4 py-1 duration-150">جستجو</button>
@@ -76,40 +82,74 @@
 
         <script>
             const searchInput = document.getElementById('search-input');
-            const searchResults = document.getElementById('search-results');
+            const autocompleteList = document.getElementById('autocompleteList');
 
-            searchInput.addEventListener('input', function (event) {
-                const query = event.target.value;
+            const foodDrinks = [
+                'کباب',
+                'پیتزا',
+                'برنج',
+                'قیمه',
+                'کوفته',
+                'آش',
+                'خورشت',
+                'کشک بادمجان',
+                'آلو مسما',
+                'کوکو سبزی',
+                'ماکارونی',
+                'پلو',
+                'فسنجان',
+                'خوراک',
+                'میرزاقاسمی',
+                'شیشلیک',
+                'استانبولی',
+                'کوکو سیب‌زمینی',
+                'بیف استروگانف',
+                'کوکو سیب‌زمینی',
+                'کوکو سیب‌زمینی',
+                'کوکتل میوه',
+                'آبمیوه',
+                'چای',
+                'قهوه',
+                'آب',
+                'نوشابه',
+                'دمنوش',
+                'آبنبات',
+                'لیموناد',
+                'دوغ',
+                'شیر',
+                'روح انگور'
+                // Add more country names here
+            ];
 
-                if (query.length > 0) {
-                    // اگر مقدار ورودی بیشتر از صفر باشد، درخواست را به سرور ارسال کنید
-                    fetch(`{% url 'search_result' %}?query=${encodeURIComponent(query)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // پاک کردن نتایج قبلی
-                            searchResults.innerHTML = '';
+            searchInput.addEventListener('input', function () {
+                const searchValue = this.value.trim();
+                const matchings = foodDrinks.filter(food => food.includes(searchValue));
 
-                            // ایجاد آیتم‌های نتایج جستجو
-                            data.forEach(item => {
-                                const li = document.createElement('li');
-                                li.textContent = item.name;
+                if (searchValue.length > 0 && matchings.length > 0) {
+                    autocompleteList.innerHTML = '';
+                    autocompleteList.classList.remove('hidden');
 
-                                // اضافه کردن رویداد کلیک به هر آیتم
-                                li.addEventListener('click', function () {
-                                    // هدایت به صفحه نتایج جستجو
-                                    window.location.href = item.url;
-                                });
+                    matchings.forEach(food => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = food;
+                        listItem.classList.add('px-2', 'py-2', 'cursor-pointer', 'hover:bg-gray-100');
 
-                                // اضافه کردن آیتم به لیست نتایج
-                                searchResults.appendChild(li);
-                            });
-                        })
-                        .catch(error => {
-                            console.error('خطا در دریافت نتایج جستجو:', error);
+                        listItem.addEventListener('click', function () {
+                            searchInput.value = food;
+                            autocompleteList.classList.add('hidden');
                         });
+
+                        autocompleteList.appendChild(listItem);
+                    });
                 } else {
-                    // اگر مقدار ورودی خالی است، نتایج را پاک کنید
-                    searchResults.innerHTML = '';
+                    autocompleteList.innerHTML = '';
+                    autocompleteList.classList.add('hidden');
+                }
+            });
+            // hide autocompletelist when clicked outside of it
+            document.addEventListener('click', function (event) {
+                if (!autocompleteList.contains(event.target) && event.target !== searchInput) {
+                    autocompleteList.classList.add('hidden');
                 }
             });
         </script>
