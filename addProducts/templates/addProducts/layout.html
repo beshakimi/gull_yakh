@@ -25,7 +25,7 @@
 </head>
 
 
-<body dir="rtl" class="font-vazir bg-gray-50">
+<body dir="rtl" class="font-vazir">
 
 
 
@@ -139,7 +139,7 @@
               id="user-model">
               <!-- strar item 1 -->
               {% if user.id %}
-              <a href="{% url 'profile_view' id=user.id %}">
+              <a href="{% url 'profile' id=user.id %}">
                 <div class="flex items-center w-full px-2 hover:bg-gray-100 hover:cursor-pointer" id="log-in-profile">
                   <img src="{{user.profile.avatar.url}}" alt=""
                     class="w-6 h-6 border border-slate-900 rounded-full object-cover">
