@@ -16,6 +16,10 @@ urlpatterns = [
     # path('new_password', views.new_password_view, name='new_password'),
     path('confirm_change_password', views.confirm_change_password_view, name='confirm_change_password'),
     path('change_password', views.change_password_view, name='change_password'),
+
+    # fore reset password in email link
+    path('reset_password/<int:user_id>/<str:token>/', views.reset_password_confirm_view, name='reset_password_confirm'),
+
     
 
     
