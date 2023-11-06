@@ -42,9 +42,9 @@ def register(request):
             messages.error(request, "نام کاربری باید با حداقل سه حرف شروع شود و تنها شامل حروف انگلیسی، اعداد، و _ باشد")
             return redirect('register')
         
-        if not re.match(r'^[a-zA-Z0-9]+@[a-zA-Z]{3,}.[a-zA-Z]{2,5}$', email):
-            messages.error(request, "ایمیل آدرس اشباه است")
-            return redirect('register')
+        # if not re.match(r'^[a-zA-Z0-9]+@[a-zA-Z]{3,}.[a-zA-Z]{2,5}$', email):
+        #     messages.error(request, "ایمیل آدرس اشباه است")
+        #     return redirect('register')
         
         if len(password) < 1:
             messages.error(request, "پسورد باید بزرگتر از 6 حرف باشد")
@@ -138,9 +138,68 @@ def profile_edit_view(request, id):
     
 
 # forget password view 
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+
+# reset_password
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.contrib.auth.tokens import default_token_generator
+from accounts import models
+
 def forget_password_view(request):
-     
-    return render(request, "accounts/forget_password.html")
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            # اگر کاربری با این ایمیل وجود نداشته باشد
+            return redirect('confirm_message')  # یا به صفحه دیگری هدایت کنید
+
+        # ایجاد توکن تصادفی برای بازنشانی پسورد
+        token = default_token_generator.make_token(user)
+        # ارسال لینک بازنشانی پسورد به ایمیل کاربر
+        reset_link = request.build_absolute_uri(f'/accounts/reset_password/{user.pk}/{token}/')  # ساخت لینک بازنشانی پسورد
+        send_mail(
+            'Password Reset',
+            f'Click the following link to reset your password: {reset_link}',
+            'your_email@example.com',
+            [email],
+            fail_silently=False,
+        )
+        return redirect('confirm_message')  # یا به صفحه دیگری هدایت کنید
+    else:
+        return render(request, "accounts/forget_password.html")
+    
+
+    # برای اینکه وقتی بالای لینک کلیک شد به این صفحه راجع شود
+from django.shortcuts import render, redirect
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import SetPasswordForm
+
+def reset_password_confirm_view(request, user_id, token):
+    User = get_user_model()
+    try:
+        user = User.objects.get(pk=user_id)
+    except User.DoesNotExist:
+        return redirect('confirm_message')  # یا به صفحه دیگری هدایت کنید
+
+    if not default_token_generator.check_token(user, token):
+        return redirect('confirm_message')  # یا به صفحه دیگری هدایت کنید
+
+    if request.method == 'POST':
+        form = SetPasswordForm(user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('password_reset_success')  # یا به صفحه دیگری هدایت کنید
+    else:
+        form = SetPasswordForm(user)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/new_password.html', context)
 
 
 #  confirm message view 
