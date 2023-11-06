@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404,Http404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -10,25 +10,21 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
 from accounts.models import User
+from accounts import models
 
-# from .forms import MyPasswordChangeForm
-from . import models
-import uuid
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.db.models import Q
+
 from django.shortcuts import redirect
 import re
 
+# for sent email
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
-# Create your views here.
-# def home(request):
-#     return render(request, 'base.html')
-
-# registeration view
+# register view
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -72,11 +68,7 @@ def register(request):
 
     return render(request, 'accounts/register.html')
 
-# login view
-from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
-
-
+# login view 
 def login_page(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -137,16 +129,6 @@ def profile_edit_view(request, id):
         return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
     
 
-# forget password view 
-from django.core.mail import send_mail
-from django.shortcuts import render, redirect
-
-# reset_password
-from django.core.mail import send_mail
-from django.shortcuts import render, redirect
-from django.contrib.auth.tokens import default_token_generator
-from accounts import models
-
 def forget_password_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -154,15 +136,19 @@ def forget_password_view(request):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             # اگر کاربری با این ایمیل وجود نداشته باشد
-            return redirect('confirm_message')  # یا به صفحه دیگری هدایت کنید
+            return redirect('forget_password')  # یا به صفحه دیگری هدایت کنید
 
         # ایجاد توکن تصادفی برای بازنشانی پسورد
         token = default_token_generator.make_token(user)
         # ارسال لینک بازنشانی پسورد به ایمیل کاربر
         reset_link = request.build_absolute_uri(f'/accounts/reset_password/{user.pk}/{token}/')  # ساخت لینک بازنشانی پسورد
+        
+        # حذف تگ‌های HTML و نمایش متن
+        email_text = strip_tags(render_to_string('accounts/reset_password_email.html', {'reset_link': reset_link}))
+
         send_mail(
             'Password Reset',
-            f'Click the following link to reset your password: {reset_link}',
+            email_text,
             'your_email@example.com',
             [email],
             fail_silently=False,
@@ -172,35 +158,37 @@ def forget_password_view(request):
         return render(request, "accounts/forget_password.html")
     
 
+
+    
+
     # برای اینکه وقتی بالای لینک کلیک شد به این صفحه راجع شود
-from django.shortcuts import render, redirect
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import SetPasswordForm
+
 
 def reset_password_confirm_view(request, user_id, token):
-    User = get_user_model()
-    try:
-        user = User.objects.get(pk=user_id)
-    except User.DoesNotExist:
-        return redirect('confirm_message')  # یا به صفحه دیگری هدایت کنید
-
-    if not default_token_generator.check_token(user, token):
-        return redirect('confirm_message')  # یا به صفحه دیگری هدایت کنید
-
     if request.method == 'POST':
-        form = SetPasswordForm(user, request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('password_reset_success')  # یا به صفحه دیگری هدایت کنید
-    else:
-        form = SetPasswordForm(user)
+        new_password1 = request.POST['new_password1']
+        new_password2 = request.POST['new_password2']
 
-    context = {
-        'form': form
-    }
-    return render(request, 'accounts/new_password.html', context)
+        if new_password1 == new_password2:
+            try:
+                user = User.objects.get(pk=user_id)
+            except User.DoesNotExist:
+                # کاربری با این شناسه وجود ندارد
+                raise Http404()
 
+            if default_token_generator.check_token(user, token):
+                # تغییر رمز عبور
+                user.set_password(new_password1)
+                user.save()
+                update_session_auth_hash(request, user)  # رفع خطر از دست دادن جلسه ورود
+                return redirect('confirm_change_password')  # تغییر مسیر به جایی که دلخواهید
+            else:
+                # توکن معتبر نیست
+                raise Http404()
+        else:
+            messages.error(request, 'رمز عبور جدید با تایید رمز عبور مطابقت ندارد.')
+
+    return render(request, 'accounts/new_password.html')
 
 #  confirm message view 
 def confirm_message_view(request):
@@ -232,7 +220,6 @@ def change_password_view(request):
                 redirect('confirm_message')
 
                 update_session_auth_hash(request, request.user)  # رفع خطر از دست دادن جلسه ورود
-                messages.success(request, 'رمز عبور شما با موفقیت تغییر کرد.')
                 return redirect('confirm_change_password')  # تغییر مسیر به جایی که دلخواهید
             else:
                 messages.error(request, 'رمز عبور جدید با تایید رمز عبور مطابقت ندارد.')

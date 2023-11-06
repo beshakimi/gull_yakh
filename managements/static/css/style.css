@@ -1206,6 +1206,18 @@ video {
   margin-top: 70px;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-\[6px\] {
+  margin-top: 6px;
+}
+
+.mt-\[8px\] {
+  margin-top: 8px;
+}
+
 .block {
   display: block;
 }
@@ -1539,6 +1551,10 @@ video {
 
 .max-w-lg {
   max-width: 32rem;
+}
+
+.max-w-screen-md {
+  max-width: 768px;
 }
 
 .flex-1 {
@@ -2830,6 +2846,10 @@ video {
 
   .md\:w-\[350px\] {
     width: 350px;
+  }
+
+  .md\:w-\[420px\] {
+    width: 420px;
   }
 
   .md\:w-\[70\%\] {
