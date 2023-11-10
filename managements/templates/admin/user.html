@@ -61,12 +61,10 @@
         <thead>
           <tr>
             <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">عکس</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">نام</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">نام خانوادگی
-            </th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">نام کاربری</th>
+            
             <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">ایمل</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">شماره تماس
-            </th>
+            
             <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">تاریخ پیوستن
             </th>
             <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap"> نوعیت کاربر
@@ -82,12 +80,11 @@
             <td class="px-6 py-4 flex justify-center whitespace-nowrap">
               <img class="h-8 w-8 rounded-full object-cover" src="{{user.profile.avatar.url}}" alt="User Avatar">
             </td>
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.profile.first_name}}
+            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.username}}
             </td>
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.profile.last_name}}
-            </td>
+            
             <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.email}}</td>
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.profile.phone}}</td>
+            
             <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
               {{ user.profile.created_at|naturaltime }}
             </td>
