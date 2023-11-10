@@ -10,6 +10,7 @@ from addProducts.models import BlogModel
 from accounts.models import Profile
 
 from django.db.models import Q
+from django.contrib import messages
 
 
 
@@ -286,8 +287,11 @@ def create_checkout(request, id):
             phone_number1=phone_number1,
             phone_number2=phone_number2,
             tazkra_number=tazkra_number,
-            address=address
+            address=address, 
+            
         )
+        messages.success(request, 'سفارش شما موفقانه ثبت گردید')
+        return redirect('home')
        
         
         # Redirect to a success page or perform further actions
@@ -317,6 +321,8 @@ def search_result_view(request):
     }
 
     return render(request, 'addProducts/search_result.html', context)
+
+
 
 
  

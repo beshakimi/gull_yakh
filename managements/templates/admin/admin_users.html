@@ -42,7 +42,7 @@
     </div>
 
     <div class="flex gap-2 items-center justify-end w-full 
-    mx-12">
+    ml-8">
         <a href="{% url 'user-list'%}"
             class="px-2 py-1 bg-blue-600 rounded-sm hover:bg-blue-800 text-white text-sm">همه</a>
         <a href="{% url 'users' %}"
@@ -65,15 +65,11 @@
                         <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">
                             عکس</th>
                         <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">
-                            نام</th>
-                        <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">
-                            نام خانوادگی
-                        </th>
+                            نام کاربری</th>
+                        
                         <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">
                             ایمل</th>
-                        <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">
-                            شماره تماس
-                        </th>
+                        
                         <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">
                             تاریخ پیوستن
                         </th>
@@ -94,15 +90,12 @@
                                 alt="User Avatar">
                         </td>
                         <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
-                            {{user.profile.first_name}}
+                            {{user.username}}
                         </td>
-                        <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
-                            {{user.profile.last_name}}
-                        </td>
+                        
                         <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.email}}
                         </td>
-                        <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
-                            {{user.profile.phone}}</td>
+                        
                         <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
                             {{ user.profile.created_at|naturaltime }}
                         </td>
@@ -154,15 +147,12 @@
                                 alt="User Avatar">
                         </td>
                         <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
-                            {{user.profile.first_name}}
+                            {{user.username}}
                         </td>
-                        <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
-                            {{user.profile.last_name}}
-                        </td>
+                        
                         <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.email}}
                         </td>
-                        <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
-                            {{user.profile.phone}}</td>
+                        
                         <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
                             {{ user.profile.created_at|naturaltime }}
                         </td>

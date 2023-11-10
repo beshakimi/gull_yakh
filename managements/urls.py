@@ -30,6 +30,6 @@ urlpatterns = [
 
     # chackout
     path('chackout', views.chackout_view, name='chackout'),
-    path('chackout_details', views.chackout_details_view, name='chackout_details'),
+    path('chackout_details/<int:pk>/', views.chackout_details_view, name='chackout_details'),
 
 ]

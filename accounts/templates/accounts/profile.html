@@ -15,6 +15,26 @@
     <!-- Username -->
     <h2 class="text-2xl font-bold mb-4 ">{{user.username}} </h2>
 
+    <!-- show error message  -->
+    <div>
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <p
+          class="absolute top-20 left-1/2 transform -translate-x-1/2 text-center text-white py-4 px-4 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
+          {{ message }}
+        </p>
+
+        {% endif %}
+        {% endfor %}
+        <script>
+          setTimeout(function () {
+            var errorMessage = document.querySelector('.error-message');
+            if (errorMessage) {
+              errorMessage.classList.add('hidden');
+            }
+          }, 5000);
+        </script>
+    </div>
 
     <!-- User Information -->
     <div class="bg-white  p-4 rounded-md shadow-md w-full">

@@ -1,4 +1,3 @@
-{%load static%}
 
 {% load static %}
 <!DOCTYPE html>
@@ -199,7 +198,7 @@
   <!--end Mobile Menu -->
 
   <!-- start navbar -->
-  <div class="w-full pr-8 md:w-screen h-16 bg-slate-800 fixed top-0 flex justify-between items-center md:pr-64">
+  <div class="w-full pr-8 md:w-full h-16 bg-slate-800 fixed top-0 flex  items-center md:pr-64">
 
     <div class="w-full p-2 flex justify-between items-center">
 
@@ -209,7 +208,7 @@
       </div>
       <!-- start notification  -->
 
-      <div class="flex items-center">
+      <div class="flex items-center w-fit">
         <div class="md:ml-6 hover:cursor-pointer" id="notificationIcon">
           <img src="{%static 'admin/icons/notification.gif'%}" alt=""
             class="p-[2px] mb-0 rounded-lg hover:bg-[#f5056d] duration-500" />
@@ -259,11 +258,12 @@
           </a>
         </div>
 
-
+      
+      
         <!-- start profile  -->
-        <a href="{% url "profile" id=user.id %}">
+        <a href="{% url "profile" id=user.id %}" class=" w-fit ml-6 ">
 
-          <div class="hidden md:flex w-fit items-center justify-srart ml-6 px-2 rounded-sm hover:cursor-pointer">
+          <div class="hidden md:flex w-fit items-center hover:cursor-pointer ">
             <p class="text-sm font-semibold text-white items-center ml-2 ">{{request.user.profile.first_name}}
               {{request.user.profile.last_name}}</p>
             <img src="{{ request.user.profile.avatar.url }}" alt="" class="rounded-full w-[34px] h-[34px] object-cover" />
@@ -284,11 +284,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
 
 
   {%block mainContent%}

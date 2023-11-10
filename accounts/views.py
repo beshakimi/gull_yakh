@@ -18,6 +18,7 @@ from django.contrib import messages
 
 from django.shortcuts import redirect
 import re
+from django.db.models import Q
 
 # for sent email
 from django.core.mail import send_mail
@@ -33,16 +34,15 @@ def register(request):
         re_password = request.POST['re_password']
 
 
-
-        if not re.match(r'^[a-zA-Z]{3}[a-zA-Z0-9_]*$', username):
-            messages.error(request, "نام کاربری باید با حداقل سه حرف شروع شود و تنها شامل حروف انگلیسی، اعداد، و _ باشد")
+        if not re.match(r'^[a-zA-Zآ-ی]{3}[a-zA-Z0-9_آ-ی]*$', username):
+            messages.error(request, "نام نامعتبر است")
             return redirect('register')
         
-        # if not re.match(r'^[a-zA-Z0-9]+@[a-zA-Z]{3,}.[a-zA-Z]{2,5}$', email):
-        #     messages.error(request, "ایمیل آدرس اشباه است")
-        #     return redirect('register')
+        if not re.match(r'^[a-zA-Z][a-zA-Z0-9_.]*@[a-zA-Z]{3,}\.[a-zA-Z]{2,5}$', email):
+            messages.error(request, "ایمیل آدرس نامتعبر است")
+            return redirect('register')
         
-        if len(password) < 1:
+        if len(password) < 6:
             messages.error(request, "پسورد باید بزرگتر از 6 حرف باشد")
             return redirect('register')
 
@@ -50,13 +50,13 @@ def register(request):
             messages.error(request, "پسورد مطابقت ندارد.")
             return redirect('register')
 
-        # if models.User.objects.filter(Q(email=email) & Q(email=email)).exists():
-        #     messages.error(request, "کاربری با این نام موجود است")
-        #     return redirect('register')
-
-        if models.User.objects.filter(email=email).exists():
-            messages.error(request, "کاربری با این ایمل موجود است ")
+        if models.User.objects.filter(Q(email=email) & Q(email=email)).exists():
+            messages.error(request, "کاربری با این مشخصات موجود است")
             return redirect('register')
+
+        # if models.User.objects.filter(email=email).exists():
+        #     messages.error(request, "کاربری با این ایمل موجود است ")
+        #     return redirect('register')
 
         user = models.User.objects.create_user(username=username, email=email, password=password)
         
@@ -100,33 +100,94 @@ def logout_page(request):
  
 
 # profile edit view
+
 def profile_edit_view(request, id):
     profile = get_object_or_404(Profile, pk=id)
     user = request.user
+    
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         phone = request.POST['phone']
         gender = request.POST['gender']
         
-        gender = request.POST.get('gender', profile.gender)
+        # بررسی نام و نام خانوادگی
+        name_pattern = r'^[a-zA-Z_ ]+$'
+        if not re.match(name_pattern, first_name): 
+            # نام و نام خانوادگی باید فقط شامل حروف انگلیسی و سمبل '_' باشند
+            messages.error(request, "نام نامعتبر است")
+            return redirect('profile', id=profile.id)
+        if not re.match(name_pattern, last_name):
+            messages.error(request, "نام خانوادگی نامعتبر است")
+            return redirect('profile', id=profile.id)
         
+        # بررسی شماره تماس
+        phone_pattern = r'^93\d{9}$'
+        if not re.match(phone_pattern, phone):
+            # شماره تماس باید 9 رقم و فقط شامل اعداد باشد
+            messages.error(request, "شماره تماس باید با کد 93 شروع شود ")
+            return redirect('profile', id=profile.id)
+        
+        # ادامه کدهای دیگر...
+        
+        import imghdr
+
+        def validate_image_format(image):
+            valid_formats = ('jpeg', 'jpg', 'png', 'gif', 'svg', 'webp')
+            image_format = imghdr.what(image)
+            if image_format not in valid_formats:
+                raise ValidationError('فرمت عکس نامعتبر است.')
+
         if 'avatar' in request.FILES:
             avatar = request.FILES['avatar']
+        try:
+            validate_image_format(avatar)
             profile.avatar = avatar
+        except ValidationError as e:
+            messages.error(request, str(e).strip('[]'))
+            return redirect('profile', id=profile.id)
+        # if 'avatar' in request.FILES:
+        #     avatar = request.FILES['avatar']
+        #     profile.avatar = avatar
 
-        profile.first_name =first_name
+        profile.first_name = first_name
         profile.last_name = last_name
         profile.phone = phone
         profile.gender = gender
         profile.user = user
-      
-        
+
         profile.save()
-        
+
         return redirect('home')
     else:
         return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
+# def profile_edit_view(request, id):
+#     profile = get_object_or_404(Profile, pk=id)
+#     user = request.user
+#     if request.method == 'POST':
+#         first_name = request.POST['first_name']
+#         last_name = request.POST['last_name']
+#         phone = request.POST['phone']
+#         gender = request.POST['gender']
+        
+#         gender = request.POST.get('gender', profile.gender)
+        
+#         if 'avatar' in request.FILES:
+#             avatar = request.FILES['avatar']
+#             profile.avatar = avatar
+
+#         profile.first_name =first_name
+#         profile.last_name = last_name
+#         profile.phone = phone
+#         profile.gender = gender
+#         profile.user = user
+      
+        
+#         profile.save()
+        
+#         return redirect('home')
+#     else:
+#         return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
     
 
 def forget_password_view(request):

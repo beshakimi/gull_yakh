@@ -71,6 +71,7 @@ class Checkout(models.Model):
     cart_item = models.ForeignKey(CartItem, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=200)
+    ordered = models.BooleanField(default=False)
     phone_number1=models.CharField(max_length=100)
     phone_number2 = models.CharField(max_length=100, null=True, blank=True)
     tazkra_number = models.CharField(max_length=100)
