@@ -28,7 +28,7 @@ notificationModel.classList.toggle("hidden");
 
 // error message script
 setTimeout(function () {
-  var errorMessage = document.querySelector('.error-message');
+  var errorMessage = document.querySelector('.success-message');
   if (errorMessage) {
       errorMessage.classList.add('hidden');
   }
@@ -191,18 +191,151 @@ function update_validateForm() {
     }
 
 
-    imageInput.addEventListener('change', function() {
+    if (imageInput.value !== "") {
         if (!imagePattern.test(imageInput.value)) {
+            errorElement.textContent = "فرمت عکس نامعتبر است";
+            errorElement.classList.remove("hidden");
+            setTimeout(function () {
+                errorElement.classList.add("hidden");
+            }, 5000);
+            return false;
+        }
+    }
+
+  if (descriptionInput.value === "") {
+        errorElement.textContent = "توضیحات را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+  
+
+    errorElement.classList.add("hidden");
+    return true;
+}
+
+// form validation script ford add posts 
+function post_validateForm() {
+    var nameInput = document.getElementById("name");
+    var imageInput = document.getElementById("chose-image");
+    var descriptionInput = document.getElementById("description");
+    var errorElement = document.getElementById("formError");
+
+    var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+    var imagePattern = /\.(jpg|jpeg|png|gif|svg|webp)$/i;
+    
+
+    if (nameInput.value === "" && imageInput.value === "" && descriptionInput.value === "") {
+        errorElement.textContent = "هیچ مقداری وارد نشده است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (nameInput.value === "") {
+        errorElement.textContent = "عنوان را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (!namePattern.test(nameInput.value)) {
+        errorElement.textContent = "عنوان نامعتبر است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (imageInput.value === "") {
+        errorElement.textContent = "عکس را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+  
+    if (!imagePattern.test(imageInput.value)) {
         errorElement.textContent = "فرمت عکس نامعتبر است";
         errorElement.classList.remove("hidden");
         setTimeout(function () {
             errorElement.classList.add("hidden");
         }, 5000);
-        imageInput.value = ""; // پاک کردن مقدار ورودی عکس در صورت فرمت نامعتبر
         return false;
-        }
-    });
+    }
+    
+  if (descriptionInput.value === "") {
+        errorElement.textContent = "توضیحات را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+  
 
+    errorElement.classList.add("hidden");
+    return true;
+}
+
+// form validation script ford update posts 
+function post_update_validateForm() {
+    var nameInput = document.getElementById("name");
+    var imageInput = document.getElementById("chose-image");
+    var descriptionInput = document.getElementById("description");
+    var errorElement = document.getElementById("formError");
+
+    var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+    var imagePattern = /\.(jpg|jpeg|png|gif|svg|webp)$/i;
+    
+
+    if (nameInput.value === "" && imageInput.value === "" && descriptionInput.value === "") {
+        errorElement.textContent = "هیچ مقداری وارد نشده است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (nameInput.value === "") {
+        errorElement.textContent = "عنوان را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (!namePattern.test(nameInput.value)) {
+        errorElement.textContent = "عنوان نامعتبر است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (imageInput.value !== "") {
+        if (!imagePattern.test(imageInput.value)) {
+            errorElement.textContent = "فرمت عکس نامعتبر است";
+            errorElement.classList.remove("hidden");
+            setTimeout(function () {
+                errorElement.classList.add("hidden");
+            }, 5000);
+            return false;
+        }
+    }
+ 
+    
   if (descriptionInput.value === "") {
         errorElement.textContent = "توضیحات را وارد کنید";
         errorElement.classList.remove("hidden");
