@@ -5,9 +5,22 @@
 
 
 {% block mainContent %}
+
+<!-- error and succuss message -->
+<p class="error-message hidden fixed"
+    id="formError">
+</p>
+{% if messages %}
+{% for message in messages %}
+<p
+    class="success-message fixed">
+    {{ message }} </p>
+{% endfor %}
+
+{% endif %}
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:mr-60">
-    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> اضافه کردن پست </h1>
+    <h1 class="text-lg pr-4 py-3  text-white font-bold flex items-center  "> اضافه کردن پست </h1>
 </div>
 
 <!-- back to priveuse page -->
@@ -20,18 +33,23 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
         <!-- Add post Form -->
         <div class="bg-white h-fit rounded-sm shadow p-4">
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" onsubmit="return post_validateForm()">
                 {%csrf_token%}
                 <!-- post Name -->
                 <div class="mb-4">
-                    <label for="postName" class="block text-gray-700 font-bold mb-2">عنوان : </label>
-                    <input id="postName" type="text" class="input" Name="title" placeholder="عنوان پست را بنویسید">
+                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">عنوان : </label>
+                    <input id="name" type="text" class="input" Name="title" placeholder="عنوان پست را بنویسید">
                 </div>
 
                 <!-- post image -->
                 <div class="mb-4">
-                    <label for="postImage" class="block text-gray-700 font-bold mb-2"> عکس: </label>
-                    <input id="postImage" type="file" class="input" Name="image">
+                    <label class="block font-bold pb-1 text-sm text-gray-700">عکس:</label>
+                    <div class="mt-2">
+                        <label for="chose-image"
+                            class="p-2 text-sm border text-gray-400 rounded-sm bg-gray-100 hover:cursor-pointer">انتخاب
+                            عکس</label>
+                    </div>
+                    <input type="file" name="image" id="chose-image" class="hidden" />
                 </div>
 
                 <!-- post date -->
@@ -43,21 +61,21 @@
 
                 <!-- post Description -->
                 <div class="mb-4">
-                    <label for="postDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-                    <textarea id="postDescription" class="input" Name="description" rows="4"
+                    <label for="description" class="block text-gray-700 text-sm font-bold mb-2">توضیحات:</label>
+                    <textarea id="description" class="input" Name="description" rows="4"
                         placeholder="توضیاحات در مورد پست"></textarea>
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="cbtn w-full mt-10">
+                <button type="submit" class="cbtn my-0 w-full mt-6">
                     اضافه کردن
                 </button>
             </form>
         </div>
 
         <!-- posts List -->
-        <div class="bg-white rounded-sm shadow p-4 ml-4 h-[500px] overflow-y-scroll">
-            <h2 class="text-xl font-bold mb-4">آخرین پست ها</h2>
+        <div class="bg-white rounded-sm shadow p-4 ml-4 h-[400px] overflow-y-scroll">
+            <h2 class=" font-bold mb-4">آخرین پست ها</h2>
             <ul>
 
                 {% for post in posts %}
@@ -65,7 +83,7 @@
                 <li class="border-b border-gray-300 py-2">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold"> {{post.Title}}</h3>
+                            <h3 class="text-sm font-bold"> {{post.Title}}</h3>
                             <p class="text-gray-500 text-xs">{{ post.created_at|naturaltime }}
                             </p>
                         </div>

@@ -4,9 +4,14 @@
 
 
 {% block mainContent %}
+
+<!-- error message -->
+<p class="error-message hidden fixed"
+    id="formError">
+</p>
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:pr-60">
-    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  ">ویرایش غذا</h1>
+    <h1 class="text-lg pr-4 py-3  text-white font-bold flex items-center  ">ویرایش غذا</h1>
 </div>
 
 <!-- back to priveuse page -->
@@ -14,47 +19,65 @@
     <a href="/manage/addfood" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
 </div>
 
-<!-- start addFoods -->
-<div class="md:mr-64 ">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
-        <!-- Add Food Form -->
-        <div class="bg-white rounded-md shadow p-4">
-            <form method="POST" enctype="multipart/form-data">
+<!-- start updateFoods -->
+<div class=" md:mr-64 md:ml-4  p-4 my-4 border shadow-lg">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6  ">
+        <!-- Add food Form -->
+        <div class="rounded-sm p-4 ">
+            <form method="post" enctype="multipart/form-data" onsubmit="return update_validateForm()" class="">
                 {%csrf_token%}
-                <!-- Food Name -->
+
+
+                <!-- food price -->
                 <div class="mb-4">
-                    <label for="foodName" class="block text-gray-700 font-bold mb-2">نام : </label>
-                    <input id="foodName" type="text" class="input" Name="title" value="{{food.Title}}"
-                        placeholder="نام غذا را بنویسید">
+                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">نام : </label>
+                    <input id="name" type="text" class="input" Name="title" value="{{food.Title}}">
                 </div>
 
                 <!-- food price -->
                 <div class="mb-4">
-                    <label for="foodPrice" class="block text-gray-700 font-bold mb-2"> قیمت: </label>
-                    <input id="foodPrice" type="number" class="input" Name="price" value="{{food.Price}}"
-                        placeholder="100">
+                    <label for="price" class="block text-gray-700 text-sm font-bold mb-2"> قیمت: </label>
+                    <input id="price" type="number" class="input" Name="price" value="{{food.Price}}">
                 </div>
 
                 <!-- food image -->
                 <div class="mb-4">
-                    <label for="foodImage" class="block text-gray-700 font-bold mb-2"> عکس:</label>
-                    <input id="foodImage" type="file" class="input" name="image">
+                    <label class="block text-sm pb-2  font-bold text-gray-700">
+                        عکس: 
+                    </label>
+                    <div class="mb-2">
+                        <label for="chose-image"
+                            class="p-2 text-sm border text-gray-400 rounded-sm bg-gray-100 hover:cursor-pointer">انتخاب
+                            عکس</label>
+                    </div>
+                    <input type="file" name="image" id="chose-image" class="hidden" />
                 </div>
 
-                <!-- Food Description -->
+                <!-- <div class="mb-4">
+                    <label for="foodImage" class="block text-gray-700 font-bold mb-2">{{food.Image.url}} عکس:</label>
+                    <input id="foodImage" type="file" class="input" name="image" value="{{food.Image.url}}">
+
+                </div> -->
+
+                <!-- food Description -->
                 <div class="mb-4">
-                    <label for="foodDescription" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-                    <textarea id="foodDescription" class="input" name="description" rows="4"
-                        placeholder="توضیحات در مورد غذا">{{ food.Description }}</textarea>
+                    <label for="description" class="block text-gray-700 text-sm font-bold mb-2">توضیحات:</label>
+                    <textarea id="description" class="input" name="description"
+                        rows="4">{{ food.Description }}</textarea>
                 </div>
                 <!-- Submit Button -->
-                <button type="submit" class="cbtn w-full">
+                <button type="submit" class="cbtn w-20 my-0 flex justify-center">
                     ذخیره
                 </button>
             </form>
         </div>
 
-        <!-- Foods List -->
+        <div class="hidden lg:block w-full h-[400px] p-4 rounded-sm">
+            <img src="{{food.Image.url}}" alt="" class="w-full h-full rounded-sm shadow-md object-cover">
+        </div>
+
+        <!-- foods List -->
 
     </div>
 </div>

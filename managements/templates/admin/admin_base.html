@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="fa">
@@ -200,15 +199,24 @@
   <!-- start navbar -->
   <div class="w-full pr-8 md:w-full h-16 bg-slate-800 fixed top-0 flex  items-center md:pr-64">
 
-    <div class="w-full p-2 flex justify-between items-center">
+    <div class="w-full p-2 flex justify-between items-center md:ml-8">
 
       <!-- search  -->
       <div class="">
         <input type="search" class="px-2 h-8 rounded-sm items-center focus:outline-none" placeholder="جستجو ..." />
       </div>
-      <!-- start notification  -->
 
-      <div class="flex items-center w-fit">
+
+      <!-- start notification  -->
+      <div class="flex items-center w-fit ">
+
+        <!-- home icon  -->
+        <a href="{%url 'home'%}">
+          <div class="ml-6  ">
+            <i class="fa-solid fa-house text-white text-xl flex items-center justify-center hover:text-gray-200 ease-in-out duration-200 "></i>
+          </div>
+        </a>
+
         <div class="md:ml-6 hover:cursor-pointer" id="notificationIcon">
           <img src="{%static 'admin/icons/notification.gif'%}" alt=""
             class="p-[2px] mb-0 rounded-lg hover:bg-[#f5056d] duration-500" />
@@ -258,15 +266,16 @@
           </a>
         </div>
 
-      
-      
+
+
         <!-- start profile  -->
-        <a href="{% url "profile" id=user.id %}" class=" w-fit ml-6 ">
+        <a href="{% url 'profile' id=user.id %}" class=" w-fit ">
 
           <div class="hidden md:flex w-fit items-center hover:cursor-pointer ">
             <p class="text-sm font-semibold text-white items-center ml-2 ">{{request.user.profile.first_name}}
               {{request.user.profile.last_name}}</p>
-            <img src="{{ request.user.profile.avatar.url }}" alt="" class="rounded-full w-[34px] h-[34px] object-cover" />
+            <img src="{{ request.user.profile.avatar.url }}" alt=""
+              class="rounded-full w-[34px] h-[34px] object-cover" />
           </div>
         </a>
 
