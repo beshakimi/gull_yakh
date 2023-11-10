@@ -33,56 +33,24 @@
                                 <th class=" py-5 ">جزئیات</th>
                             </tr>
                         </thead>
+                        {% for checkout in checkouts %}
                         <tbody class="text-center">
                             <tr class="border-b">
-                                <td class="whitespace-nowrap px-6 py-4 price">1</td>
+                                <td class="whitespace-nowrap px-6 py-4 price">{{ forloop.counter }}</td>
                                 <td class="py-2 flex justify-center items-center "><img
-                                        src="{{ user.profile.avatar.url }}" alt=""
+                                        src="{{ checkout.user.profile.avatar.url }}" alt=""
                                         class="w-[50px] h-[50px] rounded-full object-cover"></td>
-                                <td class="whitespace-nowrap px-6 py-4">هادی</td>
-                                <td class="whitespace-nowrap px-6 py-4 price">پویا</td>
-                                <td class="whitespace-nowrap px-6 py-4">hadi@gmail.com</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ checkout.user.profile.first_name }}</td>
+                                <td class="whitespace-nowrap px-6 py-4 price"> {{ checkout.user.profile.last_name }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ chackout.user.profile.email }}</td>
 
                                 <td class="whitespace-nowrap px-6 py-4 totalPrice">
-                                    <a href="{%url 'chackout_details'%}"
+                                    <a href="{%url 'chackout_details' pk=checkout.id %}"
                                         class="px-2 py-1 text-white rounded-md bg-[#f5056d] hover:bg-[#f5054d] ease-in-out duration-150">جزئیات</a>
                                 </td>
                             </tr>
                         </tbody>
-
-                        <tbody class="text-center">
-                            <tr class="border-b">
-                                <td class="whitespace-nowrap px-6 py-4 price">1</td>
-                                <td class="py-2 flex justify-center items-center "><img
-                                        src="{{ user.profile.avatar.url }}" alt=""
-                                        class="w-[50px] h-[50px] rounded-full object-cover"></td>
-                                <td class="whitespace-nowrap px-6 py-4">هادی</td>
-                                <td class="whitespace-nowrap px-6 py-4 price">پویا</td>
-                                <td class="whitespace-nowrap px-6 py-4">hadi@gmail.com</td>
-
-                                <td class="whitespace-nowrap px-6 py-4 totalPrice">
-                                    <a href=""
-                                        class="px-2 py-1 text-white rounded-md bg-[#f5056d] hover:bg-[#f5054d] ease-in-out duration-150">جزئیات</a>
-                                </td>
-                            </tr>
-                        </tbody>
-
-                        <tbody class="text-center">
-                            <tr class="border-b">
-                                <td class="whitespace-nowrap px-6 py-4 price">1</td>
-                                <td class="py-2 flex justify-center items-center "><img
-                                        src="{{ user.profile.avatar.url }}" alt=""
-                                        class="w-[50px] h-[50px] rounded-full object-cover"></td>
-                                <td class="whitespace-nowrap px-6 py-4">هادی</td>
-                                <td class="whitespace-nowrap px-6 py-4 price">پویا</td>
-                                <td class="whitespace-nowrap px-6 py-4">hadi@gmail.com</td>
-
-                                <td class="whitespace-nowrap px-6 py-4 totalPrice">
-                                    <a href=""
-                                        class="px-2 py-1 text-white rounded-md bg-[#f5056d] hover:bg-[#f5054d] ease-in-out duration-150">جزئیات</a>
-                                </td>
-                            </tr>
-                        </tbody>
+                        {% endfor %}
 
                     </table>
                 </div>

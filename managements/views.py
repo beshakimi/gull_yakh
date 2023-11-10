@@ -3,9 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect,HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
-from addProducts.models import foodModel
-from addProducts.models import DringModel
-from addProducts.models import BlogModel
+from addProducts.models import foodModel, DringModel, BlogModel, Checkout
 from accounts.models import Profile,User
 from accounts import views
 
@@ -282,11 +280,23 @@ def users(request):
 
 # chackout 
 def chackout_view(request):
-    return render(request,"admin/chackout.html")
+    checkouts = Checkout.objects.filter(ordered = False)
+    print(checkouts)
+    context = {
+        'checkouts': checkouts
+    }
+    return render(request,"admin/chackout.html",  context)
 
 # chackout details 
-def chackout_details_view(request):
-    return render(request,"admin/chackout_details.html")
+def chackout_details_view(request, pk):
+    checkout = get_object_or_404(Checkout, id=pk)
+    user = checkout.user 
+    items = checkout.cart_item.all()
+    context = {
+        'user': user, 
+        'items': items,
+    }
+    return render(request,"admin/chackout_details.html", context)
 
 
         

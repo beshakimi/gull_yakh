@@ -969,10 +969,6 @@ video {
   top: 100%;
 }
 
-.left-6 {
-  left: 1.5rem;
-}
-
 .z-0 {
   z-index: 0;
 }
@@ -1005,11 +1001,6 @@ video {
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
-}
-
-.mx-12 {
-  margin-left: 3rem;
-  margin-right: 3rem;
 }
 
 .mx-2 {
@@ -2858,10 +2849,6 @@ video {
 
   .md\:w-full {
     width: 100%;
-  }
-
-  .md\:w-screen {
-    width: 100vw;
   }
 
   .md\:shrink-0 {
