@@ -6,29 +6,30 @@
 
 {% block mainContent %}
 
-  <!-- error message -->
-  {% for message in messages %}
-  {% if message.tags == 'error' %}
-  <p class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center
-     text-white p-2 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
-    {{ message }}
-  </p>
-  {% elif message.tags == 'success' %}
-  <p
-    class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center text-green-600 p-2 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
-    {{ message }}
-  </p>
-  {% endif %}
-  {% endfor %}
+<!-- error message -->
+{% for message in messages %}
+{% if message.tags == 'error' %}
 
-  <script>
-    setTimeout(function () {
-      var errorMessage = document.querySelector('.error-message');
-      if (errorMessage) {
-        errorMessage.classList.add('hidden');
-      }
-    }, 5000);
-  </script>
+<p class="error-message">
+  <i class="fa-solid fa-circle-exclamation ml-2"></i>
+  {{ message }}
+</p>
+{% elif message.tags == 'success' %}
+<p class="success-message">
+  <i class="fa-solid fa-circle-exclamation ml-2"></i>
+  {{ message }}
+</p>
+{% endif %}
+{% endfor %}
+
+<script>
+  setTimeout(function () {
+    var errorMessage = document.querySelector('.error-message');
+    if (errorMessage) {
+      errorMessage.classList.add('hidden');
+    }
+  }, 5000);
+</script>
 
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:mr-60">
@@ -36,10 +37,20 @@
 </div>
 
 <!-- back to priveuse page -->
-<div class="mt-4 pr-4 md:pr-64">
-  <a href="/manage/dashboard" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
-</div>
+<div class="mt-4 pr-4 md:pr-64 flex justify-between">
+  <div class="">
+    <a href="/manage/dashboard" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
+  </div>
 
+  <div class="flex gap-2 items-center justify-end w-full ml-8">
+    <a href="{% url 'user-list'%}" class="px-2 py-1 bg-blue-600 rounded-sm hover:bg-blue-800 text-white text-sm">همه</a>
+    <a href="{% url 'users' %}" class="px-2 py-1 bg-slate-800 rounded-sm hover:bg-slate-600 text-white text-sm">کاربر
+      عادی</a>
+    <a href="{% url 'admin_users' %}"
+      class="px-2 py-1 bg-[#f5056d] rounded-sm hover:bg-[#f5056dbe] text-white text-sm">ادمین</a>
+
+  </div>
+</div>
 
 <!-- start users -->
 <div class="mx-auto pt-4 md:mr-64">
@@ -50,14 +61,16 @@
         <thead>
           <tr>
             <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">عکس</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">نام</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">نام خانوادگی</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">ایمل</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">شماره تماس</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">تاریخ پیوستن</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap"> نوعیت کاربر</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap"> عملیات</th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">نام کاربری</th>
             
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">ایمل</th>
+            
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">تاریخ پیوستن
+            </th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap"> نوعیت کاربر
+            </th>
+            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap"> عملیات</th>
+
           </tr>
         </thead>
         {% for user in userlist %}
@@ -67,28 +80,48 @@
             <td class="px-6 py-4 flex justify-center whitespace-nowrap">
               <img class="h-8 w-8 rounded-full object-cover" src="{{user.profile.avatar.url}}" alt="User Avatar">
             </td>
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.profile.first_name}}</td>
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.profile.last_name}}</td>
+            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.username}}
+            </td>
+            
             <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.email}}</td>
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.profile.phone}}</td>
+            
             <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
               {{ user.profile.created_at|naturaltime }}
             </td>
             <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.user_type}}</td>
-              
-              <!-- <form action="" method="post">
-                {%csrf_token%}
-                <select name="" id="">
-                  <option value="" name="admin">ادمین</option>
-                  <option value="" name="user">یوذر عادی</option>
-                </select>
-              </form> -->
+
             </td>
             <td class="px-6 py-4 text-center whitespace-nowrap">
-              <a href="{% url 'user-details' user.id %}" class="text-sm  bg-blue-500 hover:bg-blue-600 text-white ml-1 py-1 px-2 rounded-sm inline-block">جزیات کاربر</a>
-              <button class="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block">حذف</button>
+              <a href="{% url 'user-details' user.id %}"
+                class="text-sm  bg-blue-500 hover:bg-blue-600 text-white ml-1 py-1 px-2 rounded-sm inline-block">جزیات
+                کاربر</a>
+              <button
+                class="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block deleteButton"
+                id="deleteButton_{{ user.id }}">حذف</button>
             </td>
           </tr>
+
+          <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
+            id="deleteModel_{{ user.id }}">
+            <div class=" w-full h-full flex justify-center items-center">
+              <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
+                <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
+                <div class="">
+
+                  <form action="{% url 'delete-user' user_id=user.id %}" method="post">
+                    {%csrf_token%}
+                    <div class="flex gap-8 mt-4">
+                      <input type="submit" value="بلی"
+                        class="px-2 text-sm flex items-center hover:cursor-pointer  rounded-sm text-white bg-red-600">
+                      <a href="" class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
+                    </div>
+                  </form>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
         </tbody>
         {% else %}
         {% endif %}
@@ -100,7 +133,25 @@
   </div>
 </div>
 <!-- end users -->
+<div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50" id="deleteModel_{{ user.id }}">
+  <div class=" w-full h-full flex justify-center items-center">
+    <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
+      <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
+      <div class="">
+        <form action="{% url 'delete-user' user_id=user.id %}" class="flex gap-8 mt-4" method="post">
+          {%csrf_token%}
+          <input type="submit" value="بلی"
+            class="px-2 text-sm flex items-center hover:cursor-pointer  rounded-sm text-white bg-red-600">
+          <a href="" class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
 
+        </form>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}

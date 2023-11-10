@@ -20,7 +20,7 @@
 
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:pr-60">
-    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  ">ویرایش نوشیدنی</h1>
+    <h1 class="text-xl h-14 pr-4 py-3  text-white font-bold flex items-center  ">ویرایش نوشیدنی</h1>
 </div>
 
 <!-- back to priveuse page -->
@@ -29,34 +29,34 @@
 </div>
 
 <!-- start adddrinks -->
-<div class=" md:mr-64 md:ml-4 ">
-    <div class="grid grid-cols-1 my-4">
+
+
+<div class=" md:mr-64 md:ml-4  p-4 my-4 border shadow-lg">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6  ">
         <!-- Add drink Form -->
-        <div class="bg-white rounded-lg shadow p-4">
-            <form method="post" enctype="multipart/form-data" onsubmit="return validateForm()"
-                class="md:grid grid-cols-2 gap-x-4">
+        <div class="rounded-sm p-4 ">
+            <form method="post" enctype="multipart/form-data" onsubmit="return update_validateForm()" class="">
                 {%csrf_token%}
 
 
                 <!-- drink price -->
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 font-bold mb-2">نام : </label>
-                    <input id="name" type="text" class="input" Name="title" value="{{drink.Title}}"
-                        placeholder="نام غذا را بنویسید">
+                    <input id="name" type="text" class="input" Name="title" value="{{drink.Title}}">
                 </div>
 
                 <!-- drink price -->
                 <div class="mb-4">
                     <label for="price" class="block text-gray-700 font-bold mb-2"> قیمت: </label>
-                    <input id="price" type="number" class="input" Name="price" value="{{drink.Price}}"
-                        placeholder="100">
+                    <input id="price" type="number" class="input" Name="price" value="{{drink.Price}}">
                 </div>
 
                 <!-- drink image -->
                 <div class="mb-4">
                     <label for="chose-image" class="block text-gray-700 font-bold mb-2">
-                        عکس: {{drink.Image.url}}</label>
-                    <input id="" type="file" value="{{drink.Image.url}}" class="input" name="image">
+                        عکس: <span class="text-xs">{{drink.Image.url}}</span></label>
+                    <input id="chose-image" type="file" value="{{drink.Image.url}}" class="input" name="image">
                 </div>
 
                 <!-- <div class="mb-4">
@@ -68,8 +68,8 @@
                 <!-- drink Description -->
                 <div class="mb-4">
                     <label for="description" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
-                    <textarea id="description" class="input" name="description" rows="4"
-                        placeholder="توضیحات در مورد غذا">{{ drink.Description }}</textarea>
+                    <textarea id="description" class="input" name="description"
+                        rows="4">{{ drink.Description }}</textarea>
                 </div>
                 <!-- Submit Button -->
                 <button type="submit" class="cbtn w-20 my-0 flex justify-center">
@@ -78,10 +78,15 @@
             </form>
         </div>
 
+        <div class="hidden lg:block w-full h-[500px] p-4 rounded-sm">
+            <img src="{{drink.Image.url}}" alt="" class="w-full h-full rounded-sm shadow-md object-cover">
+        </div>
+
         <!-- drinks List -->
 
     </div>
 </div>
+
 <!-- end adddrinks -->
 
 {% endblock mainContent %}

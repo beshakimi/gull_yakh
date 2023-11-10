@@ -44,7 +44,7 @@ deleteButtons.forEach(function (button) {
     });
 });
 
-// form validation script 
+// form validation script for add food and add drink 
 function validateForm() {
     var nameInput = document.getElementById("name");
     var priceInput = document.getElementById("price");
@@ -101,6 +101,24 @@ function validateForm() {
         return false;
     }
 
+    if (imageInput.value === "") {
+        errorElement.textContent = "عکس را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+  
+    if (!imagePattern.test(imageInput.value)) {
+        errorElement.textContent = "فرمت عکس نامعتبر است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
     if (descriptionInput.value === "") {
         errorElement.textContent = "توضیحات را وارد کنید";
         errorElement.classList.remove("hidden");
@@ -110,23 +128,90 @@ function validateForm() {
         return false;
     }
 
-    if (imageInput.value === "") {
-      errorElement.textContent = "عکس را وارد کنید";
-      errorElement.classList.remove("hidden");
-      setTimeout(function () {
-          errorElement.classList.add("hidden");
-      }, 5000);
-      return false;
-  }
 
-  if (!imagePattern.test(imageInput.value)) {
-      errorElement.textContent = "فرمت عکس نامعتبر است";
-      errorElement.classList.remove("hidden");
-      setTimeout(function () {
-          errorElement.classList.add("hidden");
-      }, 5000);
-      return false;
-  }
+    errorElement.classList.add("hidden");
+    return true;
+}
+
+// form validation script adit food and edit drink 
+function update_validateForm() {
+    var nameInput = document.getElementById("name");
+    var priceInput = document.getElementById("price");
+    var imageInput = document.getElementById("chose-image");
+    var descriptionInput = document.getElementById("description");
+    var errorElement = document.getElementById("formError");
+
+    var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+    var imagePattern = /\.(jpg|jpeg|png|gif|svg|webp)$/i;
+    var pricePattern = /^(?!0)\d+$/;
+
+    if (nameInput.value === "" && priceInput.value === "" && imageInput.value === "" && descriptionInput.value === "") {
+        errorElement.textContent = "هیچ مقداری وارد نشده است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (nameInput.value === "") {
+        errorElement.textContent = "نام را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (!namePattern.test(nameInput.value)) {
+        errorElement.textContent = "نام نامعتبر است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (priceInput.value === "") {
+        errorElement.textContent = "قیمت را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+    if (!pricePattern.test(priceInput.value)) {
+        errorElement.textContent = "قیمت نامعتبر است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+
+
+    imageInput.addEventListener('change', function() {
+        if (!imagePattern.test(imageInput.value)) {
+        errorElement.textContent = "فرمت عکس نامعتبر است";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        imageInput.value = ""; // پاک کردن مقدار ورودی عکس در صورت فرمت نامعتبر
+        return false;
+        }
+    });
+
+  if (descriptionInput.value === "") {
+        errorElement.textContent = "توضیحات را وارد کنید";
+        errorElement.classList.remove("hidden");
+        setTimeout(function () {
+            errorElement.classList.add("hidden");
+        }, 5000);
+        return false;
+    }
+  
 
     errorElement.classList.add("hidden");
     return true;

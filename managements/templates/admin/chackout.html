@@ -1,0 +1,70 @@
+{% extends "admin/admin_base.html" %}
+{%load static %}
+
+
+
+
+{% block mainContent %}
+<!-- title -->
+<div class="md:mr-60">
+    <div class="mt-16 bg-[#f5056d]">
+        <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> لیست سفارشات </h1>
+    </div>
+
+    <!-- back to priveuse page -->
+    <div class="mt-4 pr-4 ">
+        <a href="/manage/dashboard" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
+    </div>
+
+    <!-- chackout -->
+
+    <div class="mt-8 md:mx-20 flex flex-col h-96 overflow-y-scroll custom-scrollbar border">
+        <div class="overflow-x-auto  md:w-full ">
+            <div class="inline-block min-w-full">
+                <div class="overflow-hidden">
+                    <table class="min-w-full justify-center items-center text-sm font-light">
+                        <thead class="border-b font-medium  bg-slate-800 text-gray-200">
+                            <tr>
+                                <th class="px-6 py-5">شماره</th>
+                                <th class="px-6 py-5">عکس</th>
+                                <th class="px-6 py-5">نام</th>
+                                <th class="px-6 py-5">نام خانوادگی</th>
+                                <th class="px-6 py-5">ایمل</th>
+                                <th class=" py-5 ">جزئیات</th>
+                            </tr>
+                        </thead>
+                        {% for checkout in checkouts %}
+                        <tbody class="text-center">
+                            <tr class="border-b">
+                                <td class="whitespace-nowrap px-6 py-4 price">{{ forloop.counter }}</td>
+                                <td class="py-2 flex justify-center items-center "><img
+                                        src="{{ checkout.user.profile.avatar.url }}" alt=""
+                                        class="w-[50px] h-[50px] rounded-full object-cover"></td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ checkout.user.profile.first_name }}</td>
+                                <td class="whitespace-nowrap px-6 py-4 price"> {{ checkout.user.profile.last_name }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ chackout.user.profile.email }}</td>
+
+                                <td class="whitespace-nowrap px-6 py-4 totalPrice">
+                                    <a href="{%url 'chackout_details' pk=checkout.id %}"
+                                        class="px-2 py-1 text-white rounded-md bg-[#f5056d] hover:bg-[#f5054d] ease-in-out duration-150">جزئیات</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+<!-- end addposts -->
+
+{% endblock %}

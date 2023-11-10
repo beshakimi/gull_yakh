@@ -1,4 +1,3 @@
-{%load static%}
 
 {% load static %}
 <!DOCTYPE html>
@@ -53,20 +52,20 @@
 
 
 
-      <!-- start products -->
+      <!-- start products
       <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
         <h1 class="font-bold">اضافه کردن</h1>
       </div>
-      <hr class="w-full border border-gray-500">
+      <hr class="w-full border border-gray-500"> -->
 
 
       <!-- add foods  -->
       <div class="{% if section == 'add_food' %} bg-gray-600 
       {% endif %}">
         <a href="/manage/addfood"
-          class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
           <img src="{%static 'admin/icons/food.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-          <h1 class="mr-1 mb-1">غذا ها</h1>
+          <h1 class="mr-1 mb-1">اضافه کردن غذا </h1>
         </a>
       </div>
 
@@ -75,9 +74,9 @@
       <div class="{% if section == 'add_drink' %} bg-gray-600 
       {% endif %}">
         <a href="/manage/addDrink"
-          class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
           <img src="{%static 'admin/icons/drink.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-          <h1 class="mr-1 mb-1">نوشیدنی ها</h1>
+          <h1 class="mr-1 mb-1">اضافه کردن نوشیدنی</h1>
         </a>
       </div>
 
@@ -86,39 +85,46 @@
       <div class="{% if section == 'add_post' %} bg-gray-600 
       {% endif %}">
         <a href="/manage/addPost"
-          class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
           <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-          <h1 class="mr-1 mb-1">پست ها</h1>
+          <h1 class="mr-1 mb-1">اضافه کردن پست</h1>
         </a>
       </div>
       <!-- end products -->
 
-
-
-
-      <!-- start genral -->
-      <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
-        <h1 class="font-bold"> کاربران</h1>
-      </div>
-      <hr class="w-full border border-gray-500">
-
-
-      <!-- start list of users  -->
-      <div class="{% if section == 'user' %} bg-gray-600 
+      <div class="{% if section == 'add_post' %} bg-gray-600 
       {% endif %}">
-        <a href="/manage/user_list"
-          class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
-          <img src="{%static 'admin/icons/users-icon.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-          <h1 class="mr-1 mb-1">لیست کاربران</h1>
+        <a href="{% url 'chackout'%}"
+          class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">فروشات </h1>
         </a>
       </div>
 
 
+      <!-- start genral -->
+      <!-- <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
+        <h1 class="font-bold"> کاربران</h1>
+      </div>
+      <hr class="w-full border border-gray-500"> -->
+
+
+      <!-- start list of users  -->
+
+      <div class="{% if section == 'user' %} bg-gray-600 {% endif %}">
+
+        <a href="/manage/user_list"
+          class=" w-full px-4 text-sm font-semibold text-white hover:bg-gray-600 ease-in-out duration-300 flex items-center h-10">
+          <img src="{% static 'admin/icons/users-icon.png' %}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 ">لیست کاربران</h1>
+        </a>
+      </div>
+
 
       <a href="{% url 'logout' %}"
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
+        class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
         <img src="{%static 'admin/icons/logout.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1"> خروج</h1>
+        <h1 class="mr-1 "> خروج</h1>
       </a>
 
       <!-- end genral -->
@@ -192,7 +198,7 @@
   <!--end Mobile Menu -->
 
   <!-- start navbar -->
-  <div class="w-full pr-8 md:w-screen h-16 bg-slate-800 fixed top-0 flex justify-between items-center md:pr-64">
+  <div class="w-full pr-8 md:w-full h-16 bg-slate-800 fixed top-0 flex  items-center md:pr-64">
 
     <div class="w-full p-2 flex justify-between items-center">
 
@@ -202,7 +208,7 @@
       </div>
       <!-- start notification  -->
 
-      <div class="flex items-center">
+      <div class="flex items-center w-fit">
         <div class="md:ml-6 hover:cursor-pointer" id="notificationIcon">
           <img src="{%static 'admin/icons/notification.gif'%}" alt=""
             class="p-[2px] mb-0 rounded-lg hover:bg-[#f5056d] duration-500" />
@@ -252,13 +258,15 @@
           </a>
         </div>
 
-
+      
+      
         <!-- start profile  -->
-        <a href="./profile.html">
-          <div class="hidden md:flex w-fit items-center justify-srart ml-6 px-2 rounded-sm hover:cursor-pointer">
-            <img src="{{ user.profile.avatar.url }}" alt="" class="rounded-full w-[30px] h-[30px] object-cover" />
+        <a href="{% url "profile" id=user.id %}" class=" w-fit ml-6 ">
 
-            <p class="font-semibold text-white items-center mr-2 ">{{user.profile.first_name}} {{user.profile.last_name}}</p>
+          <div class="hidden md:flex w-fit items-center hover:cursor-pointer ">
+            <p class="text-sm font-semibold text-white items-center ml-2 ">{{request.user.profile.first_name}}
+              {{request.user.profile.last_name}}</p>
+            <img src="{{ request.user.profile.avatar.url }}" alt="" class="rounded-full w-[34px] h-[34px] object-cover" />
           </div>
         </a>
 
@@ -276,11 +284,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
 
 
   {%block mainContent%}

@@ -3,9 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect,HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
-from addProducts.models import foodModel
-from addProducts.models import DringModel
-from addProducts.models import BlogModel
+from addProducts.models import foodModel, DringModel, BlogModel, Checkout
 from accounts.models import Profile,User
 from accounts import views
 
@@ -240,7 +238,66 @@ def user_details(request, id):
         messages.success(request, 'نوعیت کاربر با موفقیت تغییر کرد')
         return redirect('user-list')
 
-    return render(request,"admin/userDetails.html", {'user': user}) 
+    return render(request,"admin/userDetails.html", {'user': user})
+
+
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        if user.user_type != "ادمین":
+            user.delete()
+            messages.success(request, 'کاربر با موفقیت حذف شد.')
+        else:
+            messages.error(request, 'شما نمی‌توانید کاربران ادمین را حذف کنید.')
+        return redirect('user-list')
+
+    context = {
+        'user': user,
+    }
+
+    return render(request, 'admin/user_list.html', context)
+
+
+
+def admin_users(request):
+    users = User.objects.filter(user_type="ادمین").order_by('-id')
+
+    context={
+       "userlist":users,
+   }
+
+    return render(request,'admin/admin_users.html',context)
+
+def users(request):
+    users = User.objects.filter(user_type="کاربر عادی").order_by('-id')
+
+    context={
+       "userlist":users,
+   }
+
+    return render(request,'admin/admin_users.html',context)
+
+# chackout 
+def chackout_view(request):
+    checkouts = Checkout.objects.filter(ordered = False)
+    print(checkouts)
+    context = {
+        'checkouts': checkouts
+    }
+    return render(request,"admin/chackout.html",  context)
+
+# chackout details 
+def chackout_details_view(request, pk):
+    checkout = get_object_or_404(Checkout, id=pk)
+    user = checkout.user 
+    items = checkout.cart_item.all()
+    context = {
+        'user': user, 
+        'items': items,
+    }
+    return render(request,"admin/chackout_details.html", context)
+
 
         
 

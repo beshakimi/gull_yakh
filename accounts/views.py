@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404,Http404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -10,25 +10,22 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
 from accounts.models import User
+from accounts import models
 
-# from .forms import MyPasswordChangeForm
-from . import models
-import uuid
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.db.models import Q
+
 from django.shortcuts import redirect
 import re
+from django.db.models import Q
 
+# for sent email
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
-# Create your views here.
-# def home(request):
-#     return render(request, 'base.html')
-
-# registeration view
+# register view
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -37,16 +34,15 @@ def register(request):
         re_password = request.POST['re_password']
 
 
-
-        if not re.match(r'^[a-zA-Z]{3}[a-zA-Z0-9_]*$', username):
-            messages.error(request, "نام کاربری باید با حداقل سه حرف شروع شود و تنها شامل حروف انگلیسی، اعداد، و _ باشد")
+        if not re.match(r'^[a-zA-Zآ-ی]{3}[a-zA-Z0-9_آ-ی]*$', username):
+            messages.error(request, "نام نامعتبر است")
             return redirect('register')
         
-        if not re.match(r'^[a-zA-Z0-9]+@[a-zA-Z]{3,}.[a-zA-Z]{2,5}$', email):
-            messages.error(request, "ایمیل آدرس اشباه است")
+        if not re.match(r'^[a-zA-Z][a-zA-Z0-9_.]*@[a-zA-Z]{3,}\.[a-zA-Z]{2,5}$', email):
+            messages.error(request, "ایمیل آدرس نامتعبر است")
             return redirect('register')
         
-        if len(password) < 1:
+        if len(password) < 6:
             messages.error(request, "پسورد باید بزرگتر از 6 حرف باشد")
             return redirect('register')
 
@@ -54,13 +50,13 @@ def register(request):
             messages.error(request, "پسورد مطابقت ندارد.")
             return redirect('register')
 
-        # if models.User.objects.filter(Q(email=email) & Q(email=email)).exists():
-        #     messages.error(request, "کاربری با این نام موجود است")
-        #     return redirect('register')
-
-        if models.User.objects.filter(email=email).exists():
-            messages.error(request, "کاربری با این ایمل موجود است ")
+        if models.User.objects.filter(Q(email=email) & Q(email=email)).exists():
+            messages.error(request, "کاربری با این مشخصات موجود است")
             return redirect('register')
+
+        # if models.User.objects.filter(email=email).exists():
+        #     messages.error(request, "کاربری با این ایمل موجود است ")
+        #     return redirect('register')
 
         user = models.User.objects.create_user(username=username, email=email, password=password)
         
@@ -72,11 +68,7 @@ def register(request):
 
     return render(request, 'accounts/register.html')
 
-# login view
-from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
-
-
+# login view 
 def login_page(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -108,40 +100,156 @@ def logout_page(request):
  
 
 # profile edit view
+
 def profile_edit_view(request, id):
     profile = get_object_or_404(Profile, pk=id)
     user = request.user
+    
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         phone = request.POST['phone']
         gender = request.POST['gender']
         
-        gender = request.POST.get('gender', profile.gender)
+        # بررسی نام و نام خانوادگی
+        name_pattern = r'^[a-zA-Z_ ]+$'
+        if not re.match(name_pattern, first_name): 
+            # نام و نام خانوادگی باید فقط شامل حروف انگلیسی و سمبل '_' باشند
+            messages.error(request, "نام نامعتبر است")
+            return redirect('profile', id=profile.id)
+        if not re.match(name_pattern, last_name):
+            messages.error(request, "نام خانوادگی نامعتبر است")
+            return redirect('profile', id=profile.id)
         
+        # بررسی شماره تماس
+        phone_pattern = r'^93\d{9}$'
+        if not re.match(phone_pattern, phone):
+            # شماره تماس باید 9 رقم و فقط شامل اعداد باشد
+            messages.error(request, "شماره تماس باید با کد 93 شروع شود ")
+            return redirect('profile', id=profile.id)
+        
+        # ادامه کدهای دیگر...
+        
+        import imghdr
+
+        def validate_image_format(image):
+            valid_formats = ('jpeg', 'jpg', 'png', 'gif', 'svg', 'webp')
+            image_format = imghdr.what(image)
+            if image_format not in valid_formats:
+                raise ValidationError('فرمت عکس نامعتبر است.')
+
         if 'avatar' in request.FILES:
             avatar = request.FILES['avatar']
+        try:
+            validate_image_format(avatar)
             profile.avatar = avatar
+        except ValidationError as e:
+            messages.error(request, str(e).strip('[]'))
+            return redirect('profile', id=profile.id)
+        # if 'avatar' in request.FILES:
+        #     avatar = request.FILES['avatar']
+        #     profile.avatar = avatar
 
-        profile.first_name =first_name
+        profile.first_name = first_name
         profile.last_name = last_name
         profile.phone = phone
         profile.gender = gender
         profile.user = user
-      
-        
+
         profile.save()
-        
+
         return redirect('home')
     else:
         return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
+# def profile_edit_view(request, id):
+#     profile = get_object_or_404(Profile, pk=id)
+#     user = request.user
+#     if request.method == 'POST':
+#         first_name = request.POST['first_name']
+#         last_name = request.POST['last_name']
+#         phone = request.POST['phone']
+#         gender = request.POST['gender']
+        
+#         gender = request.POST.get('gender', profile.gender)
+        
+#         if 'avatar' in request.FILES:
+#             avatar = request.FILES['avatar']
+#             profile.avatar = avatar
+
+#         profile.first_name =first_name
+#         profile.last_name = last_name
+#         profile.phone = phone
+#         profile.gender = gender
+#         profile.user = user
+      
+        
+#         profile.save()
+        
+#         return redirect('home')
+#     else:
+#         return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
     
 
-# forget password view 
 def forget_password_view(request):
-     
-    return render(request, "accounts/forget_password.html")
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            # اگر کاربری با این ایمیل وجود نداشته باشد
+            return redirect('forget_password')  # یا به صفحه دیگری هدایت کنید
 
+        # ایجاد توکن تصادفی برای بازنشانی پسورد
+        token = default_token_generator.make_token(user)
+        # ارسال لینک بازنشانی پسورد به ایمیل کاربر
+        reset_link = request.build_absolute_uri(f'/accounts/reset_password/{user.pk}/{token}/')  # ساخت لینک بازنشانی پسورد
+        
+        # حذف تگ‌های HTML و نمایش متن
+        email_text = strip_tags(render_to_string('accounts/reset_password_email.html', {'reset_link': reset_link}))
+
+        send_mail(
+            'Password Reset',
+            email_text,
+            'your_email@example.com',
+            [email],
+            fail_silently=False,
+        )
+        return redirect('confirm_message')  # یا به صفحه دیگری هدایت کنید
+    else:
+        return render(request, "accounts/forget_password.html")
+    
+
+
+    
+
+    # برای اینکه وقتی بالای لینک کلیک شد به این صفحه راجع شود
+
+
+def reset_password_confirm_view(request, user_id, token):
+    if request.method == 'POST':
+        new_password1 = request.POST['new_password1']
+        new_password2 = request.POST['new_password2']
+
+        if new_password1 == new_password2:
+            try:
+                user = User.objects.get(pk=user_id)
+            except User.DoesNotExist:
+                # کاربری با این شناسه وجود ندارد
+                raise Http404()
+
+            if default_token_generator.check_token(user, token):
+                # تغییر رمز عبور
+                user.set_password(new_password1)
+                user.save()
+                update_session_auth_hash(request, user)  # رفع خطر از دست دادن جلسه ورود
+                return redirect('confirm_change_password')  # تغییر مسیر به جایی که دلخواهید
+            else:
+                # توکن معتبر نیست
+                raise Http404()
+        else:
+            messages.error(request, 'رمز عبور جدید با تایید رمز عبور مطابقت ندارد.')
+
+    return render(request, 'accounts/new_password.html')
 
 #  confirm message view 
 def confirm_message_view(request):
@@ -173,7 +281,6 @@ def change_password_view(request):
                 redirect('confirm_message')
 
                 update_session_auth_hash(request, request.user)  # رفع خطر از دست دادن جلسه ورود
-                messages.success(request, 'رمز عبور شما با موفقیت تغییر کرد.')
                 return redirect('confirm_change_password')  # تغییر مسیر به جایی که دلخواهید
             else:
                 messages.error(request, 'رمز عبور جدید با تایید رمز عبور مطابقت ندارد.')

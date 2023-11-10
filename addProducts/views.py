@@ -2,10 +2,17 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from persiantools.jdatetime import JalaliDate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 from addProducts.models import foodModel
 from addProducts.models import DringModel, Cart, CartItem, Checkout
+
 from addProducts.models import BlogModel
 from accounts.models import Profile
+
+from django.db.models import Q
+from django.contrib import messages
+
+
 
 # Create your views here.
 
@@ -38,6 +45,15 @@ def foodListView(request):
     foods=foodModel.objects.all().order_by('-id')
     page = request.GET.get('page')
 
+    if request.method == 'POST':
+        if 'name_checkbox' in request.POST:
+            foods = foods.order_by('Title')  
+
+        min_price = request.POST.get('min_price')
+        max_price = request.POST.get('max_price')
+        if min_price and max_price:
+            foods = foods.filter(Price__range=(min_price, max_price))
+    
     # تعداد نوشیدنی‌ها در هر صفحه
     items_per_page = 8
 
@@ -70,7 +86,7 @@ def foodListView(request):
 
 # food details view 
 def foodDetailsView(request,food_id):
-    food=foodModel.objects.get(pk=food_id)
+    food=get_object_or_404(foodModel,pk=food_id)
 
     context={
       "foodDetails":food,  
@@ -83,6 +99,16 @@ def drinkListView(request):
     # دریافت همه نوشیدنی‌ها
     drinks = DringModel.objects.all().order_by('-id')
     page = request.GET.get('page')
+
+    if request.method == 'POST':
+        if 'name_checkbox' in request.POST:
+            drinks = drinks.order_by('Title')  
+
+        min_price = request.POST.get('min_price')
+        max_price = request.POST.get('max_price')
+        if min_price and max_price:
+            drinks = drinks.filter(Price__range=(min_price, max_price))
+    
 
     # تعداد نوشیدنی‌ها در هر صفحه
     items_per_page = 8
@@ -130,9 +156,34 @@ def drinkDetailsView(request,drink_id):
 # start post list view
 def blogView(request):
     posts = BlogModel.objects.all().order_by('-id')
+    page = request.GET.get('page')
+
+        # تعداد نوشیدنی‌ها در هر صفحه
+    items_per_page = 8
+
+    paginator = Paginator(posts, items_per_page)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        posts = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        posts = paginator.page(page)
+    
+    left_index = (int(page) - 2 )
+    if left_index < 1:
+        left_index = 1
+    
+    right_index = (int(page) + 2)
+    if right_index > paginator.num_pages:
+        right_index = paginator.num_pages
+
+    pagination_range = range(left_index, right_index + 1)
 
     context={
         "postlist":posts,
+        'pagination_range': pagination_range,
         'section':'blog',
     }
 
@@ -191,6 +242,14 @@ def view_cart(request):
     return render(request, 'addProducts/shop_cart.html', {"cart": cart, "foods": foods, "drinks": drinks})
 
 
+def cart_delete(request, id):
+    cart = get_object_or_404(Cart, id=id)
+    cart.food.clear()  # Remove all food items from the cart
+    cart.drink.clear()  # Remove all drink items from the cart
+    
+    return redirect('cart-detail')
+
+
 def create_cart_item(request, id):
     cart = Cart.objects.get(id=id)
 
@@ -228,14 +287,43 @@ def create_checkout(request, id):
             phone_number1=phone_number1,
             phone_number2=phone_number2,
             tazkra_number=tazkra_number,
-            address=address
+            address=address, 
+            
         )
-        checkout.save()
+        messages.success(request, 'سفارش شما موفقانه ثبت گردید')
+        return redirect('home')
+       
         
         # Redirect to a success page or perform further actions
         
     context = {
         'cart_item': cart_item,
-
-    }
+         }
     return render(request, 'addProducts/user_info.html', context)
+
+
+
+def search_result_view(request):
+    query = request.GET.get('query')
+    if query:
+        food_results = foodModel.objects.filter(Q(Title__icontains=query))
+        drink_results = DringModel.objects.filter(Q(Title__icontains=query))
+        # food_results = foodModel.objects.filter(Q(Title__icontains=query) | Q(Category__icontains=query))
+        # drink_results = DringModel.objects.filter(Q(Title__icontains=query) | Q(Category__icontains=query))
+    else:
+        food_results = []
+        drink_results = []
+
+    context = {
+        'query': query,
+        'food_results': food_results,
+        'drink_results': drink_results,
+    }
+
+    return render(request, 'addProducts/search_result.html', context)
+
+
+
+
+ 
+

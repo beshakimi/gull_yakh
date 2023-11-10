@@ -1,0 +1,107 @@
+{% extends "admin/admin_base.html" %}
+{%load static %}
+
+
+
+
+{% block mainContent %}
+<!-- title -->
+<div class="md:mr-60">
+    <div class="mt-16 bg-[#f5056d]">
+        <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> جزئیات سفارش </h1>
+    </div>
+
+    <!-- back to priveuse page -->
+    <div class="mt-4 pr-4 ">
+        <a href="/manage/dashboard" class="pagn hover:bg-slate-800 "> <i class="fa-solid fa-arrow-right"></i> </a>
+    </div>
+
+    <!-- chackout -->
+
+    <div class="mt-8 mx-4 flex flex-col lg:flex-row gap-6 ">
+        <div class="overflow-scroll w-full custom-scrollbar border ">
+            <h1>لیست سفارشات</h1>
+            <div class="overflow-scroll custom-scrollbar">
+                <table class="min-w-full justify-center items-center text-sm font-light">
+                    <thead class="border-b font-medium  bg-slate-800 text-gray-200">
+                        <tr>
+                            <th class="px-2 py-2">شماره</th>
+                            <th class="px-2 py-2">عکس</th>
+                            <th class="px-2 py-2">نام</th>
+                            <th class="px-2 py-2">قیمت</th>
+                            <th class="px-2 py-2">تعداد</th>
+                            <th class="px-2 py-2 ">قیمت مجموعی</th>
+                        </tr>
+                    </thead>
+                    {% for item in items %}
+                    <tbody class="text-center">
+                        <tr class="border-b">
+                            <td class="whitespace-nowrap px-2 py-4 price">{{ forloop.counter }}</td>
+                            <td class="py-2 flex justify-center items-center "><img src="{{ user.profile.avatar.url }}"
+                                    alt="" class="w-[50px] h-[50px] rounded-full object-cover"></td>
+                            <td class="whitespace-nowrap px-2 py-4">{{ item.name }}</td>
+                            <td class="whitespace-nowrap px-2 py-4 price"></td>
+                            <td class="whitespace-nowrap px-2 py-4">3</td>
+                            <td class="whitespace-nowrap px-2 py-4">{{item.cart_item.total_price}}</td>
+
+
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                    
+
+
+                </table>
+            </div>
+        </div>
+
+        <div class="overflow-scroll w-full custom-scrollbar border ">
+            <h1>مشخصات شخص سفارش دهنده</h1>
+            <div class="flex flex-col gap-2 p-4 ">
+                <!-- user avatar  -->
+                <div class="flex gap-4 ">
+                    <div>
+                        <img src="{%static 'admin/profile/2.jpg'%}" alt="" class="w-40 h-40 object-cover">
+                    </div>
+                    <!-- name email and phone -->
+                    <div class="flex flex-col gap-2  justify-center">
+                        <div class="flex gap-2">
+                            <h1>نام</h1>
+                            <h1>سارا</h1>
+                        </div>
+                        <div class="flex gap-2">
+                            <h1>شماره تماس</h1>
+                            <h1>0796968666</h1>
+                        </div>
+                        <div class="flex gap-2">
+                            <h1>ایمیل</h1>
+                            <h1>sara@gmail.com</h1>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="flex gap-2">
+                    <p class="text-gray-600">آدرس:</p>
+                    <p class="text-sm text-gray-500">پل خشک - سرک قلعه قاضی - کوچه مهتاب - خانه شماره 2</p>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+<!-- end addposts -->
+
+{% endblock %}

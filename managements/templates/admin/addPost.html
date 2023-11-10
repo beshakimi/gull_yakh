@@ -1,6 +1,6 @@
 {% extends "admin/admin_base.html" %}
 {%load static %}
-
+{% load humanize %}
 
 
 
@@ -19,7 +19,7 @@
 <div class=" md:mr-64 ">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
         <!-- Add post Form -->
-        <div class="bg-white h-fit rounded-lg shadow p-4">
+        <div class="bg-white h-fit rounded-sm shadow p-4">
             <form method="POST" enctype="multipart/form-data">
                 {%csrf_token%}
                 <!-- post Name -->
@@ -49,31 +49,30 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="cbtn w-full">
+                <button type="submit" class="cbtn w-full mt-10">
                     اضافه کردن
                 </button>
             </form>
         </div>
 
         <!-- posts List -->
-        <div class="bg-white rounded-lg shadow p-4 ml-4 h-[500px] overflow-y-scroll">
+        <div class="bg-white rounded-sm shadow p-4 ml-4 h-[500px] overflow-y-scroll">
             <h2 class="text-xl font-bold mb-4">آخرین پست ها</h2>
             <ul>
-                
+
                 {% for post in posts %}
 
                 <li class="border-b border-gray-300 py-2">
                     <div class="flex justify-between items-center">
                         <div>
                             <h3 class="font-bold"> {{post.Title}}</h3>
-                            <p class="text-gray-500 text-sm">{{ post.Description|slice:":20" }}
-                                {% if post.Description|length > 20 %}...{% endif %}
+                            <p class="text-gray-500 text-xs">{{ post.created_at|naturaltime }}
                             </p>
                         </div>
                         <div>
                             <a href="{% url 'update-post' post_id=post.id %}"
-                                class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block mb-2 sm:mb-0">ویرایش</a>
-                            <p class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-1 px-2 rounded-sm inline-block hover:cursor-pointer"
+                                class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm py-1 px-2 rounded-sm inline-block mb-2 sm:mb-0">ویرایش</a>
+                            <p class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-2 rounded-sm inline-block hover:cursor-pointer"
                                 id="deleteBotton">حذف</p>
 
                             <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
