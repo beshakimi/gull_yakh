@@ -39,40 +39,42 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        {% for cart in foods %}
+                        {% for item in cart_items %}
+                        {% if item.food %}
                         <tr class="border-b dark:border-neutral-300">
                             <td class="whitespace-nowrap px-6 py-4 font-medium"><a
-                                    href="{% url 'delete-cart' cart.id %}"><i
+                                    href="{% url 'delete-cart' item.id %}"><i
                                         class="fa-solid fa-xmark hover:cursor-pointer "></a></i>
                             </td>
-                            <td class="py-2 flex justify-center items-center"><img src="{{ cart.Image.url }}" alt=""
+                            <td class="py-2 flex justify-center items-center"><img src="{{ item.food.Image.url }}" alt=""
                                     class="w-[60px] h-[60px] object-cover"></td>
-                            <td class="whitespace-nowrap px-6 py-4">{{ cart.Title }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 price">{{ cart.Price }}</td>
+                            <td class="whitespace-nowrap px-6 py-4">{{ item.food.Title }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 price">{{ item.food.Price }}</td>
                             <td class="whitespace-nowrap px-6 py-4">
-                                <input type="number" value="1" min="1"
+                                <input type="number" value="{{item.quantity}}" min="1"
                                     class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 quantity">
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 totalPrice">{{ cart.Price }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 totalPrice">{{ item.total_price }}</td>
                         </tr>
-                        {% endfor %}
+                        
 
-                        {% for drink in drinks %}
+                        {% elif item.drink %}
                         <tr class="border-b dark:border-neutral-300">
                             <td class="whitespace-nowrap px-6 py-4 font-medium"><a
-                                    href="{% url 'delete-cart' drink.id %}"><i
+                                    href="{% url 'delete-cart' item.id %}"><i
                                         class="fa-solid fa-xmark hover:cursor-pointer "></a></i>
                             </td>
-                            <td class="py-2 flex justify-center items-center"><img src="{{ drink.Image.url }}" alt=""
+                            <td class="py-2 flex justify-center items-center"><img src="{{ item.drink.Image.url }}" alt=""
                                     class="w-[60px] h-[60px] object-cover"></td>
-                            <td class="whitespace-nowrap px-6 py-4">{{ drink.Title }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 price">{{ drink.Price }}</td>
+                            <td class="whitespace-nowrap px-6 py-4">{{ item.drink.Title }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 price">{{ item.drink.Price }}</td>
                             <td class="whitespace-nowrap px-6 py-4">
-                                <input type="number" value="1" min="1"
+                                <input type="number" value="{{item.quantity}}" min="1"
                                     class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 quantity">
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 totalPrice">{{ drink.Price }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 totalPrice">{{ item.total_price }}</td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
 
                     </tbody>
@@ -82,9 +84,9 @@
         </div>
     </div>
     <div class="mr-6">
+        
 
-
-        <form id="my-form" method="post" action="{% url 'cart-item' cart.id %}">
+        <form id="my-form"  action="{% url 'cart-item' cart.id %}">
             {% csrf_token %}
             <input type="text" name="default_total_price" id="default_total_price" readonly>
             <input type="hidden" name="total_price" id="changed_total_price" style="border: 1px solid gray;">
