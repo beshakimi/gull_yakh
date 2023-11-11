@@ -74,23 +74,25 @@
                             </tr>
                         </thead>
                         <tbody class="text-center ">
-                            {% for cart_items in cart_item.cart.food.all %}
-
+                            {% for item in cart_item %}
+                            {% if item.food %}
                             <tr class="border-b">
                                 <td class="p-2">{{ forloop.counter }}</td>
-                                <td class="p-2 flex justify-center"><img src="{{cart_items.Image.url}}"
+                                <td class="p-2 flex justify-center"><img src="{{item.food.Image.url}}"
                                         class="w-[60px] h-[60px] object-cover "></td>
-                                <td class="p-2 text-sm">{{cart_items.Title}}</td>
+                                <td class="p-2 text-sm">{{item.food.Title}}</td>
 
                             </tr>
-                            {% endfor %}
-                            {% for cart_items in cart_item.cart.drink.all %}
+                            
+
+                            {% elif item.drink %}
                             <tr class="border-b">
                                 <td class="p-2">{{ forloop.counter }}</td>
-                                <td class="p-2 flex justify-center"><img src="{{cart_items.Image.url}}"
+                                <td class="p-2 flex justify-center"><img src="{{item.drink.Image.url}}"
                                         class="w-[60px] h-[60px] object-cover"></td>
-                                <td class="p-2 text-sm">{{cart_items.Title}}</td>
+                                <td class="p-2 text-sm">{{item.drink.Title}}</td>
 
+                                {% endif %}
                                 {% endfor %}
 
                             </tr>
@@ -101,7 +103,7 @@
                         <label for="" class="mx-2 text-xs font-semibold"> قیمت مجموعی:</label>
                         <div
                             class="w-16 h-6 pt-[3px] text-white text-xs flex items-center justify-center bg-slate-800 rounded-md hover:cursor-default mr-2">
-                            {{cart_item.total_price}} </div>
+                            {{total_price}} </div>
                     </div>
 
                 </div>

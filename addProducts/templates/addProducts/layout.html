@@ -96,10 +96,6 @@
                 <img src="{% static 'icons/shopping-cart.png'%}" alt=""
                   class="md:ml-0 relative p-[2px] flex border border-gray-300 rounded-md hover:bg-[#f5056d] duration-500 w-8 h-8">
               </a>
-              <h2
-                class="absolute left-[8px] top-[-10px] text-center text-white font-semibold text-[12px] w-[16px] h-[16px] rounded-full bg-blue-500 cursor-default">
-                {{ request.user.cart.food.count|add:request.user.cart.drink.count }}
-              </h2>
             </span>
             {% else %}
 

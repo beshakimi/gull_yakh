@@ -31,5 +31,7 @@ urlpatterns = [
     # chackout
     path('chackout', views.chackout_view, name='chackout'),
     path('chackout_details/<int:pk>/', views.chackout_details_view, name='chackout_details'),
+    # mark as ordered
+    path('mark_ordered/<int:pk>/', views.mark_ordered, name='mark-ordered')
 
 ]
