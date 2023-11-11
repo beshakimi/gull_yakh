@@ -11,17 +11,17 @@
 
 <!-- title -->
 <div class="mt-16 bg-[#f5056d] md:pr-60">
-    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  "> اضافه کردن غذا </h1>
+    <h1 class="text-lg pr-4 py-3  text-white font-bold flex items-center  "> اضافه کردن غذا </h1>
 </div>
 
 <!-- error and succuss message -->
-<p class="absolute hidden text-sm text-white pr-8 py-4 pl-4 top-36 left-1/2 transform -translate-x-1/2 text-center   bg-yellow-500 bg-opacity-95 rounded-sm z-50"
+<p class="error-message hidden fixed"
     id="formError">
 </p>
 {% if messages %}
 {% for message in messages %}
 <p
-    class="absolute top-4 left-1/2 transform -translate-x-1/2 text-center text-green-600 p-2 bg-yellow-500 bg-opacity-95 rounded-sm z-50 error-message">
+    class="success-message fixed">
     {{ message }} </p>
 {% endfor %}
 
@@ -29,7 +29,7 @@
 
 <script>
     setTimeout(function () {
-        var errorMessage = document.querySelector('.error-message');
+        var errorMessage = document.querySelector('.success-message');
         if (errorMessage) {
             errorMessage.classList.add('hidden');
         }
@@ -51,29 +51,29 @@
                 {% csrf_token %}
                 <!-- food Name -->
                 <div class="mb-4">
-                    <label for="name" class="block text-gray-700 font-bold mb-2">نام: </label>
+                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">نام: </label>
                     <input id="name" type="text" class="input" name="title" placeholder="نام نوشیدنی را بنویسید" />
                 </div>
 
                 <!-- food price -->
                 <div class="mb-4">
-                    <label for="price" class="block text-gray-700 font-bold mb-2">قیمت: </label>
+                    <label for="price" class="block text-gray-700 text-sm font-bold mb-2">قیمت: </label>
                     <input id="price" type="number" class="input" name="price" placeholder="100">
                 </div>
 
                 <!-- food image -->
                 <div class="mb-4">
-                    <label class="block font-bold text-gray-700">عکس:</label>
+                    <label class="block font-bold pb-2 text-sm text-gray-700">عکس:</label>
                     <div class="mt-2">
                         <label for="chose-image"
-                            class="p-2 text-gray-500 rounded-sm bg-gray-200 hover:cursor-pointer">انتخاب
+                            class="p-2 text-sm border text-gray-400 rounded-sm bg-gray-100 hover:cursor-pointer">انتخاب
                             عکس</label>
                     </div>
                     <input type="file" name="image" id="chose-image" class="hidden" />
                 </div>
 
                 <div class="mb-4">
-                    <label for="description" class="block text-gray-700 font-bold mb-2">توضیحات:</label>
+                    <label for="description" class="block text-gray-700 text-sm font-bold mb-2">توضیحات:</label>
                     <textarea id="description" class="input" name="description" rows="4"
                         placeholder="توضیاحات در مورد نوشیدنی"></textarea>
                 </div>
@@ -82,112 +82,22 @@
                 <!-- <div id="formError" class="text-red-500 hidden"></div> -->
 
                 <!-- Submit Button -->
-                <button type="submit" class="cbtn w-full my-0">
+                <button type="submit" class="cbtn w-full my-0 ">
                     اضافه کردن
                 </button>
             </form>
         </div>
 
-
-        <script>
-            function validateForm() {
-                var nameInput = document.getElementById("foodName");
-                var priceInput = document.getElementById("foodPrice");
-                var imageInput = document.getElementById("chose-image");
-                var descriptionInput = document.getElementById("foodDescription");
-                var errorElement = document.getElementById("formError");
-
-                var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
-                var imagePattern = /\.(jpg|jpeg|png|gif|svg)$/i;
-                var pricePattern = /^(?!0)\d+$/;
-
-                if (nameInput.value === "" && priceInput.value === "" && imageInput.value === "" && descriptionInput.value === "") {
-                    errorElement.textContent = "هیچ مقداری وارد نشده است";
-                    errorElement.classList.remove("hidden");
-                    setTimeout(function () {
-                        errorElement.classList.add("hidden");
-                    }, 5000);
-                    return false;
-                }
-
-                if (nameInput.value === "") {
-                    errorElement.textContent = "نام را وارد نکرده اید";
-                    errorElement.classList.remove("hidden");
-                    setTimeout(function () {
-                        errorElement.classList.add("hidden");
-                    }, 5000);
-                    return false;
-                }
-
-                if (!namePattern.test(nameInput.value)) {
-                    errorElement.textContent = "نام نامعتبر است";
-                    errorElement.classList.remove("hidden");
-                    setTimeout(function () {
-                        errorElement.classList.add("hidden");
-                    }, 5000);
-                    return false;
-                }
-
-                if (priceInput.value === "") {
-                    errorElement.textContent = "قیمت را وارد نکرده اید";
-                    errorElement.classList.remove("hidden");
-                    setTimeout(function () {
-                        errorElement.classList.add("hidden");
-                    }, 5000);
-                    return false;
-                }
-
-                if (!pricePattern.test(priceInput.value)) {
-                    errorElement.textContent = "قیمت نامعتبر است";
-                    errorElement.classList.remove("hidden");
-                    setTimeout(function () {
-                        errorElement.classList.add("hidden");
-                    }, 5000);
-                    return false;
-                }
-
-                if (imageInput.value === "") {
-                    errorElement.textContent = "عکس را وارد کنید";
-                    errorElement.classList.remove("hidden");
-                    setTimeout(function () {
-                        errorElement.classList.add("hidden");
-                    }, 5000);
-                    return false;
-                }
-
-                if (!imagePattern.test(imageInput.value)) {
-                    errorElement.textContent = "فرمت عکس نامعتبر است";
-                    errorElement.classList.remove("hidden");
-                    setTimeout(function () {
-                        errorElement.classList.add("hidden");
-                    }, 5000);
-                    return false;
-                }
-
-                if (descriptionInput.value === "") {
-                    errorElement.textContent = "توضیحات را وارد کنید";
-                    errorElement.classList.remove("hidden");
-                    setTimeout(function () {
-                        errorElement.classList.add("hidden");
-                    }, 5000);
-                    return false;
-                }
-
-                errorElement.classList.add("hidden");
-                return true;
-            }
-        </script>
-
         <!-- Foods List -->
         <div class="bg-white rounded-sm shadow p-4 ml-4 h-[500px] overflow-y-scroll">
-            <h2 class="text-xl font-bold mb-4">آخرین غذا ها</h2>
+            <h2 class=" font-bold mb-4">آخرین غذا ها</h2>
             <ul>
 
                 {% for food in foods %}
                 <li class="border-b border-gray-300 py-2">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold"> {{food.Title}}</h3>
+                            <h3 class="text-sm font-bold"> {{food.Title}}</h3>
                             <p class="text-gray-500 text-xs">{{ food.Created|naturaltime }}
                             </p>
                         </div>
@@ -201,7 +111,7 @@
                                 id="deleteModel_{{ food.id }}">
                                 <div class=" w-full h-full flex justify-center items-center">
                                     <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
-                                        <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
+                                        <p class="text-sm">مطمئن هستید که این مورد را حذف کنید؟ </p>
                                         <div class="">
                                             <form action="{% url 'delete-food' food_id=food.id %}"
                                                 class="flex gap-8 mt-4" method="post">

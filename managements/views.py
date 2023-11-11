@@ -79,7 +79,7 @@ def update_food_model_view(request, food_id):
         Title = request.POST['title']
         Price = request.POST['price']
         Description = request.POST['description']
-        
+            
         if 'image' in request.FILES:
             Image = request.FILES['image']
             food.Image = Image
@@ -87,8 +87,8 @@ def update_food_model_view(request, food_id):
         food.Title =Title
         food.Price = Price
         food.Description = Description
-        
         food.save()
+        messages.success(request, ' با موفقیت تغییر کرد.')
         
         return redirect('create-food')
     else:
@@ -104,7 +104,7 @@ def delete_food(request, food_id):
         return redirect('create-food')
    
 
-    # add drink view 
+# add drink view 
 def create_drink_view(request):
     drinks = DringModel.objects.all().order_by('-id')
 
@@ -114,18 +114,6 @@ def create_drink_view(request):
         description = request.POST.get('description')
         image = request.FILES.get('image')
 
-        # if not title:
-        #     messages.error(request, 'لطفا نام را وارد کنید.')
-        #     return redirect('/manage/addDrink')
-        # if not price:
-        #     messages.error(request, 'لطفا قیمت را وارد کنید.')
-        #     return redirect('/manage/addDrink')
-        # if not description:
-        #     messages.error(request, 'لطفا توضیحات را وارد کنید.')
-        #     return redirect('/manage/addDrink')
-        # if not image:
-        #     messages.error(request, 'لطفا عکس را وارد کنید.')
-        #     return redirect('/manage/addDrink')
 
       
         if DringModel.objects.filter(Title=title).exists():
@@ -184,8 +172,13 @@ def create_post_view(request):
         description= request.POST['description']
         image = request.FILES['image']
 
+        if BlogModel.objects.filter(Title=title).exists():
+            messages.error(request, 'این مورد از قبل وجود دارد.')
+            return redirect('create-post')
+
         post=BlogModel(Title=title, Description=description, Image=image)
         post.save()
+        messages.success(request, ' با موفقیت اضافه شد.')
         return redirect('/manage/addPost')
     context={
         'posts':post,
@@ -193,7 +186,7 @@ def create_post_view(request):
     }
     return render(request, 'admin/addPost.html',context)
     
-    # update post view 
+# update post view 
 def update_post_view(request, post_id):
     post = get_object_or_404(BlogModel, id=post_id)
     
@@ -208,12 +201,12 @@ def update_post_view(request, post_id):
         post.Title = Title
         post.Description = Description
         post.save()
+        messages.success(request, ' با موفقیت تغییر کرد.')
         
         return redirect('/manage/addPost')
     else:
         return render(request, 'admin/updatepost.html', {'post': post})
     
-
 # delete post view 
 def delete_post(request, post_id):
     post = BlogModel.objects.get(id=post_id)
@@ -222,9 +215,6 @@ def delete_post(request, post_id):
         post.delete()
         return redirect('create-post')
     
-
-
-
 # users view 
 def user_list_view(request):
     
@@ -261,6 +251,7 @@ def user_list_view(request):
    }
     return render(request,"admin/user.html",context)
 
+# user details view 
 def user_details(request, id):
     user = User.objects.get(pk=id)
     if request.method == 'POST':
@@ -272,7 +263,7 @@ def user_details(request, id):
 
     return render(request,"admin/userDetails.html", {'user': user})
 
-
+# delete user view
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -290,8 +281,7 @@ def delete_user(request, user_id):
 
     return render(request, 'admin/user_list.html', context)
 
-
-
+# admin users 
 def admin_users(request):
     users = User.objects.filter(user_type="ادمین").order_by('-id')
 
@@ -301,6 +291,7 @@ def admin_users(request):
 
     return render(request,'admin/admin_users.html',context)
 
+# public user 
 def users(request):
     users = User.objects.filter(user_type="کاربر عادی").order_by('-id')
 
