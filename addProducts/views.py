@@ -239,7 +239,7 @@ def add_to_cart(request, id, model):
         return redirect('home')  # Invalid model provided
 
     product = product_model.objects.get(id=id)
-    cart = Cart.objects.get(user=request.user)
+    cart, created = Cart.objects.get_or_create(user=request.user)
     
     
     if product:

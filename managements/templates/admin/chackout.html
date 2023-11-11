@@ -42,7 +42,7 @@
                                         class="w-[50px] h-[50px] rounded-full object-cover"></td>
                                 <td class="whitespace-nowrap px-6 py-4">{{ checkout.user.profile.first_name }}</td>
                                 <td class="whitespace-nowrap px-6 py-4 price"> {{ checkout.user.profile.last_name }}</td>
-                                <td class="whitespace-nowrap px-6 py-4">{{ chackout.user.profile.email }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ checkout.user.email }}</td>
 
                                 <td class="whitespace-nowrap px-6 py-4 totalPrice">
                                     <a href="{%url 'chackout_details' pk=checkout.id %}"
