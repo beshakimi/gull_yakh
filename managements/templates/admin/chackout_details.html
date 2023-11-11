@@ -38,13 +38,21 @@
                     <tbody class="text-center">
                         <tr class="border-b">
                             <td class="whitespace-nowrap px-2 py-4 price">{{ forloop.counter }}</td>
-                            <td class="py-2 flex justify-center items-center "><img src="{{ user.profile.avatar.url }}"
+                            {% if item.food %}
+                            <td class="py-2 flex justify-center items-center "><img src="{{ item.food.Image.url }}"
                                     alt="" class="w-[50px] h-[50px] rounded-full object-cover"></td>
-                            <td class="whitespace-nowrap px-2 py-4">{{ item.name }}</td>
+                            <td class="whitespace-nowrap px-2 py-4">{{ item.food.Title }}</td>
                             <td class="whitespace-nowrap px-2 py-4 price"></td>
-                            <td class="whitespace-nowrap px-2 py-4">3</td>
-                            <td class="whitespace-nowrap px-2 py-4">{{item.cart_item.total_price}}</td>
-
+                            <td class="whitespace-nowrap px-2 py-4">{{ item.quantity }}</td>
+                            <td class="whitespace-nowrap px-2 py-4">{{item.total_price}}</td>
+                            {% elif item.drink %}
+                            <td class="py-2 flex justify-center items-center "><img src="{{ item.drink.Image.url }}"
+                                    alt="" class="w-[50px] h-[50px] rounded-full object-cover"></td>
+                            <td class="whitespace-nowrap px-2 py-4">{{ item.drink.Title }}</td>
+                            <td class="whitespace-nowrap px-2 py-4 price"></td>
+                            <td class="whitespace-nowrap px-2 py-4">{{ item.quantity }}</td>
+                            <td class="whitespace-nowrap px-2 py-4">{{item.total_price}}</td>
+                            {% endif %}
 
                         </tr>
                         <a href="" class="p-2 bg-slate-500">قیمت مجموعی</a>
@@ -56,7 +64,7 @@
                 </table>
                
             </div>
-            <a href="" class="px-2 py-1 text-xs m-4 bg-slate-500">قیمت مجموعی</a>
+            <p class="px-2 py-1 text-xs m-4 bg-slate-500">قیمت مجموعی: {{total_price}}</p>
         </div>
         <!-- customer info -->
         <div class="overflow-scroll w-full custom-scrollbar border ">
@@ -65,21 +73,21 @@
                 <!-- user avatar  -->
                 <div class="flex gap-4 ">
                     <div>
-                        <img src="{%static 'admin/profile/2.jpg'%}" alt="" class="w-40 h-40 object-cover">
+                        <img src="{{ user.profile.avatar.url }}" alt="" class="w-40 h-40 object-cover">
                     </div>
                     <!-- name email and phone -->
                     <div class="flex flex-col gap-2  justify-center">
                         <div class="flex gap-2">
-                            <h1 class="text-sm">نام: </h1>
-                            <h1 class="text-sm text-gray-500">سارا</h1>
-                        </div>
-                        <div class="flex gap-2 items-center">
-                            <h1 class="text-sm" >شماره تماس:</h1>
-                            <h1 class="text-sm text-gray-500">0796968666</h1>
+                            <h1>نام</h1>
+                            <h1>{{ checkout.name }}</h1>
                         </div>
                         <div class="flex gap-2">
-                            <h1 class="text-sm">ایمیل:</h1>
-                            <h1 class="text-sm text-gray-500">sara@gmail.com</h1>
+                            <h1>شماره تماس</h1>
+                            <h1>{{ checkout.phone_number1 }}</h1>
+                        </div>
+                        <div class="flex gap-2">
+                            <h1>ایمیل</h1>
+                            <h1>{{ checkout.email }}</h1>
                         </div>
 
 
@@ -87,8 +95,8 @@
                 </div>
 
                 <div class="flex gap-2">
-                    <p class=" text-sm">آدرس:</p>
-                    <p class="text-sm text-gray-500 ">پل خشک - سرک قلعه قاضی - کوچه مهتاب - خانه شماره 2</p>
+                    <p class="text-gray-600">آدرس:</p>
+                    <p class="text-sm text-gray-500">{{ checkout.address }}</p>
 
                 </div>
 
@@ -96,8 +104,7 @@
 
         </div>
     </div>
-
-    <a href="" class="p-2 bg-[#f5056d] float-left m-6 text-white text-sm ">سفارش ارسال شد</a>
+    <a href="{% url "mark-ordered" checkout.id %}" class="p-2 bg-[#f5056d] float-left m-6 text-white text-sm ">سفارش ارسال شد</a>
 </div>
 </div>
 

@@ -3,20 +3,53 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect,HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
-from addProducts.models import foodModel, DringModel, BlogModel, Checkout
+from addProducts.models import foodModel, DringModel, BlogModel, Checkout, CartItem
 from accounts.models import Profile,User
 from accounts import views
+from django.db.models import Q
+from django.utils import timezone
+from datetime import date
 
 # dashboar_view
 def dashboar_view(request):
-    
+
     users=User.objects.all().order_by('-id')[:4]
-    context={
-            'userlist': users,
-            'section':'dashboard'
-        }
     
-    return render(request, 'admin/dashboard.html',context)
+    
+
+
+    num_of_users = User.objects.all().count()
+
+    # Get the current month's start and end dates
+    now = timezone.now()
+    start_of_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    end_of_month = start_of_month.replace(month=(start_of_month.month % 12) + 1)
+    # Retrieve instances created within the current month
+    instances = CartItem.objects.filter(Q(created__gte=start_of_month) & Q(created__lt=end_of_month) & Q(checked=True))
+    monthly_income = 0
+    for instance in instances:
+        monthly_income += float(instance.total_price)
+    
+    # Get today's date
+    today = date.today()
+    # Retrieve instances with today's date
+    today_instances = CartItem.objects.filter(Q(created=today) & Q(checked=True))
+    today_income = 0
+    for today_instance in today_instances:
+        today_income += float(today_instance.total_price)
+
+    
+
+    context = {
+        'section':'dashboard',
+        'num_of_users': num_of_users, 
+        'monthly_income': int(monthly_income),
+        'today_income': int(today_income),
+        'userlist': users,
+
+    }
+    return render(request, 'admin/dashboard.html', context)
+
 
 
 # add food view 
@@ -279,7 +312,6 @@ def users(request):
 # chackout 
 def chackout_view(request):
     checkouts = Checkout.objects.filter(ordered = False)
-    print(checkouts)
     context = {
         'checkouts': checkouts,
         'section':'chackout'
@@ -288,14 +320,27 @@ def chackout_view(request):
 
 # chackout details 
 def chackout_details_view(request, pk):
-    # checkout = get_object_or_404(Checkout, id=pk)
-    # user = checkout.user 
-    # items = checkout.cart_item.all()
-    # context = {
-    #     'user': user, 
-    #     'items': items,
-    # }
-    return render(request,"admin/chackout_details.html",)
+    checkout = get_object_or_404(Checkout, id=pk)
+    user = checkout.cart.user
+    items = checkout.cartitem_set.all()
+    total_price = 0
+    for item in items:
+        total_price += float(item.total_price)
+    
+    context = {
+        'checkout': checkout,
+        'user': user,
+        'items': items,
+        'total_price': total_price,
+    }
+    return render(request,"admin/chackout_details.html", context)
+
+
+def mark_ordered(request, pk):
+    checkout = get_object_or_404(Checkout, id=pk)
+    checkout.ordered = True
+    checkout.save()
+    return redirect('chackout')
 
 
         

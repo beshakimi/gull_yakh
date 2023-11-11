@@ -3,6 +3,7 @@ from django import forms
 from hijri_converter import Hijri
 from django.utils import timezone
 from accounts.models import User
+from accounts.models import Profile
 
 # Create your models here.
 
@@ -55,20 +56,13 @@ class BlogModel(models.Model):
 
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    food = models.ManyToManyField(foodModel)
-    drink = models.ManyToManyField(DringModel)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
-class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    total_price = models.CharField(max_length=200)
-    
-    
 class Checkout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cart_item = models.ForeignKey(CartItem, on_delete=models.SET_NULL, null=True)
+    cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=200)
     ordered = models.BooleanField(default=False)
@@ -80,4 +74,53 @@ class Checkout(models.Model):
     def __str__(self):
         return self.name
 
+
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    food = models.ForeignKey(foodModel, on_delete=models.CASCADE, null=True, blank=True)
+    drink = models.ForeignKey(DringModel, on_delete=models.CASCADE, null=True, blank=True)
+    quantity = models.IntegerField(default=1)
+    checkout = models.ForeignKey(Checkout, on_delete=models.SET_NULL, null=True, blank=True)
+    checked = models.BooleanField(default=False)
+    total_price = models.CharField(max_length=200)
+    created = models.DateField(auto_now_add=True)
+    
+
+class DrinkComment(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    drink = models.ForeignKey(DringModel, on_delete=models.CASCADE)
+    comment = models.TextField()
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.comment[:30]
+
+class FoodComment(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    food = models.ForeignKey(foodModel, on_delete=models.CASCADE)
+    comment = models.TextField()
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.comment[:30]
+
+class BlogComment(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    post = models.ForeignKey(BlogModel, on_delete=models.CASCADE)
+    comment = models.TextField()
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.comment[:30]
+    
+class WebsiteComment(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    comment = models.TextField()
+    active = models.BooleanField(default=True)
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.comment[:20]
 
