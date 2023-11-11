@@ -30,8 +30,6 @@ class UserAccountManager(BaseUserManager):
         user.save()
         return user
 
-
-
 class User(AbstractBaseUser, PermissionsMixin):
     USER_CHOICES = (
         ('ادمین', 'ادمین'),

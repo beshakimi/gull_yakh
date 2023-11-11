@@ -800,7 +800,7 @@ video {
 }
 
 .error-message {
-  position: absolute;
+  position: fixed;
   top: 1rem;
   left: 50%;
   z-index: 50;
@@ -818,8 +818,7 @@ video {
 }
 
 .success-message {
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-  position: absolute;
+  position: fixed;
   top: 1rem;
   left: 50%;
   z-index: 50;
@@ -949,10 +948,6 @@ video {
   top: 8rem;
 }
 
-.top-36 {
-  top: 9rem;
-}
-
 .top-4 {
   top: 1rem;
 }
@@ -991,6 +986,18 @@ video {
 
 .z-50 {
   z-index: 50;
+}
+
+.float-left {
+  float: left;
+}
+
+.m-4 {
+  margin: 1rem;
+}
+
+.m-6 {
+  margin: 1.5rem;
 }
 
 .-mx-4 {
@@ -1107,6 +1114,10 @@ video {
 
 .ml-1 {
   margin-left: 0.25rem;
+}
+
+.ml-10 {
+  margin-left: 2.5rem;
 }
 
 .ml-2 {
@@ -1317,6 +1328,10 @@ video {
   height: 30x;
 }
 
+.h-\[32px\] {
+  height: 32px;
+}
+
 .h-\[34px\] {
   height: 34px;
 }
@@ -1360,6 +1375,10 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-9 {
+  height: 2.25rem;
 }
 
 .max-h-64 {
@@ -1463,6 +1482,10 @@ video {
   width: 30px;
 }
 
+.w-\[32px\] {
+  width: 32px;
+}
+
 .w-\[34px\] {
   width: 34px;
 }
@@ -1522,6 +1545,14 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-9 {
+  width: 2.25rem;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .min-w-\[240px\] {
@@ -1688,6 +1719,10 @@ video {
 
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
 }
 
 .overflow-x-scroll {
@@ -1898,6 +1933,11 @@ video {
 .bg-slate-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
+
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
 .bg-slate-700 {
@@ -2733,6 +2773,11 @@ video {
   .md\:mx-4 {
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+
+  .md\:mx-0 {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 
   .md\:mb-0 {

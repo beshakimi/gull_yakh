@@ -143,7 +143,7 @@
                 <div class="flex items-center w-full px-2 hover:bg-gray-100 hover:cursor-pointer" id="log-in-profile">
                   <img src="{{user.profile.avatar.url}}" alt=""
                     class="w-6 h-6 border border-slate-900 rounded-full object-cover">
-                  <h1 class=" text-sm p-2"> پروفایل</h1>
+                  <h1 class=" text-sm p-2"> ویرایش</h1>
                 </div>
               </a>
               <hr class="w-[90%] border-[1px] mx-auto border-gray-100">
@@ -191,6 +191,7 @@
                 class=" md:ml-0 flex p-1 border border-gray-300 rounded-md hover:cursor-pointer hover:bg-[#f5056d] duration-500 w-8 h-8  ">
             </div>
 
+            <!-- expand and close icin  -->
             <div class=" md:hidden  flex items-center justify-center">
               <button id="menuBtn" class=" lg:hidden ">
                 <img src="{%static 'icons/menu_FILL0_wght400_GRAD0_opsz24.svg'%}" alt=""
@@ -221,7 +222,7 @@
     <div class="hidden md:hidden  w-full pb-4 absolute right-0 bg-white mobile-menu" id="navMenu">
       <ul class=" flex flex-col  text-center w-full px-2 pt-2 pb-3 space-y-1 sm:px-3 ">
         <li class=" py-2  hover:cursor-pointer hover:bg-[#f5056d] duration-500">
-          <a href="#" class="text-black  w-full">صفحه
+          <a href="{% url 'home'%}" class="text-black  w-full">صفحه
             اصلی</a>
         </li>
 

@@ -55,43 +55,43 @@
 <!-- start users -->
 <div class="mx-auto pt-4 md:mr-64">
 
-  <div class="bg-white rounded-lg ">
-    <div class="overflow-x-auto">
+  <div class="bg-white rounded-lg  ">
+    <div class="overflow-x-auto h-[350px] mx-4 md:mx-0 md:ml-4 overflow-y-hidden">
       <table class="min-w-full divide-y divide-gray-200 w-fit">
         <thead>
           <tr>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">عکس</th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">نام کاربری</th>
+            <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap">عکس</th>
+            <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap">نام کاربری</th>
             
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">ایمل</th>
+            <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap">ایمل</th>
             
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap">تاریخ پیوستن
+            <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap">تاریخ پیوستن
             </th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap"> نوعیت کاربر
+            <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap"> نوعیت کاربر
             </th>
-            <th class="px-6 py-3 bg-gray-50 text-sm font-sm font-semibold text-gray-600 whitespace-nowrap"> عملیات</th>
+            <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap"> عملیات</th>
 
           </tr>
         </thead>
         {% for user in userlist %}
         {% if user %}
-        <tbody class="bg-white divide-y divide-gray-200">
+        <tbody class="bg-white ">
           <tr>
-            <td class="px-6 py-4 flex justify-center whitespace-nowrap">
+            <td class="px-2 py-4 flex justify-center whitespace-nowrap">
               <img class="h-8 w-8 rounded-full object-cover" src="{{user.profile.avatar.url}}" alt="User Avatar">
             </td>
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.username}}
+            <td class="px-2 py-4 text-center text-gray-500 text-sm whitespace-nowrap">{{user.username}}
             </td>
             
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.email}}</td>
+            <td class="px-2 py-4 text-center text-gray-500 text-sm whitespace-nowrap">{{user.email}}</td>
             
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">
+            <td class="px-2 py-4 text-center text-gray-500 text-sm whitespace-nowrap">
               {{ user.profile.created_at|naturaltime }}
             </td>
-            <td class="px-6 py-4 text-center text-gray-500 text-[14px] whitespace-nowrap">{{user.user_type}}</td>
+            <td class="px-2 py-4 text-center text-gray-500 text-sm whitespace-nowrap">{{user.user_type}}</td>
 
             </td>
-            <td class="px-6 py-4 text-center whitespace-nowrap">
+            <td class="px-2 py-4 text-center whitespace-nowrap">
               <a href="{% url 'user-details' user.id %}"
                 class="text-sm  bg-blue-500 hover:bg-blue-600 text-white ml-1 py-1 px-2 rounded-sm inline-block">جزیات
                 کاربر</a>
@@ -104,7 +104,7 @@
           <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
             id="deleteModel_{{ user.id }}">
             <div class=" w-full h-full flex justify-center items-center">
-              <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
+              <div class="w-80  bg-gray-100 px-6 py-4 text-sm rounded-sm ">
                 <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
                 <div class="">
 
@@ -131,27 +131,33 @@
       </table>
     </div>
   </div>
+
+  
+  <!-- start pagenation -->
+  <ul class="my-10  flex gap-1 justify-center items-center">
+    {% if userlist.has_previous %}
+    <li>
+      <a href="?page={{userlist.previous_page_number}}" class="pagn"> <i class="fa-solid fa-arrow-right"></i> </a>
+    </li>
+    {% endif %}
+
+    {% for num in pagination_range %}
+    <li>
+      <a href="?page={{num}}" class="pagn"> {{ num }} </a>
+    </li>
+    {% endfor %}
+
+    {% if userlist.has_next %}
+    <li>
+      <a href="?page={{userlist.next_page_number}}" class="pagn"> <i class="fa-solid fa-arrow-left"></i> </a>
+    </li>
+    {% endif %}
+  </ul>
+  <!-- end pagenation -->
+
 </div>
 <!-- end users -->
-<div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50" id="deleteModel_{{ user.id }}">
-  <div class=" w-full h-full flex justify-center items-center">
-    <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
-      <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
-      <div class="">
-        <form action="{% url 'delete-user' user_id=user.id %}" class="flex gap-8 mt-4" method="post">
-          {%csrf_token%}
-          <input type="submit" value="بلی"
-            class="px-2 text-sm flex items-center hover:cursor-pointer  rounded-sm text-white bg-red-600">
-          <a href="" class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
 
-        </form>
-
-
-      </div>
-
-    </div>
-  </div>
-</div>
 
 
 {% endblock %}

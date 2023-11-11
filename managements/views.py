@@ -9,7 +9,14 @@ from accounts import views
 
 # dashboar_view
 def dashboar_view(request):
-    return render(request, 'admin/dashboard.html',{'section':'dashboard'})
+    
+    users=User.objects.all().order_by('-id')[:4]
+    context={
+            'userlist': users,
+            'section':'dashboard'
+        }
+    
+    return render(request, 'admin/dashboard.html',context)
 
 
 # add food view 
@@ -191,7 +198,7 @@ def user_list_view(request):
     
 
     # تعداد نوشیدنی‌ها در هر صفحه
-    items_per_page = 8
+    items_per_page = 5
 
     paginator = Paginator(users, items_per_page)
     try:
@@ -274,20 +281,21 @@ def chackout_view(request):
     checkouts = Checkout.objects.filter(ordered = False)
     print(checkouts)
     context = {
-        'checkouts': checkouts
+        'checkouts': checkouts,
+        'section':'chackout'
     }
     return render(request,"admin/chackout.html",  context)
 
 # chackout details 
 def chackout_details_view(request, pk):
-    checkout = get_object_or_404(Checkout, id=pk)
-    user = checkout.user 
-    items = checkout.cart_item.all()
-    context = {
-        'user': user, 
-        'items': items,
-    }
-    return render(request,"admin/chackout_details.html", context)
+    # checkout = get_object_or_404(Checkout, id=pk)
+    # user = checkout.user 
+    # items = checkout.cart_item.all()
+    # context = {
+    #     'user': user, 
+    #     'items': items,
+    # }
+    return render(request,"admin/chackout_details.html",)
 
 
         

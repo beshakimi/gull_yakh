@@ -21,19 +21,26 @@ closeBtn.addEventListener("click", () => {
 const fullscreenIcon = document.querySelector("#fullscreen-icon");
 
 fullscreenIcon.addEventListener("click", () => {
-  if (document.documentElement.requestFullscreen) {
-    document.documentElement.requestFullscreen();
-  } else if (document.documentElement.mozRequestFullScreen) {
-    // Firefox
-    document.documentElement.mozRequestFullScreen();
-  } else if (document.documentElement.webkitRequestFullscreen) {
-    // Chrome, Safari, and Opera
-    document.documentElement.webkitRequestFullscreen();
-  } else if (document.documentElement.msRequestFullscreen) {
-    // Internet Explorer and Edge
-    document.documentElement.msRequestFullscreen();
+  const userAgent = navigator.userAgent.toLowerCase();
+  const isChrome = /chrome/.test(userAgent);
+
+  if (isChrome) {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen();
+    }
   }
 });
+// remove full screnn 
+fullscreenIcon.addEventListener("click", () => {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+});
+
 
 // start display comments scripts
 
