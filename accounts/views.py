@@ -25,6 +25,9 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
+# developer defined decorators
+from .decorators import admin_required
+from django.contrib.auth.decorators import login_required
 # register view
 def register(request):
     if request.method == 'POST':
@@ -100,7 +103,7 @@ def logout_page(request):
  
 
 # profile edit view
-
+@login_required(login_url='login')
 def profile_edit_view(request, id):
     profile = get_object_or_404(Profile, pk=id)
     user = request.user

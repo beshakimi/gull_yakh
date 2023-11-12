@@ -9,8 +9,11 @@ from accounts import views
 from django.db.models import Q
 from django.utils import timezone
 from datetime import date
-
+from django.contrib.auth.decorators import login_required
+from accounts.decorators import admin_required
 # dashboar_view
+@login_required(login_url='login')
+@admin_required
 def dashboar_view(request):
 
     users=User.objects.all().order_by('-id')[:4]

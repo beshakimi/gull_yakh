@@ -3,10 +3,30 @@
 
 {% block mainContent%}
 
+<!-- error and succuss message -->
+<p class="error-message hidden fixed"
+    id="formError">
+</p>
+{% if messages %}
+{% for message in messages %}
+<p
+    class="success-message fixed">
+    {{ message }} </p>
+{% endfor %}
 
+{% endif %}
+
+<script>
+    setTimeout(function () {
+        var errorMessage = document.querySelector('.success-message');
+        if (errorMessage) {
+            errorMessage.classList.add('hidden');
+        }
+    }, 5000);
+</script>
 
 <!-- start drink details  -->
-<div class="w-[90%] mx-auto mt-28 mb-6 md:flex md:mt-28  bg-opacity-20 shadow-md">
+<div class="w-full border-2 md:flex py-28 px-10 md:px-4">
   <div class="w-full md:w-1/2">
     <img src="{{drinkDetails.Image.url}}" alt="" class="w-full h-[300px] md:h-[500px] object-cover position-top" />
   </div>
@@ -14,128 +34,91 @@
   <div class="w-full px-6 py-3 md:mr-6 md:w-1/2">
     <h2 class="text-2xl font-semibold mb-2">{{drinkDetails.Title}}</h2>
     <p class="text-gray-600 mb-4 text-justify">{{drinkDetails.Description}}</p>
-    <p class="text-sm text-gray-00 font-semibold mb-4">{{drinkDetails.Price}}Af </p>
+    <p class="text-sm text-gray-00 font-semibold">{{drinkDetails.Price}}Af </p>
     <form method="POST" action="{% url 'add_to_cart' drinkDetails.id 'drink' %}">
       {% csrf_token %}
-      <button type="submit">
-        <img src="{% static 'icons/shopping-cart.png' %}" alt="" class="menu-shop-cart">
-      </button>
+      <button type="submit" class="cbtn mb-0" >افزودن به ثبت خرید</button>
     </form>
 
-    <div class=" ">
-      <p id="toggleText" class="mt-10 cursor-pointer py-2 px-4 border-t-2 hover:bg-[#f5056d] duration-500">
-        نظر دهید
-      </p>
-      <div id="content" class="">
-        <div class=" mx-auto my-10">
-          <div class="flex gap-1 py-2">
-            <p class="text-gray-700 font-semibold mb-2">امتیاز دهید:</p>
-            <p id="rating-value" class="w-2"></p>
+     <!-- wrid <command> -->
+      <div class="md:flex gap-2 my-2 ">
 
-
-
-            <!-- start rating  -->
-            <div class="flex gap-1" dir="rtl">
-              <input type="radio" id="star1" name="rating" value="5" class="hidden" />
-              <label for="star5" class="text-gray-300 hover:text-yellow-500 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
-              <input type="radio" id="star2" name="rating" value="4" class="hidden" />
-              <label for="star4" class="text-gray-300 hover:text-yellow-500 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
-              <input type="radio" id="star3" name="rating" value="3" class="hidden" />
-              <label for="star3" class="text-gray-300 hover:text-yellow-500 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
-              <input type="radio" id="star4" name="rating" value="2" class="hidden" />
-              <label for="star2" class="text-gray-300 hover:text-yellow-500 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
-              <input type="radio" id="star5" name="rating" value="1" class="hidden" />
-              <label for="star1" class="text-gray-300 hover:text-yellow-500 cursor-pointer">
-                <i class="fas fa-star"></i>
-              </label>
+        <form id="commentForm" class="mt-4 md:w-1/2 px-4 border" action='{% url "add-drink-comment" drinkDetails.id %}'
+          method="POST">
+          {% csrf_token %}
+          <h1 class="w-14 py-2 text-sm font-bold border-b-2 border-gray-500">نظر دهید</h1>
+          <label for="author" class="block text-gray-700 text-sm pt-2 font-bold">نام شما</label>
+          <p class="input my-1">{{request.user.profile.first_name }} {{ request.user.profile.last_name }}</p>
+          <!-- <input type="text" value="{{request.user.profile.first_name }} {{ request.user.profile.last_name }}" id="author" class="input my-1" /> -->
+          <label for="content" class="block mt-2 text-gray-700 text-sm font-bold">نظر</label>
+          <textarea id="content" name="comment" class="input my-1"></textarea>
+          <button type="submit" class="cbtn py-2 my-2" onclick="submitComment()">ارسال نظر</button>
+        </form>
+        <script>
+          function submitComment() {
+            var author = document.getElementById("author").value;
+            var content = document.getElementById("content").value;
+            var errorElement = document.getElementById("comment-error");
+        
+            errorElement.innerHTML = ""; // پاک کردن پیام خطا قبلی
+        
+            if (!author || !content) {
+              errorElement.innerHTML = "لطفا نام و نظر خود را وارد کنید.";
+              return false; // جلوگیری از ارسال فرم
+            }
+        
+            // اگر هیچ خطایی وجود نداشت، فرم را ارسال کنید
+            document.getElementById("commentForm").submit();
+          }
+        </script>
+        <!-- show comments  -->
+        <div class="md:w-1/2  mt-4 px-4 border py-2  ">
+          <h1 class="w-12 pb-2 text-sm font-bold border-b-2 border-gray-500">نظر ها</h1>
+          <!-- comment -1  -->
+          <div class="h-60 overflow-y-scroll custom-scrollbar">
+          {% for comment in comments %}
+          <div class="relative w-full ">
+            <div class="flex gap-2 items-center my-2  ">
+              <img src="{{user.profile.avatar.url}}" alt="" class="w-8 h-8 rounded-full object-cover">
+              <p class="text-sm font-bold">{{ comment.profile.first_name }} {{ comment.profile.last_name }}</p>
             </div>
-            
-           
 
+            <div class="mt-2 w-full ">
+              <p class="text-xs text-gray-400 w-full">{{ comment.comment }}</p>
+            </div>
+            <hr class="border-p-1 w-full my-2">
+            <p class="absolute top-0 left-0 bg-red-500 hover:bg-red-600 text-white text-sm  py-1 px-2 rounded-sm inline-block hover:cursor-pointer deleteButton"
+              id="deleteButton_{{ comment.id }}">حذف</p>
+
+            <!-- show delete chosses -->
+            <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
+              id="deleteModel_{{ comment.id }}">
+              <div class=" w-full h-full flex justify-center items-center">
+                <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
+                  <p class="text-sm">مطمئن هستید که این مورد را حذف کنید؟ </p>
+                  <div class="">
+                    <form action="{% url 'delete-drink-comment' comment.id drinkDetails.id %}" class="flex gap-8 mt-4"
+                      method="post">
+                      {%csrf_token%}
+                      <input type="submit" value="بلی"
+                        class="px-2 text-sm flex items-center hover:cursor-pointer  rounded-sm text-white bg-red-600">
+                      <a href="" class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
+
+                    </form>
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
           </div>
+          {% endfor %}
+        </div>
 
-          <script>
-            const stars = document.querySelectorAll('input[name="rating"]');
-            const ratingValue = document.getElementById('rating-value');
-
-            stars.forEach((star, index) => {
-              star.addEventListener('change', function () {
-                const currentRating = this.value;
-                ratingValue.textContent = currentRating;
-                for (let i = 0; i < stars.length; i++) {
-                  if (i < currentRating) {
-                    stars[i].nextElementSibling.classList.add('text-yellow-500');
-                  } else {
-                    stars[i].nextElementSibling.classList.remove('text-yellow-500');
-                  }
-                }
-              });
-
-              star.addEventListener('mouseenter', function () {
-                const currentRating = index + 1;
-                for (let i = 0; i < stars.length; i++) {
-                  if (i < currentRating) {
-                    stars[i].nextElementSibling.classList.add('text-yellow-500');
-                  } else {
-                    stars[i].nextElementSibling.classList.remove('text-yellow-500');
-                  }
-                }
-              });
-
-              star.addEventListener('mouseleave', function () {
-                const currentRating = ratingValue.textContent;
-                for (let i = 0; i < stars.length; i++) {
-                  if (i < currentRating) {
-                    stars[i].nextElementSibling.classList.add('text-yellow-500');
-                  } else {
-                    stars[i].nextElementSibling.classList.remove('text-yellow-500');
-                  }
-                }
-              });
-            });
-
-            const starContainer = document.querySelector('.flex');
-            starContainer.addEventListener('contextmenu', function (event) {
-              event.preventDefault();
-              ratingValue.textContent = '1';
-              for (let i = 0; i < stars.length; i++) {
-                if (i === 0) {
-                  stars[i].checked = true;
-                  stars[i].nextElementSibling.classList.add('text-yellow-500');
-                } else {
-                  stars[i].checked = false;
-                  stars[i].nextElementSibling.classList.remove('text-yellow-500');
-                }
-              }
-            });
-          </script>
-
-          <form class="" action="{% url "add-drink-comment" drinkDetails.id %}" method="POST">
-            {% csrf_token %}
-            <div class="mb-4">
-              <label for="name" class="block text-gray-700 font-semibold mb-2">نام:</label>
-              <input type="text" id="name" value="{{ request.user.profile.first_name }} {{ request.user.profile.last_name }}" name="name" placeholder="نام خود را وارد کنید" class="input" />
-            </div>
-            
-            <div class="mb-4">
-              <label for="comment" class="block text-gray-700 font-semibold mb-2">نظر :</label>
-              <textarea id="comment" name="comment" placeholder="نظر خود را وارد کنید" class="input"></textarea>
-            </div>
-            <button type="submit" class="cbtn">
-              ارسال نظر
-            </button>
-          </form>
         </div>
       </div>
-    </div>
+
 
     <script>
       const toggleText = document.getElementById("toggleText");

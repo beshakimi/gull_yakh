@@ -104,10 +104,10 @@
                 <img src="{% static 'icons/shopping-cart.png'%}" alt=""
                   class="md:ml-0 relative p-[2px] flex border border-gray-300 rounded-md hover:bg-[#f5056d] duration-500 w-8 h-8">
               </a>
-              <h2
+              {% comment %} <h2
                 class="absolute left-[8px] top-[-10px] text-center text-white font-semibold text-[12px] w-[16px] h-[16px] rounded-full bg-blue-500 cursor-default">
                 {{ request.user.cart.cartitem_set.count }}
-              </h2>
+              </h2> {% endcomment %}
             </span>
             <!-- Handle the case when the cart is empty or doesn't exist -->
             {% endif %}

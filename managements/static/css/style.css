@@ -801,7 +801,7 @@ video {
 
 .error-message {
   position: fixed;
-  top: 1rem;
+  top: 5rem;
   left: 50%;
   z-index: 50;
   --tw-translate-x: -50%;
@@ -819,7 +819,7 @@ video {
 
 .success-message {
   position: fixed;
-  top: 1rem;
+  top: 5rem;
   left: 50%;
   z-index: 50;
   --tw-translate-x: -50%;
@@ -1080,6 +1080,11 @@ video {
   margin-bottom: auto;
 }
 
+.mx-10 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+
 .-mt-20 {
   margin-top: -5rem;
 }
@@ -1264,10 +1269,6 @@ video {
   height: 5rem;
 }
 
-.h-28 {
-  height: 7rem;
-}
-
 .h-36 {
   height: 9rem;
 }
@@ -1290,6 +1291,10 @@ video {
 
 .h-6 {
   height: 1.5rem;
+}
+
+.h-60 {
+  height: 15rem;
 }
 
 .h-8 {
@@ -1375,10 +1380,6 @@ video {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-9 {
-  height: 2.25rem;
 }
 
 .max-h-64 {
@@ -1547,14 +1548,6 @@ video {
   width: 100vw;
 }
 
-.w-9 {
-  width: 2.25rem;
-}
-
-.w-10 {
-  width: 2.5rem;
-}
-
 .min-w-\[240px\] {
   min-width: 240px;
 }
@@ -1607,10 +1600,6 @@ video {
 
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -2142,10 +2131,6 @@ video {
   padding-bottom: 1.25rem;
 }
 
-.pl-4 {
-  padding-left: 1rem;
-}
-
 .pl-8 {
   padding-left: 2rem;
 }
@@ -2196,6 +2181,10 @@ video {
 
 .pt-\[3px\] {
   padding-top: 3px;
+}
+
+.pr-6 {
+  padding-right: 1.5rem;
 }
 
 .text-center {
@@ -2624,10 +2613,6 @@ video {
   background-color: rgb(202 138 4 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-opacity-50:hover {
-  --tw-bg-opacity: 0.5;
-}
-
 .hover\:text-\[\#f5056d\]:hover {
   --tw-text-opacity: 1;
   color: rgb(245 5 109 / var(--tw-text-opacity));
@@ -2765,6 +2750,11 @@ video {
     top: 10rem;
   }
 
+  .md\:mx-0 {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
   .md\:mx-20 {
     margin-left: 5rem;
     margin-right: 5rem;
@@ -2773,11 +2763,6 @@ video {
   .md\:mx-4 {
     margin-left: 1rem;
     margin-right: 1rem;
-  }
-
-  .md\:mx-0 {
-    margin-left: 0px;
-    margin-right: 0px;
   }
 
   .md\:mb-0 {
@@ -2896,6 +2881,10 @@ video {
     width: 100%;
   }
 
+  .md\:w-\[95\%\] {
+    width: 95%;
+  }
+
   .md\:shrink-0 {
     flex-shrink: 0;
   }
@@ -2950,6 +2939,15 @@ video {
 
   .md\:p-0 {
     padding: 0px;
+  }
+
+  .md\:p-6 {
+    padding: 1.5rem;
+  }
+
+  .md\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .md\:pr-60 {
@@ -3025,10 +3023,6 @@ video {
 
   .lg\:hidden {
     display: none;
-  }
-
-  .lg\:h-40 {
-    height: 10rem;
   }
 
   .lg\:h-\[200px\] {

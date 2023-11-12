@@ -19,7 +19,6 @@ closeBtn.addEventListener("click", () => {
 
 // start full screen
 const fullscreenIcon = document.querySelector("#fullscreen-icon");
-
 fullscreenIcon.addEventListener("click", () => {
   const userAgent = navigator.userAgent.toLowerCase();
   const isChrome = /chrome/.test(userAgent);
@@ -72,7 +71,15 @@ body.addEventListener("click", (event) => {
 //   logIn.classList.add("hidden");
 // });
 
-
+// show delete model script
+var deleteButtons = document.querySelectorAll('.deleteButton');
+deleteButtons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    var ithemId = button.id.split('_')[1];
+    var deleteModel = document.getElementById('deleteModel_' + ithemId);
+    deleteModel.classList.toggle('hidden');
+  });
+});
 
 // start slider script
 const slider = document.getElementById("slider");
@@ -87,4 +94,5 @@ setInterval(() => {
 }, 5000);
 
 // end slider script
+
 
