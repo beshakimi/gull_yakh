@@ -7,6 +7,7 @@ from accounts.models import Profile
 
 # Create your models here.
 
+# food model 
 class foodModel(models.Model):
     class Meta:
         verbose_name="غذا"
@@ -21,9 +22,8 @@ class foodModel(models.Model):
 
     def __str__(self):
         return self.Title
-    
 
-
+# drink model 
 class DringModel(models.Model):
     class Meta:
         verbose_name="نوشیدنی"
@@ -40,7 +40,7 @@ class DringModel(models.Model):
     def __str__(self):
         return self.Title
 
-
+# blog model 
 class BlogModel(models.Model):
     class Meta:
         verbose_name="پست"
@@ -54,12 +54,13 @@ class BlogModel(models.Model):
     def __str__(self):
         return self.Title
 
+# cart model 
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
+# chackout model 
 class Checkout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True, blank=True)
@@ -74,9 +75,7 @@ class Checkout(models.Model):
     def __str__(self):
         return self.name
 
-
-
-
+# cart itme model 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     food = models.ForeignKey(foodModel, on_delete=models.CASCADE, null=True, blank=True)
@@ -87,7 +86,7 @@ class CartItem(models.Model):
     total_price = models.CharField(max_length=200)
     created = models.DateField(auto_now_add=True)
     
-
+# drink comment model 
 class DrinkComment(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     drink = models.ForeignKey(DringModel, on_delete=models.CASCADE)
@@ -97,6 +96,7 @@ class DrinkComment(models.Model):
     def __str__(self) -> str:
         return self.comment[:30]
 
+# food comment model 
 class FoodComment(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     food = models.ForeignKey(foodModel, on_delete=models.CASCADE)
@@ -106,6 +106,7 @@ class FoodComment(models.Model):
     def __str__(self) -> str:
         return self.comment[:30]
 
+# blog comment model 
 class BlogComment(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     post = models.ForeignKey(BlogModel, on_delete=models.CASCADE)
@@ -114,7 +115,8 @@ class BlogComment(models.Model):
 
     def __str__(self) -> str:
         return self.comment[:30]
-    
+
+# WebsiteComment model   
 class WebsiteComment(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     comment = models.TextField()

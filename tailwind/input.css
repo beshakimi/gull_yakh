@@ -74,14 +74,14 @@
 /* this style for error messages  */
 @layer components {
   .error-message {
-    @apply fixed top-4 left-1/2 transform -translate-x-1/2 text-center
-    text-white text-sm py-1 px-2 bg-yellow-400 bg-opacity-95 rounded-sm z-50;
+    @apply fixed top-20 left-1/2 transform -translate-x-1/2 text-center
+    text-white text-sm p-2 bg-yellow-400 bg-opacity-95 rounded-sm z-50;
   }
 }
 
 @layer components {
   .success-message {
-    @apply fixed top-4 left-1/2 transform -translate-x-1/2 text-center text-green-600 text-sm py-1 px-2 bg-yellow-400 bg-opacity-95 rounded-sm z-50;
+    @apply fixed top-20 left-1/2 transform -translate-x-1/2 text-center text-green-600 text-sm p-2 bg-yellow-400 bg-opacity-95 rounded-sm z-50;
   }
 }
 

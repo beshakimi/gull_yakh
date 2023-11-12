@@ -3,8 +3,31 @@
 {% load humanize %}
 
 {%block mainContent %}
-<!-- start blog details -->
 
+
+<!-- error and succuss message -->
+<p class="error-message hidden fixed"
+    id="formError">
+</p>
+{% if messages %}
+{% for message in messages %}
+<p
+    class="success-message fixed">
+    {{ message }} </p>
+{% endfor %}
+
+{% endif %}
+
+<script>
+    setTimeout(function () {
+        var errorMessage = document.querySelector('.success-message');
+        if (errorMessage) {
+            errorMessage.classList.add('hidden');
+        }
+    }, 5000);
+</script>
+
+<!-- start blog details -->
 <div class="w-[95%] mx-auto px-4 py-8 mt-20 ">
   <div class="flex flex-col md:flex-row">
     <div class="md:w-1/2 md:ml-8 ">
@@ -13,58 +36,9 @@
           <img id="mainImage" src="{{postDetails.Image.url}}" alt="Selected Post Image"
             class="w-full h-full shadow post-image object-cover hover:cursor-pointer hover:scale-110 ease-in-out duration-500" />
 
-          <!-- <div
-            class="  bg-black bg-opacity-60 flex flex-col justify-center items-center border w-12 h-12 p-2 absolute top-4 left-4 z-10">
-            <h2 class="font-semibold text-center text-sm leading-5 text-white">{{ postDetails.Date|date:"d F"}}<h2>
-                <p class="text-white text-[12px]">سنبله</p>
-          </div> -->
+
 
         </div>
-        <!-- <div class="grid grid-cols-3 md:grid-cols-3">
-            <div
-              id="image1"
-              class="cursor-pointer h-28 md:32 lg:h-40 relative"
-              onclick="showImage(1)"
-            >
-              <img
-                src="./images/11.jpg"
-                alt="Post Image 1"
-                class="w-full h-full shadow object-cover relative"
-              />
-              <div
-                class="w-full h-28 md:32 lg:h-40 absolute top-0 z-10 hover:bg-[#f5056d] hover:bg-opacity-50 ease-in-out duration-500"
-              ></div>
-            </div>
-            <div
-              id="image2"
-              class="cursor-pointer h-28 md:32 lg:h-40 relative"
-              onclick="showImage(2)"
-            >
-              <img
-                src="./images/12.webp"
-                alt="Post Image 2"
-                class="w-full h-full shadow object-cover relative"
-              />
-              <div
-                class="w-full h-28 md:32 lg:h-40 absolute top-0 z-10 hover:bg-[#f5056d] hover:bg-opacity-50 ease-in-out duration-500"
-              ></div>
-            </div>
-            <div
-              id="image3"
-              class="cursor-pointer h-28 md:32 lg:h-40 relative"
-              onclick="showImage(3)"
-            >
-              <img
-                src="./images/15.jpg"
-                alt="Post Image 3"
-                class="w-full h-full shadow object-cover relative"
-              />
-
-              <div
-                class="w-full h-28 md:32 lg:h-40 absolute top-0 z-10 hover:bg-[#f5056d] hover:bg-opacity-50 ease-in-out duration-500"
-              ></div>
-            </div>
-          </div> -->
       </div>
     </div>
 
@@ -77,51 +51,87 @@
         {{postDetails.Description}}
       </p>
 
-
+      <!-- wrid <command> -->
       <div class="md:flex gap-2 my-4">
 
-        <form id="commentForm" class="mt-4 md:w-1/2 px-4 border" action='{% url "add-blog-comment" postDetails.id %}' method="POST">
-          {% csrf_token %} 
+        <form id="commentForm" class="mt-4 md:w-1/2 px-4 border" action='{% url "add-blog-comment" postDetails.id %}'
+          method="POST">
+          {% csrf_token %}
           <h1 class="w-14 py-2 text-sm font-bold border-b-2 border-gray-500">نظر دهید</h1>
           <label for="author" class="block text-gray-700 text-sm pt-2 font-bold">نام شما</label>
-          <input type="text" value="{{request.user.profile.first_name }} {{ request.user.profile.last_name }}" id="author" class="input my-1" />
+          <p class="input my-1">{{request.user.profile.first_name }} {{ request.user.profile.last_name }}</p>
+          <!-- <input type="text" value="{{request.user.profile.first_name }} {{ request.user.profile.last_name }}" id="author" class="input my-1" /> -->
           <label for="content" class="block mt-2 text-gray-700 text-sm font-bold">نظر</label>
           <textarea id="content" name="comment" class="input my-1"></textarea>
-          <button type="submit" class="cbtn py-2 my-2">
-            ارسال نظر
-          </button>
+          <button type="submit" class="cbtn py-2 my-2" onclick="submitComment()">ارسال نظر</button>
         </form>
-
-        <div class="md:w-1/2 h-full mt-4 px-4 border py-2  ">
+        <script>
+          function submitComment() {
+            var author = document.getElementById("author").value;
+            var content = document.getElementById("content").value;
+            var errorElement = document.getElementById("comment-error");
+        
+            errorElement.innerHTML = ""; // پاک کردن پیام خطا قبلی
+        
+            if (!author || !content) {
+              errorElement.innerHTML = "لطفا نام و نظر خود را وارد کنید.";
+              return false; // جلوگیری از ارسال فرم
+            }
+        
+            // اگر هیچ خطایی وجود نداشت، فرم را ارسال کنید
+            document.getElementById("commentForm").submit();
+          }
+        </script>
+        <!-- show comments  -->
+        <div class="md:w-1/2  mt-4 px-4 border py-2  ">
           <h1 class="w-12 pb-2 text-sm font-bold border-b-2 border-gray-500">نظر ها</h1>
           <!-- comment -1  -->
+          <div class="h-60 overflow-y-scroll custom-scrollbar">
           {% for comment in comments %}
-          <div>
-            <div class="flex gap-2 items-center my-2 ">
+          <div class="relative w-full ">
+            <div class="flex gap-2 items-center my-2  ">
               <img src="{{user.profile.avatar.url}}" alt="" class="w-8 h-8 rounded-full object-cover">
               <p class="text-sm font-bold">{{ comment.profile.first_name }} {{ comment.profile.last_name }}</p>
             </div>
 
-            <div class="mt-2">
-              <p class="text-xs text-gray-400">{{ comment.comment }}</p>
+            <div class="mt-2 w-full ">
+              <p class="text-xs text-gray-400 w-full">{{ comment.comment }}</p>
             </div>
             <hr class="border-p-1 w-full my-2">
+            <p class="absolute top-0 left-0 bg-red-500 hover:bg-red-600 text-white text-sm  py-1 px-2 rounded-sm inline-block hover:cursor-pointer deleteButton"
+              id="deleteButton_{{ comment.id }}">حذف</p>
+
+            <!-- show delete chosses -->
+            <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
+              id="deleteModel_{{ comment.id }}">
+              <div class=" w-full h-full flex justify-center items-center">
+                <div class="w-80  bg-gray-100 px-6 py-4 rounded-sm ">
+                  <p class="text-sm">مطمئن هستید که این مورد را حذف کنید؟ </p>
+                  <div class="">
+                    <form action="{% url 'delete-post-comment' comment.id postDetails.id %}" class="flex gap-8 mt-4"
+                      method="post">
+                      {%csrf_token%}
+                      <input type="submit" value="بلی"
+                        class="px-2 text-sm flex items-center hover:cursor-pointer  rounded-sm text-white bg-red-600">
+                      <a href="" class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
+
+                    </form>
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
           </div>
           {% endfor %}
+        </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- <script>
-
-  function toggleCommentForm() {
-    const commentForm = document.getElementById("commentForm");
-    commentForm.style.display =
-      commentForm.style.display === "none" ? "block" : "none";
-  }
-</script> -->
 
 
 {%endblock%}

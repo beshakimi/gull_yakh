@@ -216,7 +216,7 @@ function update_validateForm() {
     return true;
 }
 
-// form validation script ford add posts 
+// form validation script for add posts 
 function post_validateForm() {
     var nameInput = document.getElementById("name");
     var imageInput = document.getElementById("chose-image");
@@ -286,7 +286,7 @@ function post_validateForm() {
     return true;
 }
 
-// form validation script ford update posts 
+// form validation script for update posts 
 function post_update_validateForm() {
     var nameInput = document.getElementById("name");
     var imageInput = document.getElementById("chose-image");

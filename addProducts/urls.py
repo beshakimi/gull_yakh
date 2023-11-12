@@ -7,15 +7,17 @@ urlpatterns = [
     path('home', views.homeView),
 
     # about
-    path('about' ,views.aboutUsView),
+    path('about' ,views.aboutUsView, name='about'),
 
     # food
-    path('food/list' ,views.foodListView),
+
+    path('food/list' ,views.foodListView, name='food'),
     path('food/<int:food_id>' ,views.foodDetailsView, name='food-detail'),
 
     # drink
-    path('drink/list' ,views.drinkListView),
+    path('drink/list' ,views.drinkListView, name='drink'),
     path('drink/<int:drink_id>' ,views.drinkDetailsView, name='drink-detail' ),
+
 
     # blog
     path('blog/list' ,views.blogView, name='post_list'),

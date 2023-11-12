@@ -104,9 +104,11 @@ def foodListView(request):
 # food details view 
 def foodDetailsView(request,food_id):
     food=get_object_or_404(foodModel,pk=food_id)
+    comments = food.foodcomment_set.all()
 
     context={
       "foodDetails":food,  
+      "comments": comments
     }
 
     return render(request,"addProducts/foodDetails.html",context, )
@@ -163,9 +165,10 @@ def drinkListView(request):
 # drink detials view
 def drinkDetailsView(request,drink_id):
     drink=DringModel.objects.get(pk=drink_id)
-
+    comments = drink.drinkcomment_set.all()
     context={
       "drinkDetails":drink,  
+      "comments": comments,
     }
 
     return render(request,"addProducts/drinkDetails.html",context )
@@ -239,7 +242,7 @@ def add_to_cart(request, id, model):
         return redirect('home')  # Invalid model provided
 
     product = product_model.objects.get(id=id)
-    cart = Cart.objects.get(user=request.user)
+    cart, created = Cart.objects.get_or_create(user=request.user)
     
     
     if product:
@@ -423,17 +426,20 @@ def create_website_comment(request):
 def delete_blog_comment(request, comment_id, post_id ):
     post_comment = get_object_or_404(BlogComment, id=comment_id)
     post_comment.delete()
+    messages.success(request, "نظر با موفقیت حذف شد.")
     return redirect('blog-detail', post_id)
 
 def delete_food_comment(request, comment_id, food_id ):
     food_comment = get_object_or_404(FoodComment, id=comment_id)
     food_comment.delete()
-    return redirect('blog-detail', food_id)
+    messages.success(request, "نظر با موفقیت حذف شد.")
+    return redirect('food-detail', food_id)
 
 def delete_drink_comment(request, comment_id, drink_id ):
     drink_comment = get_object_or_404(DrinkComment, id=comment_id)
     drink_comment.delete()
-    return redirect('blog-detail', drink_id)
+    messages.success(request, "نظر با موفقیت حذف شد.")
+    return redirect('drink-detail', drink_id)
 
 
 

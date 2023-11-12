@@ -66,9 +66,14 @@
             <div class="mb-4 md:mb-0">
                 <label class="block text-gray-700 font-bold mb-2">نوع کاربر:</label>
                 <select name="user_type" class="bg-slate-700 hover:cursor-pointer w-full p-2 text-sm font-semibold rounded-sm text-white">
+                    {% if user.user_type == 'ادمین' %}
+                    <option value="{{ user.user_type }}" selected>{{ user.user_type }}</option>
+                  {% else %}
                     <option value="ادمین" {% if user.user_type == 'ادمین' %}selected{% endif %}>ادمین</option>
                     <option value="کاربر عادی" {% if user.user_type == 'کاربر عادی' %}selected{% endif %}>کاربر عادی</option>
+                  {% endif %}
                 </select>
+               
             </div>
             
 

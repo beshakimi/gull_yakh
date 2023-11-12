@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="fa">
 
+
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,9 +34,9 @@
 
     <div class="w-full flex flex-col">
 
-      <!-- lofo  -->
+      <!-- logo  -->
       <a href="#" class="px-5 w-full bg-gray-950">
-        <img src="{%static 'admin/logo/logo_admin.png'%}" alt="" class="h-16 w-16">
+        <img src="{%static 'admin/logo/logo_admin1.png'%}" alt="" class="h-16 p-2 ">
       </a>
 
       <!-- start dashboard -->
@@ -48,14 +50,6 @@
       </div>
       <hr class="w-full border border-gray-500" />
       <!-- end dashboard -->
-
-
-
-      <!-- start products
-      <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
-        <h1 class="font-bold">اضافه کردن</h1>
-      </div>
-      <hr class="w-full border border-gray-500"> -->
 
 
       <!-- add foods  -->
@@ -89,9 +83,9 @@
           <h1 class="mr-1 mb-1">اضافه کردن پست</h1>
         </a>
       </div>
-      <!-- end products -->
 
-      <div class="{% if section == 'add_post' %} bg-gray-600 
+      <!-- chackout -->
+      <div class="{% if section == 'chackout' %} bg-gray-600 
       {% endif %}">
         <a href="{% url 'chackout'%}"
           class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
@@ -101,15 +95,7 @@
       </div>
 
 
-      <!-- start genral -->
-      <!-- <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
-        <h1 class="font-bold"> کاربران</h1>
-      </div>
-      <hr class="w-full border border-gray-500"> -->
-
-
       <!-- start list of users  -->
-
       <div class="{% if section == 'user' %} bg-gray-600 {% endif %}">
 
         <a href="/manage/user_list"
@@ -119,7 +105,7 @@
         </a>
       </div>
 
-
+      <!-- logout  -->
       <a href="{% url 'logout' %}"
         class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
         <img src="{%static 'admin/icons/logout.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
@@ -132,64 +118,89 @@
   <!-- end aside -->
 
   <!--start Mobile navbar -->
-  <div class=" hidden md:hidden border-t border-gray-500 pb-10 mobile-menu fixed top-16 z-20 " id="navMenu">
+  <div class=" hidden md:hidden border-t border-gray-500 pb-10 mobile-menu fixed top-0 z-20 " id="navMenu">
     <div class="flex flex-col bg-slate-800 w-60 h-screen">
 
-
+      <!-- profile  -->
       <a href="./profile.html"
-        class="w-full py-4 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
-        <img src="{%static 'admin/icons/profile.png'%}" alt="" class=" w-[24px] h-[24px] ml-2" />
+        class="w-full py-3 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
+        <img src="{{ request.user.profile.avatar.url}}" alt="" class=" w-[32px] h-[32px] rounded-full ml-2 object-cover" />
 
-        <p class="font-semibold items-center mr-2">رضا رضایی</p>
+        <p class="font-semibold items-center mr-2">{{request.user.profile.first_name}}</p>
       </a>
       <hr class="w-full border border-gray-500" />
       <!-- start dashboard -->
-      <a href=""
-        class="w-full py-3 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
-        <img src="{%static 'admin/icons/dashboard.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1">داشبورد</h1>
-      </a>
+      <div class="{% if section == 'dashboard' %} bg-gray-600 
+       {% endif %}">
+        <a href="/manage/dashboard"
+          class="w-full py-[15px] px-4 font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/dashboard.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1">داشبورد</h1>
+        </a>
+      </div>
       <hr class="w-full border border-gray-500" />
       <!-- end dashboard -->
 
-      <!-- start products -->
-      <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
-        <h1 class="font-bold">اضافه کردن</h1>
+      <!-- add foods  -->
+      <div class="{% if section == 'add_food' %} bg-gray-600 
+      {% endif %}">
+        <a href="/manage/addfood"
+          class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/food.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">اضافه کردن غذا </h1>
+        </a>
       </div>
-      <a href="./addFoods.html"
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
-        <img src="{%static 'admin/icons/food.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1">غذا ها</h1>
-      </a>
 
-      <a href="./addDrink.html"
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
-        <img src="{%static 'admin/icons/drink.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1">نوشیدنی ها</h1>
-      </a>
 
-      <a href="./addPost.html"
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
-        <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1">پست ها</h1>
-      </a>
-      <!-- end products -->
-
-      <!-- start genral -->
-      <div class="w-full py-3 px-5 flex items-start bg-gray-700 text-white">
-        <h1 class="font-bold"> کاربران</h1>
+      <!-- add drinks  -->
+      <div class="{% if section == 'add_drink' %} bg-gray-600 
+      {% endif %}">
+        <a href="/manage/addDrink"
+          class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/drink.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">اضافه کردن نوشیدنی</h1>
+        </a>
       </div>
-      <a href="./users.html"
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
-        <img src="{%static 'admin/icons/users-icon.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1">لیست کاربر </h1>
-      </a>
 
-      <a href=""
-        class="w-full py-2 px-4 font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-200">
+
+      <!-- add posts -->
+      <div class="{% if section == 'add_post' %} bg-gray-600 
+      {% endif %}">
+        <a href="/manage/addPost"
+          class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">اضافه کردن پست</h1>
+        </a>
+      </div>
+
+      <!-- chackout -->
+      <div class="{% if section == 'chackout' %} bg-gray-600 
+      {% endif %}">
+        <a href="{% url 'chackout'%}"
+          class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">فروشات </h1>
+        </a>
+      </div>
+
+
+      <!-- start list of users  -->
+      <div class="{% if section == 'user' %} bg-gray-600 {% endif %}">
+
+        <a href="/manage/user_list"
+          class=" w-full px-4 text-sm font-semibold text-white hover:bg-gray-600 ease-in-out duration-300 flex items-center h-10">
+          <img src="{% static 'admin/icons/users-icon.png' %}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 ">لیست کاربران</h1>
+        </a>
+      </div>
+
+      <!-- logout  -->
+      <a href="{% url 'logout' %}"
+        class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-500 ease-in-out duration-300">
         <img src="{%static 'admin/icons/logout.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
-        <h1 class="mr-1 mb-1"> خروج</h1>
+        <h1 class="mr-1 "> خروج</h1>
       </a>
+
 
       <!-- end genral -->
     </div>

@@ -9,9 +9,18 @@ from accounts import views
 from django.db.models import Q
 from django.utils import timezone
 from datetime import date
-
+from django.contrib.auth.decorators import login_required
+from accounts.decorators import admin_required
 # dashboar_view
+@login_required(login_url='login')
+@admin_required
 def dashboar_view(request):
+
+    users=User.objects.all().order_by('-id')[:4]
+    
+    
+
+
     num_of_users = User.objects.all().count()
 
     # Get the current month's start and end dates
@@ -33,15 +42,17 @@ def dashboar_view(request):
         today_income += float(today_instance.total_price)
 
     
-    
 
     context = {
         'section':'dashboard',
         'num_of_users': num_of_users, 
         'monthly_income': int(monthly_income),
-        'today_income': int(today_income)
+        'today_income': int(today_income),
+        'userlist': users,
+
     }
     return render(request, 'admin/dashboard.html', context)
+
 
 
 # add food view 
@@ -223,7 +234,7 @@ def user_list_view(request):
     
 
     # تعداد نوشیدنی‌ها در هر صفحه
-    items_per_page = 8
+    items_per_page = 5
 
     paginator = Paginator(users, items_per_page)
     try:
@@ -305,7 +316,8 @@ def users(request):
 def chackout_view(request):
     checkouts = Checkout.objects.filter(ordered = False)
     context = {
-        'checkouts': checkouts
+        'checkouts': checkouts,
+        'section':'chackout'
     }
     return render(request,"admin/chackout.html",  context)
 

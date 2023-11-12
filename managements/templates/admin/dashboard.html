@@ -1,21 +1,20 @@
 {% extends "admin/admin_base.html" %}
 {%load static %}
+{% load humanize %}
 {% block mainContent %}
 
 
 
 
- <!-- title -->
-   <div class="mt-16 w-full bg-[#f5056d] md:pr-60">
-        <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  ">داشبورد</h1>
-    </div>
+<!-- title -->
+<div class="mt-16 w-full bg-[#f5056d] md:pr-60">
+    <h1 class="text-2xl pr-10 py-3  text-white font-bold flex items-center  ">داشبورد</h1>
+</div>
 
- <!-- dashboard content -->
- <div class=" grid gap-6 grid-cols-1 md:grid-cols-3 p-6 md:mr-60">
-   
+<!-- dashboard content -->
+<div class=" grid gap-6 grid-cols-1 md:grid-cols-3 p-6 md:mr-60">
 
-
-        <!-- start client -->
+    <!-- start client -->
     <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
         <div class="  flex flex-col justify-center items-center">
             <h1 class="text-xl font-semibold text-gray-400">مشتری</h1>
@@ -26,7 +25,7 @@
             <img src="{%static 'admin/icons/users.png'%}" alt="" class="w-20 h-20">
         </div>
     </div>
-       <!-- end client -->
+    <!-- end client -->
 
        <!-- start selse -->
       <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
@@ -35,11 +34,118 @@
               <h2 class="text-xl font-bold">{{monthly_income}} Af</h2>
           </div>
 
-          <div>
-              <img src="{%static 'admin/icons/shop.png'%}" alt="" class="w-20 h-20">
-          </div>
-      </div>
-        
+        <div>
+            <img src="{%static 'admin/icons/shop.png'%}" alt="" class="w-20 h-20">
+        </div>
+    </div>
+
+    <!-- start performance -->
+    <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
+        <div class="  flex flex-col justify-center items-center">
+            <h1 class="text-xl font-semibold text-gray-400">عملکرد</h1>
+            <h2 class="text-xl font-bold">98%</h2>
+        </div>
+        <div>
+            <img src="{%static 'admin/icons/performance.png'%}" alt="" class="w-20 h-20">
+        </div>
+    </div>
+</div>
+
+<!-- start user list -->
+<div class="mx-auto m-4 md:mr-64">
+
+    <div class="bg-white rounded-lg  ">
+        <div class="overflow-x-auto overflow-y-hidden mx-4 md:mx-0 md:ml-4 ">
+            <table class="min-w-full divide-y divide-gray-200 w-fit ">
+                <thead>
+                    <tr>
+                        <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap">عکس</th>
+                        <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap">نام
+                            کاربری</th>
+
+                        <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap">ایمل</th>
+
+                        <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap">تاریخ
+                            پیوستن
+                        </th>
+                        <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap"> نوعیت
+                            کاربر
+                        </th>
+                        <th class="px-2 py-3 bg-gray-50 text-sm font-semibold text-gray-600 whitespace-nowrap"> عملیات
+                        </th>
+
+                    </tr>
+                </thead>
+                {% for user in userlist %}
+                {% if user %}
+                <tbody class="bg-white ">
+                    <tr>
+                        <td class="px-2 py-4 flex justify-center whitespace-nowrap">
+                            <img class="h-8 w-8 rounded-full object-cover" src="{{user.profile.avatar.url}}"
+                                alt="User Avatar">
+                        </td>
+                        <td class="px-2 py-4 text-center text-gray-500 text-sm whitespace-nowrap">{{user.username}}
+                        </td>
+
+                        <td class="px-2 py-4 text-center text-gray-500 text-sm whitespace-nowrap">{{user.email}}</td>
+
+                        <td class="px-2 py-4 text-center text-gray-500 text-sm whitespace-nowrap">
+                            {{ user.profile.created_at|naturaltime }}
+                        </td>
+                        <td class="px-2 py-4 text-center text-gray-500 text-sm whitespace-nowrap">{{user.user_type}}
+                        </td>
+
+                        </td>
+                        <td class="px-2 py-4 text-center whitespace-nowrap">
+                            <a href="{% url 'user-details' user.id %}"
+                                class="text-sm  bg-blue-500 hover:bg-blue-600 text-white ml-1 py-1 px-2 rounded-sm inline-block">جزیات
+                                کاربر</a>
+                            <button
+                                class="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-sm inline-block deleteButton"
+                                id="deleteButton_{{ user.id }}">حذف</button>
+                        </td>
+                    </tr>
+
+                    <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
+                        id="deleteModel_{{ user.id }}">
+                        <div class=" w-full h-full flex justify-center items-center">
+                            <div class="w-80  bg-gray-100 px-6 py-4 text-sm rounded-sm ">
+                                <p>مطمئن هستید که این مورد را حذف کنید؟ </p>
+                                <div class="">
+
+                                    <form action="{% url 'delete-user' user_id=user.id %}" method="post">
+                                        {%csrf_token%}
+                                        <div class="flex gap-8 mt-4">
+                                            <input type="submit" value="بلی"
+                                                class="px-2 text-sm flex items-center hover:cursor-pointer  rounded-sm text-white bg-red-600">
+                                            <a href=""
+                                                class="px-2 text-sm flex items-center rounded-sm text-white bg-blue-500">نخیر</a>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </tbody>
+                {% else %}
+                {% endif %}
+
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+
+    <!-- start link -->
+    <div class="w-full flex justify-end  my-10">
+        <a href="{% url 'user-list'%}" class="ml-10 text-sm bg-[#f5056d] p-2 rounded-sm text-white">مشاهده تمام کاربر ها</a>
+    </div>
+    <!-- end link -->
+
+</div>
 
 
       <!-- start performance -->

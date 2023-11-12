@@ -89,7 +89,7 @@
         </div>
 
         <!-- Foods List -->
-        <div class="bg-white rounded-sm shadow p-4 ml-4 h-[500px] overflow-y-scroll">
+        <div class="bg-white rounded-sm shadow p-4 ml-4 h-[500px] overflow-y-scroll custom-scrollbar">
             <h2 class=" font-bold mb-4">آخرین غذا ها</h2>
             <ul>
 
@@ -107,6 +107,7 @@
                             <p class="bg-red-500 hover:bg-red-600 text-white text-sm  py-1 px-2 rounded-sm inline-block hover:cursor-pointer deleteButton"
                                 id="deleteButton_{{ food.id }}">حذف</p>
 
+                            <!-- show delete chosses -->
                             <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"
                                 id="deleteModel_{{ food.id }}">
                                 <div class=" w-full h-full flex justify-center items-center">
