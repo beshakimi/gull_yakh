@@ -69,7 +69,7 @@ class Checkout(models.Model):
     ordered = models.BooleanField(default=False)
     phone_number1=models.CharField(max_length=100)
     phone_number2 = models.CharField(max_length=100, null=True, blank=True)
-    tazkra_number = models.CharField(max_length=100)
+    # tazkra_number = models.CharField(max_length=100)
     address = models.TextField()
     
     def __str__(self):

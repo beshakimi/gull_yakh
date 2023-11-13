@@ -115,7 +115,7 @@ def profile_edit_view(request, id):
         gender = request.POST['gender']
         
         # بررسی نام و نام خانوادگی
-        name_pattern = r'^[a-zA-Z_ ]+$'
+        name_pattern = r'^[a-zA-Z_آ-ی ]+$'
         if not re.match(name_pattern, first_name): 
             # نام و نام خانوادگی باید فقط شامل حروف انگلیسی و سمبل '_' باشند
             messages.error(request, "نام نامعتبر است")

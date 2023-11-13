@@ -56,6 +56,7 @@ def dashboar_view(request):
 
 
 # add food view 
+@admin_required 
 def create_food_model_view(request):
     foods = foodModel.objects.all().order_by('-id')
     if request.method == 'POST':
@@ -83,6 +84,7 @@ def create_food_model_view(request):
     
 
 # update food view 
+@admin_required 
 def update_food_model_view(request, food_id):
     food = get_object_or_404(foodModel, id=food_id)
     
@@ -106,7 +108,8 @@ def update_food_model_view(request, food_id):
         return render(request, 'admin/updatefood.html', {'food': food})
     
 
-# delete food view 
+# delete food view
+@admin_required  
 def delete_food(request, food_id):
     food = foodModel.objects.get(id=food_id)
     
@@ -115,7 +118,8 @@ def delete_food(request, food_id):
         return redirect('create-food')
    
 
-# add drink view 
+# add drink view
+@admin_required  
 def create_drink_view(request):
     drinks = DringModel.objects.all().order_by('-id')
 
@@ -143,7 +147,8 @@ def create_drink_view(request):
     }
     return render(request, 'admin/addDrink.html', context)
 
-# update drink view 
+# update drink view
+@admin_required  
 def update_drink_model_view(request, drink_id):
     drink = get_object_or_404(DringModel, id=drink_id)
     
@@ -166,7 +171,8 @@ def update_drink_model_view(request, drink_id):
         return render(request, 'admin/updatedrink.html', {'drink': drink})
     
 
-# delete drink view 
+# delete drink view
+@admin_required  
 def delete_drink(request, drink_id):
     drink = DringModel.objects.get(id=drink_id)
     
@@ -175,6 +181,7 @@ def delete_drink(request, drink_id):
         return redirect('create-drink')
     
 # add post
+@admin_required 
 def create_post_view(request):
     post=BlogModel.objects.all().order_by('-id')
 
@@ -197,7 +204,8 @@ def create_post_view(request):
     }
     return render(request, 'admin/addPost.html',context)
     
-# update post view 
+# update post view
+@admin_required  
 def update_post_view(request, post_id):
     post = get_object_or_404(BlogModel, id=post_id)
     
@@ -218,7 +226,8 @@ def update_post_view(request, post_id):
     else:
         return render(request, 'admin/updatepost.html', {'post': post})
     
-# delete post view 
+# delete post view
+@admin_required  
 def delete_post(request, post_id):
     post = BlogModel.objects.get(id=post_id)
     
@@ -226,7 +235,8 @@ def delete_post(request, post_id):
         post.delete()
         return redirect('create-post')
     
-# users view 
+# users view
+@admin_required  
 def user_list_view(request):
     
     users=User.objects.all().order_by('-id')
@@ -262,7 +272,8 @@ def user_list_view(request):
    }
     return render(request,"admin/user.html",context)
 
-# user details view 
+# user details view
+@admin_required  
 def user_details(request, id):
     user = User.objects.get(pk=id)
     if request.method == 'POST':
@@ -275,6 +286,7 @@ def user_details(request, id):
     return render(request,"admin/userDetails.html", {'user': user})
 
 # delete user view
+@admin_required 
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -292,7 +304,8 @@ def delete_user(request, user_id):
 
     return render(request, 'admin/user_list.html', context)
 
-# admin users 
+# admin users
+@admin_required  
 def admin_users(request):
     users = User.objects.filter(user_type="ادمین").order_by('-id')
 
@@ -302,7 +315,8 @@ def admin_users(request):
 
     return render(request,'admin/admin_users.html',context)
 
-# public user 
+# public user
+@admin_required  
 def users(request):
     users = User.objects.filter(user_type="کاربر عادی").order_by('-id')
 
@@ -312,7 +326,8 @@ def users(request):
 
     return render(request,'admin/admin_users.html',context)
 
-# chackout 
+# chackout
+@admin_required  
 def chackout_view(request):
     checkouts = Checkout.objects.filter(ordered = False)
     context = {
@@ -321,7 +336,8 @@ def chackout_view(request):
     }
     return render(request,"admin/chackout.html",  context)
 
-# chackout details 
+# chackout details
+@admin_required  
 def chackout_details_view(request, pk):
     checkout = get_object_or_404(Checkout, id=pk)
     user = checkout.cart.user
@@ -338,7 +354,8 @@ def chackout_details_view(request, pk):
     }
     return render(request,"admin/chackout_details.html", context)
 
-
+# mark_ordered viwe 
+@admin_required 
 def mark_ordered(request, pk):
     checkout = get_object_or_404(Checkout, id=pk)
     checkout.ordered = True

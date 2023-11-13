@@ -320,5 +320,44 @@
 
 </body>
 <script src="{% static 'js/script.js'%}"></script>
+<script>
+  const searchInput = document.getElementById('search-input');
+  const autocompleteList = document.getElementById('autocompleteList');
+
+  {% autoescape off %}
+  const foodDrinks = {{ food_and_drink | safe}};
+  {% endautoescape %}
+  searchInput.addEventListener('input', function () {
+      const searchValue = this.value.trim();
+      const matchings = foodDrinks.filter(food => food.includes(searchValue));
+
+      if (searchValue.length > 0 && matchings.length > 0) {
+          autocompleteList.innerHTML = '';
+          autocompleteList.classList.remove('hidden');
+
+          matchings.forEach(food => {
+              const listItem = document.createElement('li');
+              listItem.textContent = food;
+              listItem.classList.add('px-2', 'py-2', 'cursor-pointer', 'hover:bg-gray-100');
+
+              listItem.addEventListener('click', function () {
+                  searchInput.value = food;
+                  autocompleteList.classList.add('hidden');
+              });
+
+              autocompleteList.appendChild(listItem);
+          });
+      } else {
+          autocompleteList.innerHTML = '';
+          autocompleteList.classList.add('hidden');
+      }
+  });
+  // hide autocompletelist when clicked outside of it
+  document.addEventListener('click', function (event) {
+      if (!autocompleteList.contains(event.target) && event.target !== searchInput) {
+          autocompleteList.classList.add('hidden');
+      }
+  });
+</script>
 
 </html>

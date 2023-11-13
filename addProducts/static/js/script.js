@@ -81,6 +81,102 @@ deleteButtons.forEach(function (button) {
   });
 });
 
+
+//validation user infrmation  for order
+// form validation script for add food and add drink 
+function validateForm() {
+  var nameInput = document.getElementById("name");
+  var emailInput = document.getElementById("email");
+  var phone1Input = document.getElementById("phone1");
+  var phone2Input = document.getElementById("phone2");
+  var addressInput = document.getElementById("address");
+  var errorElement = document.getElementById("formError");
+
+  var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+  var phonePattern = /^93[\d]{9}$/;
+  var emailPattern = /^[A-Za-z][A-Za-z0-9_.]*@[a-zA-Z]{3,}\.[a-zA-Z]{2,5}$/;
+
+
+  if (nameInput.value === "" && emailInput.value === "" && imageInput.value === "" && descriptionInput.value === "") {
+      errorElement.textContent = "هیچ مقداری وارد نشده است";
+      errorElement.classList.remove("hidden");
+      setTimeout(function () {
+          errorElement.classList.add("hidden");
+      }, 5000);
+      return false;
+  }
+
+  if (nameInput.value === "") {
+      errorElement.textContent = "نام خود را وارد نکرده اید";
+      errorElement.classList.remove("hidden");
+      setTimeout(function () {
+          errorElement.classList.add("hidden");
+      }, 5000);
+      return false;
+  }
+
+  if (!namePattern.test(nameInput.value)) {
+      errorElement.textContent = "نام نامعتبر است";
+      errorElement.classList.remove("hidden");
+      setTimeout(function () {
+          errorElement.classList.add("hidden");
+      }, 5000);
+      return false;
+  }
+
+  if (emailInput.value === "") {
+    errorElement.textContent = "ایمیل خود را وارد نکرده اید";
+    errorElement.classList.remove("hidden");
+    setTimeout(function () {
+        errorElement.classList.add("hidden");
+    }, 5000);
+    return false;
+}
+
+if (!emailPattern.test(emailInput.value)) {
+    errorElement.textContent = "ایمیل نامعتبر است";
+    errorElement.classList.remove("hidden");
+    setTimeout(function () {
+        errorElement.classList.add("hidden");
+    }, 5000);
+    return false;
+}
+
+  if (phone1Input.value === "") {
+      errorElement.textContent = "شماره تماسخ خود را وارد نکرده اید";
+      errorElement.classList.remove("hidden");
+      setTimeout(function () {
+          errorElement.classList.add("hidden");
+      }, 5000);
+      return false;
+  }
+
+   
+
+  if (!phonePattern.test(phone2Input.value)) {
+      errorElement.textContent = "شماره تماس 2 نامعتبر است";
+      errorElement.classList.remove("hidden");
+      setTimeout(function () {
+          errorElement.classList.add("hidden");
+      }, 5000);
+      return false;
+  }
+
+
+  if (addressInput.value === "") {
+      errorElement.textContent = "آدرس را وارد کند. لطفاً در نوشتن آدرس خود دقت کنید";
+      errorElement.classList.remove("hidden");
+      setTimeout(function () {
+          errorElement.classList.add("hidden");
+      }, 5000);
+      return false;
+  }
+
+
+  errorElement.classList.add("hidden");
+  return true;
+}
+
 // start slider script
 const slider = document.getElementById("slider");
 let currentSlide = 0;

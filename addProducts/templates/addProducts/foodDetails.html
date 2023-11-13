@@ -40,7 +40,7 @@
     <p class="font-semibold">{{foodDetails.Price}}</p>
     <form method="POST" action="{% url 'add_to_cart' foodDetails.id 'food' %}">
       {% csrf_token %}
-      <button type="submit" class="cbtn mb-0" >افزودن به ثبت خرید</button>
+      <button type="submit" class="cbtn text-xs mb-0" >افزودن به ثبت خرید</button>
     </form>
     <!-- wrid <command> -->
       <div class="md:flex gap-2 my-2 ">
@@ -49,29 +49,16 @@
           method="POST">
           {% csrf_token %}
           <h1 class="w-14 py-2 text-sm font-bold border-b-2 border-gray-500">نظر دهید</h1>
-          <label for="author" class="block text-gray-700 text-sm pt-2 font-bold">نام شما</label>
-          <p class="input my-1">{{request.user.profile.first_name }} {{ request.user.profile.last_name }}</p>
+          <label for="author" class="block text-gray-700 text-sm pt-2 font-bold">نام کاربری</label>
+          <p class="input my-1">{{request.user.username }}</p>
           <!-- <input type="text" value="{{request.user.profile.first_name }} {{ request.user.profile.last_name }}" id="author" class="input my-1" /> -->
           <label for="content" class="block mt-2 text-gray-700 text-sm font-bold">نظر</label>
-          <textarea id="content" name="comment" class="input my-1"></textarea>
+          <textarea id="content" name="comment" class="input my-1" required></textarea>
           <button type="submit" class="cbtn py-2 my-2" onclick="submitComment()">ارسال نظر</button>
         </form>
+
         <script>
-          function submitComment() {
-            var author = document.getElementById("author").value;
-            var content = document.getElementById("content").value;
-            var errorElement = document.getElementById("comment-error");
-        
-            errorElement.innerHTML = ""; // پاک کردن پیام خطا قبلی
-        
-            if (!author || !content) {
-              errorElement.innerHTML = "لطفا نام و نظر خود را وارد کنید.";
-              return false; // جلوگیری از ارسال فرم
-            }
-        
-            // اگر هیچ خطایی وجود نداشت، فرم را ارسال کنید
-            document.getElementById("commentForm").submit();
-          }
+          document.getElementById("content").setCustomValidity("لطفاً نظری بنویسید.");
         </script>
         <!-- show comments  -->
         <div class="md:w-1/2  mt-4 px-4 border py-2  ">
@@ -81,7 +68,7 @@
           {% for comment in comments %}
           <div class="relative w-full ">
             <div class="flex gap-2 items-center my-2  ">
-              <img src="{{user.profile.avatar.url}}" alt="" class="w-8 h-8 rounded-full object-cover">
+              <img src="{{comment.profile.avatar.url}}" alt="" class="w-8 h-8 rounded-full object-cover">
               <p class="text-sm font-bold">{{ comment.profile.first_name }} {{ comment.profile.last_name }}</p>
             </div>
 
@@ -89,8 +76,10 @@
               <p class="text-xs text-gray-400 w-full">{{ comment.comment }}</p>
             </div>
             <hr class="border-p-1 w-full my-2">
+            {% if user.user_type == 'ادمین'%}
             <p class="absolute top-0 left-0 bg-red-500 hover:bg-red-600 text-white text-sm  py-1 px-2 rounded-sm inline-block hover:cursor-pointer deleteButton"
               id="deleteButton_{{ comment.id }}">حذف</p>
+            {%endif%}
 
             <!-- show delete chosses -->
             <div class=" hidden w-full h-full bg-black bg-opacity-80 fixed left-0 top-0 z-50"

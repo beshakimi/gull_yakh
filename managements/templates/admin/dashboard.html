@@ -17,8 +17,8 @@
     <!-- start client -->
     <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
         <div class="  flex flex-col justify-center items-center">
-            <h1 class="text-xl font-semibold text-gray-400">مشتری</h1>
-            <h2 class="text-xl font-bold">{{num_of_users}}</h2>
+            <h1 class="text-lg font-semibold text-gray-400">مشتری</h1>
+            <h2 class="text-lg font-bold">{{num_of_users}}</h2>
         </div>
 
         <div>
@@ -30,8 +30,8 @@
        <!-- start selse -->
       <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
           <div class="  flex flex-col justify-center items-center">
-              <h1 class="text-xl font-semibold text-gray-400">فروشات</h1>
-              <h2 class="text-xl font-bold">{{monthly_income}} Af</h2>
+              <h1 class="text-lg font-semibold text-gray-400">فروشات ماهانه</h1>
+              <h2 class="text-lg font-bold">{{monthly_income}} افغانی</h2>
           </div>
 
         <div>
@@ -42,8 +42,8 @@
     <!-- start performance -->
     <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
         <div class="  flex flex-col justify-center items-center">
-            <h1 class="text-xl font-semibold text-gray-400">عملکرد</h1>
-            <h2 class="text-xl font-bold">98%</h2>
+            <h1 class="text-lg font-semibold text-gray-400">فروشات روزانه</h1>
+            <h2 class="text-lg font-bold">{{ today_income }} افغانی</h2>
         </div>
         <div>
             <img src="{%static 'admin/icons/performance.png'%}" alt="" class="w-20 h-20">
@@ -147,16 +147,5 @@
 
 </div>
 
-
-      <!-- start performance -->
-      <div class=" w-full h-40  flex justify-between items-center bg-slate-100 p-6 rounded-md">
-          <div class="  flex flex-col justify-center items-center">
-              <h1 class="text-xl font-semibold text-gray-400">عملکرد</h1>
-              <h2 class="text-xl font-bold">{{ today_income }} Afs</h2>
-          </div>
-          <div>
-              <img src="{%static 'admin/icons/performance.png'%}" alt="" class="w-20 h-20">
-          </div>
-      </div>
   </div>
 {% endblock %}
