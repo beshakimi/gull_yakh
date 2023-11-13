@@ -20,10 +20,10 @@
     <div class="mt-8 mx-4 flex flex-col lg:flex-row gap-6 ">
 
         <!-- order list -->
-        <div class="overflow-scroll w-full custom-scrollbar border  ">
-            <h1 class="p-4 text-sm font-bold">لیست سفارشات</h1>
-            <div class="overflow-scroll custom-scrollbar mx-2">
-                <table class="min-w-full justify-center items-center text-sm font-light">
+        <div class=" w-full custom-scrollbar border relative ">
+            <h1 class="m-4 pb-2 text-sm border-b-2 w-fit font-bold">لیست سفارشات</h1>
+            <div class=" h-60  overflow-scroll custom-scrollbar mx-2">
+                <table class="min-w-full justify-center items-center text-sm font-light ">
                     <thead class="border-b font-medium  bg-slate-800 text-gray-200">
                         <tr>
                             <th class="px-2 py-2">شماره</th>
@@ -35,67 +35,72 @@
                         </tr>
                     </thead>
                     {% for item in items %}
-                    <tbody class="text-center">
+                    <tbody class="text-center ">
                         <tr class="border-b">
                             <td class="whitespace-nowrap px-2 py-4 price">{{ forloop.counter }}</td>
                             {% if item.food %}
                             <td class="py-2 flex justify-center items-center "><img src="{{ item.food.Image.url }}"
                                     alt="" class="w-[50px] h-[50px] rounded-full object-cover"></td>
                             <td class="whitespace-nowrap px-2 py-4">{{ item.food.Title }}</td>
-                            <td class="whitespace-nowrap px-2 py-4 price"></td>
+                            <td class="whitespace-nowrap px-2 py-4 price">{{item.food.Price}}</td>
                             <td class="whitespace-nowrap px-2 py-4">{{ item.quantity }}</td>
                             <td class="whitespace-nowrap px-2 py-4">{{item.total_price}}</td>
                             {% elif item.drink %}
                             <td class="py-2 flex justify-center items-center "><img src="{{ item.drink.Image.url }}"
                                     alt="" class="w-[50px] h-[50px] rounded-full object-cover"></td>
                             <td class="whitespace-nowrap px-2 py-4">{{ item.drink.Title }}</td>
-                            <td class="whitespace-nowrap px-2 py-4 price"></td>
+                            <td class="whitespace-nowrap px-2 py-4 price">{{item.drink.Price}}</td>
                             <td class="whitespace-nowrap px-2 py-4">{{ item.quantity }}</td>
                             <td class="whitespace-nowrap px-2 py-4">{{item.total_price}}</td>
                             {% endif %}
 
                         </tr>
-                        <a href="" class="p-2 bg-slate-500">قیمت مجموعی</a>
+
                     </tbody>
                     {% endfor %}
-                    
-
 
                 </table>
-               
+
+                
+                    
+                
             </div>
-            <p class="px-2 py-1 text-xs m-4 bg-slate-500">قیمت مجموعی: {{total_price}}</p>
+            <p
+                        class="px-2 py-1 w-fit text-xs mx-4 mb-4 bg-slate-800 rounded-md text-white ">
+                        قیمت مجموعی: {{total_price}}</p>
         </div>
+
         <!-- customer info -->
         <div class="overflow-scroll w-full custom-scrollbar border ">
-            <h1 class="p-4 text-sm font-bold">مشخصات شخص سفارش دهنده</h1>
-            <div class="flex flex-col gap-2 p-4 ">
+            <h1 class="m-4 pb-2 text-sm border-b-2 w-fit font-bold">مشخصات شخص سفارش دهنده</h1>
+            
+            <div class="flex flex-col gap-2 px-4 ">
                 <!-- user avatar  -->
                 <div class="flex gap-4 ">
                     <div>
-                        <img src="{{ user.profile.avatar.url }}" alt="" class="w-40 h-40 object-cover">
+                        <img src="{{ user.profile.avatar.url }}" alt="" class="w-40 h-40 rounded-sm shadow-md object-cover">
                     </div>
                     <!-- name email and phone -->
                     <div class="flex flex-col gap-2  justify-center">
                         <div class="flex gap-2">
-                            <h1>نام</h1>
-                            <h1>{{ checkout.name }}</h1>
+                            <h1 class="text-sm">نام:</h1>
+                            <h1 class="text-sm text-gray-500">{{ checkout.name }}</h1>
                         </div>
                         <div class="flex gap-2">
-                            <h1>شماره تماس</h1>
-                            <h1>{{ checkout.phone_number1 }}</h1>
+                            <h1 class="text-sm">شماره تماس:</h1>
+                            <h1 class="text-sm text-gray-500">{{ checkout.phone_number1 }}</h1>
                         </div>
                         <div class="flex gap-2">
-                            <h1>ایمیل</h1>
-                            <h1>{{ checkout.email }}</h1>
+                            <h1 class="text-sm">ایمیل:</h1>
+                            <h1 class="text-sm text-gray-500">{{ checkout.email }}</h1>
                         </div>
 
 
                     </div>
                 </div>
 
-                <div class="flex gap-2">
-                    <p class="text-gray-600">آدرس:</p>
+                <div class="flex gap-2 my-2">
+                    <p class="text-sm">آدرس:</p>
                     <p class="text-sm text-gray-500">{{ checkout.address }}</p>
 
                 </div>
@@ -104,7 +109,8 @@
 
         </div>
     </div>
-    <a href="{% url "mark-ordered" checkout.id %}" class="p-2 bg-[#f5056d] float-left m-6 text-white text-sm ">سفارش ارسال شد</a>
+    <a href="{% url 'mark-ordered' checkout.id %} " class="p-2 bg-[#f5056d] float-left m-6 text-white text-sm ">سفارش
+        ارسال شد</a>
 </div>
 </div>
 

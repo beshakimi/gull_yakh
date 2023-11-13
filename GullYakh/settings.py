@@ -90,7 +90,7 @@ DATABASES = {
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'db_gull_yakh',
 #         'USER': 'admin',
 #         'PASSWORD': 'admin2023',

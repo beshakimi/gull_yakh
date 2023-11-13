@@ -20,23 +20,32 @@
       <hr class="w-5 h-full border-[1.5px] md:border-2 mr-2 mt-3" />
     </div>
 
-    <form class="flex justify-center mt-4 lg:mt-8 items-center">
-      <!-- <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label> -->
-      <div class="relative">
-        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-          <img src="{% static 'icons/search-icon.png'%}" alt="" class="w-4 h-4 text-gray-500" />
+     <!-- start search bar -->
+    <div>
+      <form class="flex justify-center items-center mt-6" method="GET" action="{% url 'search_result' %}">
+        <div class="relative">
+          <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+            <img src="{% static 'icons/search-icon.png'%}" alt="" class="w-4 h-4 text-gray-500">
+          </div>
+
+          <div class="relative">
+            <input type="search" id="search-input"
+              class="block bg-transparent w-72 md:w-80 lg:w-96 h-10 p-4 pr-10 text-sm text-white border lg:border-2 border-gray-300 rounded-3xl focus:outline-none focus:right-2 focus:ring-[#f5056d] lg:focus:border-2 focus:border-[#f5056d] placeholder-gray-300"
+              placeholder=" جستجو ..." name="query" required>
+            <!-- the autocomplete list -->
+            <ul id="autocompleteList"
+              class="hidden absolute left-0 top-full w-full mt-0.5 max-h-64 overflow-y-auto bg-gray-50  border-gray-200 rounded shadow text-gray-700 text-xs leading-5 z-50">
+            </ul>
+          </div>
+
+          <button type="submit"
+            class="text-white h-8 absolute left-1 bottom-1 bg-[#f5056d] hover:bg-[#d41e63] focus:outline-none font-medium rounded-3xl rounded-r-none text-sm px-4 py-1 duration-150">جستجو</button>
+
+          <ul id="search-results" class="absolute z-50 text-red-600 text-2xl"></ul>
+
         </div>
-
-        <input type="search" id="default-search"
-          class="block bg-transparent ] w-72 md:w-80 lg:w-96 h-10 p-4 pr-10 text-sm text-white border lg:border-2 border-gray-300 rounded-3xl focus:outline-none focus:right-2 focus:ring-[#f5056d] lg:focus:border-2 focus:border-[#f5056d] placeholder-gray-300"
-          placeholder="دنبال چیزی هستید؟ جستجو کنید" required />
-
-        <button type="button"
-          class="text-white h-8 absolute left-1 bottom-1 bg-[#f5056d] hover:bg-[#d41e63] focus:outline-none font-medium rounded-3xl rounded-r-none text-sm px-4 py-1 duration-150">
-          جستجو
-        </button>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 <!-- end hero -->

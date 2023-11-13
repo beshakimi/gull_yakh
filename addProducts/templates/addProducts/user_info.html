@@ -3,6 +3,29 @@
 
 {%block mainContent%}
 
+<!-- error and succuss message -->
+<p class="error-message hidden fixed"
+    id="formError">
+</p>
+{% if messages %}
+{% for message in messages %}
+<p
+    class="success-message fixed">
+    {{ message }} </p>
+{% endfor %}
+
+{% endif %}
+
+<script>
+    setTimeout(function () {
+        var errorMessage = document.querySelector('.success-message');
+        if (errorMessage) {
+            errorMessage.classList.add('hidden');
+        }
+    }, 5000);
+</script>
+
+
 <!-- start hero -->
 <div class="relative">
     <img src="{%static 'images/18.jpg'%}" alt="Image"
@@ -24,33 +47,33 @@
 </div>
 
 <div class=" my-10 w-[80%] md:w-[70%] mx-auto">
-    <h2 class="text-2xl font-bold mb-4"> معلومات خود را وارد کنید </h2>
+    <h2 class="text-xl font-bold mb-4"> معلومات خود را وارد کنید </h2>
 
-    <form method='post'>
+    <form method='post' onsubmit="return validateForm()">
         {% csrf_token %}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full ">
             <div class="w-full ">
-                <label for="name" class="text-gray-700 mb-2 text-sm font-bold">نام</label>
-                <input type="text" id="name" name="name" class="input">
+                <label for="name" class="text-gray-700 mb-2 text-sm font-bold">نام کامل:</label>
+                <input type="text" id="name" name="name" class="input" value="{{request.user.profile.first_name}} {{request.user.profile.last_name}}">
             </div>
             <div class="w-full ">
                 <label for="email" class="text-gray-700 mb-2 text-sm font-bold">آدرس ایمل</label>
-                <input type="email" id="email" name="email" class="input">
+                <input type="text" id="email" name="email" class="input" value="{{request.user.email}}">
             </div>
             <div class="w-full  ">
                 <label for="phone" class="text-gray-700 mb-2 text-sm font-bold"> شماره تماس اول</label>
-                <input type="tel" id="phone" name="phone_number1" class="input">
+                <input type="tel" id="phone1" name="phone_number1" class="input">
             </div>
             <div class="w-full  ">
-                <label for="location" class="text-gray-700 mb-2 text-sm font-bold"> شماره تماس دوم</label>
-                <input type="text" id="location" name="phone_number2" class="input">
+                <label for="phone2" class="text-gray-700 mb-2 text-sm font-bold"> شماره تماس دوم</label>
+                <input type="text" id="phone2" name="phone_number2" class="input">
             </div>
 
 
-            <div class="w-full ">
+            <!-- <div class="w-full ">
                 <label for="" class="text-gray-700 mb-2 text-sm font-bold">شماره تذکره</label>
                 <input type="text" id="" name="tazkra_number" class="input">
-            </div>
+            </div> -->
 
 
 
@@ -96,7 +119,7 @@
                                 {% endfor %}
 
                             </tr>
-                            <!-- ردیف‌های بیشتر -->
+                   
                         </tbody>
                     </table>
                     <div class="flex  items-center h-10 ">
@@ -105,6 +128,7 @@
                             class="w-16 h-6 pt-[3px] text-white text-xs flex items-center justify-center bg-slate-800 rounded-md hover:cursor-default mr-2">
                             {{total_price}} </div>
                     </div>
+                    
 
                 </div>
 
@@ -116,8 +140,13 @@
 
         </div>
 
-        <div class=" block justify-center items-center">
-            <input type="submit" value=" سفارش " class=" cbtn mx-2  ">
+        <div class="flex gap-6 justify-between items-center">
+        <div class=" block ">
+            <input type="submit" value=" سفارش " class=" cbtn my-0 mx-2  ">
+        </div>
+        <div>
+            <p class="py-1 px-2 bg-slate-800 text-sm text-white rounded-sm ">نوت: دلیوری تنها در شهر کابل امکان پزیر است.</p>
+        </div>
         </div>
     </form>
 </div>

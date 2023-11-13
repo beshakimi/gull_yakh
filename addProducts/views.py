@@ -14,6 +14,9 @@ from django.contrib import messages
 
 import random
 
+from django.contrib.auth.decorators import login_required
+from accounts.decorators import admin_required
+
 # Create your views here.
 
 # start home view 
@@ -50,15 +53,27 @@ def homeView(request):
 
 # start about view 
 def aboutUsView(request):
-    cart_item_count = request.user.cart.cartitem_set.filter(checked=False).count()
+    food_and_drink = []
+    for item in foodModel.objects.all():
+        food_and_drink.append(item.Title)
+    for item in DringModel.objects.all():
+        food_and_drink.append(item.Title)
+    
     context ={
         'section':'about',
+        'food_and_drink': food_and_drink,
     }
     return render(request,"addProducts/about.html", context)
 
 
 # food list view 
 def foodListView(request):
+    food_and_drink = []
+    for item in foodModel.objects.all():
+        food_and_drink.append(item.Title)
+    for item in DringModel.objects.all():
+        food_and_drink.append(item.Title)
+
     foods=foodModel.objects.all().order_by('-id')
     page = request.GET.get('page')
 
@@ -96,19 +111,22 @@ def foodListView(request):
     context={
        "foodlist":foods,
        "pagination_range": pagination_range,
+       'food_and_drink': food_and_drink,
        "section":"food"
    }
     return render(request,"addProducts/foodList.html",context)
    
 
 # food details view 
+@login_required(login_url='login')
 def foodDetailsView(request,food_id):
     food=get_object_or_404(foodModel,pk=food_id)
-    comments = food.foodcomment_set.all()
+    comments = food.foodcomment_set.all().order_by('-id')
 
     context={
       "foodDetails":food,  
-      "comments": comments
+      "comments": comments,
+      "section":"food"
     }
 
     return render(request,"addProducts/foodDetails.html",context, )
@@ -116,6 +134,12 @@ def foodDetailsView(request,food_id):
 # drink list view
 def drinkListView(request):
     # دریافت همه نوشیدنی‌ها
+    food_and_drink = []
+    for item in foodModel.objects.all():
+        food_and_drink.append(item.Title)
+    for item in DringModel.objects.all():
+        food_and_drink.append(item.Title)
+
     drinks = DringModel.objects.all().order_by('-id')
     page = request.GET.get('page')
 
@@ -155,26 +179,34 @@ def drinkListView(request):
     context = {
         'drinkList': drinks,
         'pagination_range': pagination_range,
+         'food_and_drink': food_and_drink,
         'section':'drink'
     }
 
     return render(request, 'addProducts/drinkList.html', context)
 
    
-
 # drink detials view
+@login_required(login_url='login')
 def drinkDetailsView(request,drink_id):
     drink=DringModel.objects.get(pk=drink_id)
-    comments = drink.drinkcomment_set.all()
+    comments = drink.drinkcomment_set.all().order_by('-id')
     context={
       "drinkDetails":drink,  
       "comments": comments,
+      "section":"drink"
     }
 
     return render(request,"addProducts/drinkDetails.html",context )
 
 # start post list view
 def blogView(request):
+    food_and_drink = []
+    for item in foodModel.objects.all():
+        food_and_drink.append(item.Title)
+    for item in DringModel.objects.all():
+        food_and_drink.append(item.Title)
+
     posts = BlogModel.objects.all().order_by('-id')
     page = request.GET.get('page')
 
@@ -204,6 +236,7 @@ def blogView(request):
     context={
         "postlist":posts,
         'pagination_range': pagination_range,
+        'food_and_drink': food_and_drink,
         'section':'blog',
     }
 
@@ -212,19 +245,31 @@ def blogView(request):
 # start post details view
 def postDetailsView(request,post_id):
     post=BlogModel.objects.get(pk=post_id)
-    comments = post.blogcomment_set.all()
+    comments = post.blogcomment_set.all().order_by('-id')
 
     context={
         "postDetails":post,
         "comments": comments,
+        "section":"blog"
     }
     return render(request,"addProducts/postDetails.html",context)
 
 # start contacts view 
 def contectView(request):
-    return render(request,"addProducts/contacts.html", {'section':'contact'})
+    food_and_drink = []
+    for item in foodModel.objects.all():
+        food_and_drink.append(item.Title)
+    for item in DringModel.objects.all():
+        food_and_drink.append(item.Title)
+    context ={
+        'section':'contact',
+        'food_and_drink': food_and_drink,
+    }
+    return render(request,"addProducts/contacts.html", context )
 
-# start shopping cart 
+# start shopping cart
+@login_required(login_url='login')
+
 def shop_cart(request):
     return render(request,"addProducts/shop_cart.html")
 
@@ -232,6 +277,9 @@ def shop_cart(request):
 # user information for order view
 def user_info(request):
     return render(request,"addProducts/user_info.html")
+
+# add_to_cart view
+@login_required(login_url='login')
 
 def add_to_cart(request, id, model):
     if model == 'food':
@@ -282,6 +330,9 @@ def add_to_cart(request, id, model):
     
     return redirect('cart-detail')
 
+# view cart
+@login_required(login_url='login')
+
 def view_cart(request):
     cart = get_object_or_404(Cart, user=request.user)
     cart_items = cart.cartitem_set.filter(checked = False)
@@ -289,6 +340,8 @@ def view_cart(request):
     
     return render(request, 'addProducts/shop_cart.html', {"cart": cart, "cart_items": cart_items})
 
+# cart details view
+@login_required(login_url='login')
 
 def cart_delete(request, id):
     cart_item = get_object_or_404(CartItem, id=id)
@@ -298,6 +351,8 @@ def cart_delete(request, id):
     
     return redirect('cart-detail')
 
+# cart item view
+@login_required(login_url='login')
 
 def create_cart_item(request, id):
     cart = Cart.objects.get(id=id)
@@ -316,7 +371,8 @@ def create_cart_item(request, id):
     
     return redirect('checkout', cart.id)
 
-
+# chackout view
+@login_required(login_url='login')  
 def create_checkout(request, id):
     cart = get_object_or_404(Cart, id=id)
     total_price = 0
@@ -328,7 +384,7 @@ def create_checkout(request, id):
         email = request.POST['email']
         phone_number1 = request.POST['phone_number1']
         phone_number2 = request.POST['phone_number2']
-        tazkra_number = request.POST['tazkra_number']
+        # tazkra_number = request.POST['tazkra_number']
         address = request.POST['address']
         
         checkout, created = Checkout.objects.get_or_create(
@@ -338,7 +394,7 @@ def create_checkout(request, id):
             email=email,
             phone_number1=phone_number1,
             phone_number2=phone_number2,
-            tazkra_number=tazkra_number,
+            # tazkra_number=tazkra_number,
             address=address, 
             
         )
@@ -360,7 +416,7 @@ def create_checkout(request, id):
     return render(request, 'addProducts/user_info.html', context)
 
 
-
+# search_result_view view
 def search_result_view(request):
     query = request.GET.get('query')
     if query:
@@ -380,7 +436,8 @@ def search_result_view(request):
 
     return render(request, 'addProducts/search_result.html', context)
 
-
+# create_food_comment view
+@login_required(login_url='login')
 def create_food_comment(request, pk):
     food = get_object_or_404(foodModel, id = pk)
     if request.method == 'POST':
@@ -392,6 +449,8 @@ def create_food_comment(request, pk):
         )
     return redirect('food-detail', pk)
 
+# create_drink_comment view
+@login_required(login_url='login')
 def create_drink_comment(request, pk):
     drink = get_object_or_404(DringModel, id = pk)
     if request.method == 'POST':
@@ -403,6 +462,8 @@ def create_drink_comment(request, pk):
         )
     return redirect('drink-detail', pk)
 
+# create_blog_comment view
+@login_required(login_url='login')
 def create_blog_comment(request, pk):
     post = get_object_or_404(BlogModel, id = pk)
     if request.method == 'POST':
@@ -414,6 +475,8 @@ def create_blog_comment(request, pk):
         )
     return redirect('blog-detail', pk)
 
+# create_website_comment view
+@login_required(login_url='login') 
 def create_website_comment(request):
     if request.method == 'POST':
         comment = request.POST.get('comment')
@@ -423,18 +486,21 @@ def create_website_comment(request):
         )
     return redirect('home')
 
+# delete_blog_comment view 
 def delete_blog_comment(request, comment_id, post_id ):
     post_comment = get_object_or_404(BlogComment, id=comment_id)
     post_comment.delete()
     messages.success(request, "نظر با موفقیت حذف شد.")
     return redirect('blog-detail', post_id)
 
+# delete_food_comment view 
 def delete_food_comment(request, comment_id, food_id ):
     food_comment = get_object_or_404(FoodComment, id=comment_id)
     food_comment.delete()
     messages.success(request, "نظر با موفقیت حذف شد.")
     return redirect('food-detail', food_id)
 
+# delete_drink_comment view 
 def delete_drink_comment(request, comment_id, drink_id ):
     drink_comment = get_object_or_404(DrinkComment, id=comment_id)
     drink_comment.delete()
