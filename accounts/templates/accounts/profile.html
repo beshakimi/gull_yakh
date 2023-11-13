@@ -3,42 +3,44 @@
 
 {%block mainContent%}
 
+<!-- error and succuss message -->
+<p class="error-message hidden fixed"
+    id="formError">
+</p>
+{% if messages %}
+{% for message in messages %}
+<p
+    class="success-message fixed">
+    {{ message }} </p>
+{% endfor %}
+
+{% endif %}
+
+<script>
+    setTimeout(function () {
+        var errorMessage = document.querySelector('.success-message');
+        if (errorMessage) {
+            errorMessage.classList.add('hidden');
+        }
+    }, 5000);
+</script>
+
+
 <div class="w-[80%] md:w-[70%] mx-auto flex flex-col items-center justify-center min-h-screen mt-20 mb-10">
 
 
     <!-- User Avatar -->
     <div class="w-48 h-48 rounded-full border-8 border-pink-600 border-opacity-60 shadow-lg overflow-hidden mb-4">
-        <img src="{{profile.avatar.url}}" alt="User Avatar"
-            class="w-full h-full object-cover">
+        <img src="{{profile.avatar.url}}" alt="User Avatar" class="w-full h-full object-cover">
     </div>
 
     <!-- Username -->
     <h2 class="text-2xl font-bold mb-4 ">{{user.username}} </h2>
 
-    <!-- show error message  -->
-    <div>
-        {% for message in messages %}
-        {% if message.tags == 'error' %}
-        <p
-          class="absolute top-20 left-1/2 transform -translate-x-1/2 text-center text-white py-4 px-4 bg-gray-500 bg-opacity-95 rounded-sm z-50 error-message">
-          {{ message }}
-        </p>
-
-        {% endif %}
-        {% endfor %}
-        <script>
-          setTimeout(function () {
-            var errorMessage = document.querySelector('.error-message');
-            if (errorMessage) {
-              errorMessage.classList.add('hidden');
-            }
-          }, 5000);
-        </script>
-    </div>
 
     <!-- User Information -->
     <div class="bg-white  p-4 rounded-md shadow-md w-full">
-        <form class="grid grid-cols-1 md:grid-cols-2 gap-x-4 " method="post" enctype="multipart/form-data">
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-x-4 " method="post" enctype="multipart/form-data" onsubmit="return user_validateForm()">
             {% csrf_token%}
             <div class="mb-4">
                 <label for="username" class="block text-gray-700 font-bold mb-2">نام کاربری:</label>
@@ -54,35 +56,35 @@
 
             <!-- First Name -->
             <div class="mb-4">
-                <label for="firstName" class="block text-gray-700 font-bold mb-2">نام:</label>
-                <input id="firstName" name="first_name" type="text" class="input text-gray-600 text-sm font-bold" value="{{profile.first_name}}"
->
+                <label for="first_name" class="block text-gray-700 font-bold mb-2">نام:</label>
+                <input id="first_name" name="first_name" type="text" class="input text-gray-600 text-sm font-bold"
+                    value="{{profile.first_name}}">
             </div>
 
             <!-- Last Name -->
             <div class="mb-4">
-                <label for="lastName" class="block text-gray-700 font-bold mb-2">نام خانوادگی:</label>
-                <input id="lastName" name="last_name" type="text" class="input text-gray-700 text-sm font-bold" value="{{profile.last_name}}">
+                <label for="last_name" class="block text-gray-700 font-bold mb-2">نام خانوادگی:</label>
+                <input id="last_name" name="last_name" type="text" class="input text-gray-700 text-sm font-bold"
+                    value="{{profile.last_name}}">
             </div>
 
             <!-- Phone Number -->
             <div class="mb-4">
-                <label for="phoneNumber" class="block text-gray-700 font-bold mb-2">شماره تماس:</label>
-                <input id="phoneNumber" name="phone" type="tel" class="input text-gray-700 text-sm font-bold" value="{{profile.phone}}">
+                <label for="phone" class="block text-gray-700 font-bold mb-2">شماره تماس:</label>
+                <input id="phone" name="phone" type="tel" class="input text-gray-700 text-sm font-bold"
+                    value="{{profile.phone}}">
             </div>
 
             <!-- Gender -->
             <div class="mb-4">
                 <label class="block text-gray-700 font-bold mb-2">جنسیت:</label>
                 <label class="inline-flex items-center">
-                <input type="radio" class="form-radio" name="gender" value="MALE" 
-                {% if profile.gender == 'MALE' %}checked{% endif %}>
-                <span class="mr-2 ml-4">مرد</span>
+                    <input type="radio" class="form-radio" name="gender" value="MALE" {% if profile.gender == 'MALE' %} checked {% endif %}>
+                    <span class="mr-2 ml-4">مرد</span>
                 </label>
                 <label class="inline-flex items-center ml-6">
-                <input type="radio" class="form-radio" name="gender" value="FEMALE"
-                {% if profile.gender == 'FEMALE' %}checked{% endif %}>
-                <span class="mr-2">زن</span>
+                    <input type="radio" class="form-radio" name="gender" value="FEMALE" {% if profile.gender == 'FEMALE' %} checked {% endif %}>
+                    <span class="mr-2">زن</span>
                 </label>
             </div>
 
@@ -93,17 +95,80 @@
             </div>
 
             <div class="flex gap-10 h-10 items-center w-full mt-8 ">
-                <a href="{%url 'change_password'%}" class="p-2 w-48 bg-slate-800 text-white rounded-md text-center border hover:bg-slate-900">تغییر رمز عبور</a>
+                <a href="{%url 'change_password'%}"
+                    class="p-2 w-48 bg-slate-800 text-white rounded-md text-center border hover:bg-slate-900">تغییر رمز
+                    عبور</a>
 
                 <!-- Save Button -->
                 <button type="submit" class="cbtn my-0 rounded-md  w-48">
-                ذخیره
+                    ذخیره
                 </button>
             </div>
         </form>
     </div>
 </div>
 
+<script>
+    function user_validateForm() {
+        var first_nameInput = document.getElementById("first_name");
+        var last_nameInput = document.getElementById("last_name");
+        var phone = document.getElementById("phone");
+        var imageInput = document.getElementById("chose-image");
+        var errorElement = document.getElementById("formError");
+      
+        var first_namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+        var last_namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+        var phonePattern = /^93[\d]{9}$/;
+        var imagePattern = /\.(jpg|jpeg|png|gif|svg|webp)$/i;
+      
+
+        if (!first_namePattern.test(first_nameInput.value)) {
+            errorElement.textContent = "نام نامعتبر است";
+            errorElement.classList.remove("hidden");
+            setTimeout(function () {
+                errorElement.classList.add("hidden");
+            }, 5000);
+            return false;
+        }
+
+
+        if (!last_namePattern.test(last_nameInput.value)) {
+          errorElement.textContent = "نام خانوادگی نامعتبر است";
+          errorElement.classList.remove("hidden");
+          setTimeout(function () {
+              errorElement.classList.add("hidden");
+          }, 5000);
+          return false;
+        }
+      
+        if (!phonePattern.test(phone.value)) {
+          errorElement.textContent = "شماره تماس نامعتبر است";
+          errorElement.classList.remove("hidden");
+          setTimeout(function () {
+              errorElement.classList.add("hidden");
+          }, 5000);
+          return false;
+        }
+      
+        if (imageInput.value === '') {
+            return true; // ارسال فرم
+        }
+      
+        if (!imagePattern.test(imageInput.value)) {
+            errorElement.textContent = "فرمت عکس نامعتبر است";
+            errorElement.classList.remove("hidden");
+            setTimeout(function () {
+                errorElement.classList.add("hidden");
+            }, 5000);
+            return false;
+        }
+      
+      
+      
+        errorElement.classList.add("hidden");
+        return true;
+      }
+</script>
 
 </html>
 

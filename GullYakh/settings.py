@@ -81,23 +81,23 @@ WSGI_APPLICATION = 'GullYakh.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'db_gull_yakh',
-#         'USER': 'admin',
-#         'PASSWORD': 'admin2023',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_gull_yakh',
+        'USER': 'admin',
+        'PASSWORD': 'admin2023',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation

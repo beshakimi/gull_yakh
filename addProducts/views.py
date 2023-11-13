@@ -30,8 +30,11 @@ def homeView(request):
 
     # send random comments to home:
     comments = WebsiteComment.objects.all()
-    random_number = random.randint(0, len(comments)-1)
-    comment = comments[random_number]
+    comment = None
+    if comments:
+        random_number = random.randint(0, len(comments)-1)
+        comment = comments[random_number]
+     
     
     # cart_item_count = request.user.cart.cartitem_set.filter(checked=False).count()
     user = request.user
@@ -335,7 +338,9 @@ def add_to_cart(request, id, model):
 
 def view_cart(request):
     cart = get_object_or_404(Cart, user=request.user)
-    cart_items = cart.cartitem_set.filter(checked = False)
+    cart_items = cart.cartitem_set.filter(
+        Q(active=True) &
+        Q(checked=False))
     
     
     return render(request, 'addProducts/shop_cart.html', {"cart": cart, "cart_items": cart_items})
@@ -401,7 +406,7 @@ def create_checkout(request, id):
         
         for item in request.user.cart.cartitem_set.filter(checked = False):
             item.checkout = checkout
-            item.checked = True
+            item.active = False
             item.save()
         messages.success(request, 'سفارش شما موفقانه ثبت گردید')
         return redirect('home')
@@ -506,6 +511,8 @@ def delete_drink_comment(request, comment_id, drink_id ):
     drink_comment.delete()
     messages.success(request, "نظر با موفقیت حذف شد.")
     return redirect('drink-detail', drink_id)
+
+
 
 
 

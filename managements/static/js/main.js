@@ -16,13 +16,7 @@ closeBtn.addEventListener("click", () => {
   closeBtn.classList.add("hidden");
 });
 
-// start notification script
-const notificationIcon = document.getElementById("notificationIcon");
-const notificationModel = document.getElementById("notificationModel");
 
-notificationIcon.addEventListener("click", () => {
-notificationModel.classList.toggle("hidden");
-});
 
 
 
@@ -349,3 +343,11 @@ function post_update_validateForm() {
     errorElement.classList.add("hidden");
     return true;
 }
+
+// start notification script
+const notificationIcon = document.getElementById("notificationIcon");
+const notificationModel = document.getElementById("notificationModel");
+
+notificationIcon.addEventListener("click", () => {
+notificationModel.classList.toggle("hidden");
+});

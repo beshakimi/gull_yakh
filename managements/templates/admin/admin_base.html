@@ -94,6 +94,16 @@
         </a>
       </div>
 
+      <!-- comment-list  -->
+      <div class="{% if section == 'comment' %} bg-gray-600 
+      {% endif %}">
+        <a href="{% url 'comment-list'%}"
+          class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+          <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+          <h1 class="mr-1 mb-1">نظریات </h1>
+        </a>
+      </div>
+
 
       <!-- start list of users  -->
       <div class="{% if section == 'user' %} bg-gray-600 {% endif %}">
@@ -183,6 +193,15 @@
         </a>
       </div>
 
+       <!-- comment-list  -->
+       <div class="{% if section == 'comment' %} bg-gray-600 
+       {% endif %}">
+         <a href="{% url 'comment-list'%}"
+           class="w-full py-2 px-4 text-sm font-semibold text-white flex items-start hover:bg-gray-600 ease-in-out duration-300">
+           <img src="{%static 'admin/icons/post.png'%}" alt="" class="w-[24px] h-[24px] ml-2" />
+           <h1 class="mr-1 mb-1">نظریات </h1>
+         </a>
+       </div>
 
       <!-- start list of users  -->
       <div class="{% if section == 'user' %} bg-gray-600 {% endif %}">
@@ -213,32 +232,34 @@
     <div class="w-full p-2 flex justify-between items-center md:ml-8">
 
       <!-- search  -->
-      <div class="">
+      <!-- <div class="">
         <input type="search" class="px-2 h-8 rounded-sm items-center focus:outline-none" placeholder="جستجو ..." />
-      </div>
-
-
-      <!-- start notification  -->
-      <div class="flex items-center w-fit ">
-
+      </div> -->
         <!-- home icon  -->
+
         <a href="{%url 'home'%}">
           <div class="ml-6  ">
             <i class="fa-solid fa-house text-white text-xl flex items-center justify-center hover:text-gray-200 ease-in-out duration-200 "></i>
           </div>
         </a>
 
-        <div class="md:ml-6 hover:cursor-pointer" id="notificationIcon">
+
+      <!-- start notification  -->
+      <!-- <div class="flex items-center w-fit "> -->
+
+      
+
+        <!-- <div class="md:ml-6 hover:cursor-pointer" id="notificationIcon">
           <img src="{%static 'admin/icons/notification.gif'%}" alt=""
             class="p-[2px] mb-0 rounded-lg hover:bg-[#f5056d] duration-500" />
-        </div>
+        </div> -->
 
 
         <!-- start notification details  -->
-        <div class="hidden w-40 border rounded-sm absolute top-14 left-10 md:left-20 " id="notificationModel">
+        <!-- <div class="hidden w-40 border rounded-sm absolute top-14 left-10 md:left-20 " id="notificationModel"> -->
 
           <!-- notification 1 -->
-          <a href="">
+          <!-- <a href="">
             <div class=" flex px-2 py-1 bg-white items-center hover:bg-gray-200 ease-in-out duration-300">
               <div>
                 <img src="{%static 'admin/icons/male-user-48.png'%}" alt="" class="w-[36px] h-[36px] ml-2">
@@ -248,10 +269,10 @@
                 <p class=" text-[11px] text-gray-500 ">1 ساعت قبل</p>
               </div>
             </div>
-          </a>
+          </a> -->
 
           <!-- notification 2 -->
-          <a href="">
+          <!-- <a href="">
             <div class=" flex px-2 py-1 bg-white items-center hover:bg-gray-200 ease-in-out duration-300">
               <div>
                 <img src="{%static 'admin/icons/male-user-48.png'%}" alt="" class="w-[36px] h-[36px] ml-2">
@@ -261,10 +282,10 @@
                 <p class=" text-[11px] text-gray-500 ">1 ساعت قبل</p>
               </div>
             </div>
-          </a>
+          </a> -->
 
           <!-- notification 3 -->
-          <a href="">
+          <!-- <a href="">
             <div class=" flex px-2 py-1  bg-white items-center hover:bg-gray-200 ease-in-out duration-300">
               <div>
                 <img src="{%static 'admin/icons/male-user-48.png'%}" alt="" class="w-[36px] h-[36px] ml-2">
@@ -275,7 +296,7 @@
               </div>
             </div>
           </a>
-        </div>
+        </div> -->
 
 
 

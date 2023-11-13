@@ -28,6 +28,7 @@ from django.utils.html import strip_tags
 # developer defined decorators
 from .decorators import admin_required
 from django.contrib.auth.decorators import login_required
+
 # register view
 def register(request):
     if request.method == 'POST':
@@ -114,45 +115,6 @@ def profile_edit_view(request, id):
         phone = request.POST['phone']
         gender = request.POST['gender']
         
-        # بررسی نام و نام خانوادگی
-        name_pattern = r'^[a-zA-Z_آ-ی ]+$'
-        if not re.match(name_pattern, first_name): 
-            # نام و نام خانوادگی باید فقط شامل حروف انگلیسی و سمبل '_' باشند
-            messages.error(request, "نام نامعتبر است")
-            return redirect('profile', id=profile.id)
-        if not re.match(name_pattern, last_name):
-            messages.error(request, "نام خانوادگی نامعتبر است")
-            return redirect('profile', id=profile.id)
-        
-        # بررسی شماره تماس
-        phone_pattern = r'^93\d{9}$'
-        if not re.match(phone_pattern, phone):
-            # شماره تماس باید 9 رقم و فقط شامل اعداد باشد
-            messages.error(request, "شماره تماس باید با کد 93 شروع شود ")
-            return redirect('profile', id=profile.id)
-        
-        # ادامه کدهای دیگر...
-        
-        import imghdr
-
-        def validate_image_format(image):
-            valid_formats = ('jpeg', 'jpg', 'png', 'gif', 'svg', 'webp')
-            image_format = imghdr.what(image)
-            if image_format not in valid_formats:
-                raise ValidationError('فرمت عکس نامعتبر است.')
-
-        if 'avatar' in request.FILES:
-            avatar = request.FILES['avatar']
-        try:
-            validate_image_format(avatar)
-            profile.avatar = avatar
-        except ValidationError as e:
-            messages.error(request, str(e).strip('[]'))
-            return redirect('profile', id=profile.id)
-        # if 'avatar' in request.FILES:
-        #     avatar = request.FILES['avatar']
-        #     profile.avatar = avatar
-
         profile.first_name = first_name
         profile.last_name = last_name
         profile.phone = phone
@@ -164,35 +126,8 @@ def profile_edit_view(request, id):
         return redirect('home')
     else:
         return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
-# def profile_edit_view(request, id):
-#     profile = get_object_or_404(Profile, pk=id)
-#     user = request.user
-#     if request.method == 'POST':
-#         first_name = request.POST['first_name']
-#         last_name = request.POST['last_name']
-#         phone = request.POST['phone']
-#         gender = request.POST['gender']
-        
-#         gender = request.POST.get('gender', profile.gender)
-        
-#         if 'avatar' in request.FILES:
-#             avatar = request.FILES['avatar']
-#             profile.avatar = avatar
 
-#         profile.first_name =first_name
-#         profile.last_name = last_name
-#         profile.phone = phone
-#         profile.gender = gender
-#         profile.user = user
-      
-        
-#         profile.save()
-        
-#         return redirect('home')
-#     else:
-#         return render(request, 'accounts/profile.html', {'profile': profile, 'user': user})
-    
-
+# forget_password_view
 def forget_password_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -232,6 +167,10 @@ def reset_password_confirm_view(request, user_id, token):
     if request.method == 'POST':
         new_password1 = request.POST['new_password1']
         new_password2 = request.POST['new_password2']
+
+        if len(new_password1) < 6:
+            messages.error(request, "پسورد باید بزرگتر از 6 حرف باشد")
+            return redirect('reset_password_confirm', user_id=user_id, token=token)
 
         if new_password1 == new_password2:
             try:
@@ -277,10 +216,15 @@ def change_password_view(request):
         # بررسی صحت رمز عبور قبلی
         if request.user.check_password(old_password):
             # بررسی تطابق رمز عبور جدید
+            if len(new_password1) < 6:
+                messages.error(request, "پسورد باید بزرگتر از 6 حرف باشد")
+                return redirect('change_password')
+
             if new_password1 == new_password2:
                 # تغییر رمز عبور
                 request.user.set_password(new_password1)
                 request.user.save()
+                logout(request)
                 redirect('confirm_message')
 
                 update_session_auth_hash(request, request.user)  # رفع خطر از دست دادن جلسه ورود

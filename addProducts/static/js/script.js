@@ -83,7 +83,6 @@ deleteButtons.forEach(function (button) {
 
 
 //validation user infrmation  for order
-// form validation script for add food and add drink 
 function validateForm() {
   var nameInput = document.getElementById("name");
   var emailInput = document.getElementById("email");
@@ -176,6 +175,65 @@ if (!emailPattern.test(emailInput.value)) {
   errorElement.classList.add("hidden");
   return true;
 }
+
+
+// form validation script for user information 
+// function user_validateForm() {
+//   var first_nameInput = document.getElementById("first_name");
+//   var last_nameInput = document.getElementById("last_name");
+//   var phone = document.getElementById("phone");
+//   var imageInput = document.getElementById("chose-image");
+//   var errorElement = document.getElementById("formError");
+
+//   var first_namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+//   var last_namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
+//   var phonePattern = /^93[\d]{9}$/;
+//   var imagePattern = /\.(jpg|jpeg|png|gif|svg|webp)$/i;
+
+
+
+//   if (!first_namePattern.test(first_nameInput.value)) {
+//       errorElement.textContent = "نام نامعتبر است";
+//       errorElement.classList.remove("hidden");
+//       setTimeout(function () {
+//           errorElement.classList.add("hidden");
+//       }, 5000);
+//       return false;
+//   }
+
+//   if (!last_namePattern.test(last_nameInput.value)) {
+//     errorElement.textContent = "نام خانوادگی نامعتبر است";
+//     errorElement.classList.remove("hidden");
+//     setTimeout(function () {
+//         errorElement.classList.add("hidden");
+//     }, 5000);
+//     return false;
+//   }
+
+//   if (!phonePattern.test(phone.value)) {
+//     errorElement.textContent = "شماره تماس نامعتبر است";
+//     errorElement.classList.remove("hidden");
+//     setTimeout(function () {
+//         errorElement.classList.add("hidden");
+//     }, 5000);
+//     return false;
+//   }
+
+
+//   if (!imagePattern.test(imageInput.value)) {
+//       errorElement.textContent = "فرمت عکس نامعتبر است";
+//       errorElement.classList.remove("hidden");
+//       setTimeout(function () {
+//           errorElement.classList.add("hidden");
+//       }, 5000);
+//       return false;
+//   }
+
+
+
+//   errorElement.classList.add("hidden");
+//   return true;
+// }
 
 // start slider script
 const slider = document.getElementById("slider");

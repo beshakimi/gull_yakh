@@ -12,7 +12,7 @@
   <div class="absolute w-full mx-auto top-20 md:top-36 lg:top-40">
     <div class="flex items-center justify-center">
       <hr class="w-5 h-full border-[1.5px] md:border-2 ml-2 mt-3" />
-      <h1 class="text-2xl text-white text-center font-bold drop-shadow-lg md:text-4xl">
+      <h1 class="text-xl text-white text-center font-bold drop-shadow-lg md:text-4xl">
         به وب سایت گل یخ خوش آمدید
       </h1>
       <hr class="w-5 h-full border-[1.5px] md:border-2 mr-2 mt-3" />
@@ -29,7 +29,7 @@
           <div class="relative">
             <input type="search" id="search-input"
               class="block bg-transparent w-72 md:w-80 lg:w-96 h-10 p-4 pr-10 text-sm text-white border lg:border-2 border-gray-300 rounded-3xl focus:outline-none focus:right-2 focus:ring-[#f5056d] lg:focus:border-2 focus:border-[#f5056d] placeholder-gray-300"
-              placeholder="دنبال چیزی هستید؟ جستجو کنید" name="query" required>
+              placeholder="جستجو ..." name="query" required>
             <!-- the autocomplete list -->
             <ul id="autocompleteList"
               class="hidden absolute left-0 top-full w-full mt-0.5 max-h-64 overflow-y-auto bg-gray-50  border-gray-200 rounded shadow text-gray-700 text-xs leading-5">
@@ -56,22 +56,21 @@
             md:w-[80%] ">
   <div class="md:flex ">
     <div class="md:shrink-0 ">
-      <img class="h-48 w-full object-cover md:h-full md:w-60 xl:w-[400px] xl:h-[500px]"
+      <img class="h-60 w-full object-cover md:h-[400px] md:w-96"
         src="{% static 'images/10.jpg'%}" alt="about amage">
     </div>
     <div class="p-8 xl:h-fulls flex flex-col justify-center gap-4 my-auto ">
       <div class=" tracking-wide text-lg text-[#f5056d] font-semibold md:text-xl lg:text-3xl">درباره ما</div>
 
       <p class="mt-2 text-slate-500 text-justify text-sm xl:text-md">بازدیدکننده عزیز، خوش‌آمدید به
-        رستورانمان!
+        رستورانت ما!
         رستوران ما یک مقصد منحصربه‌فرد برای عاشقان غذا و تجربه‌های لذیذ است. با تمرکز بر کیفیت، خلاقیت و
         خدمات بی‌نظیر، ما به شما تجربه‌ای بی‌نظیر در دنیای طعم و تجربه ارائه می‌دهیم.
         <br><br>
         تیم ما از آشپزان باتجربه و علاقه‌مند تشکیل شده است که با استفاده از بهترین مواد اولیه و روش‌های
         آشپزی خلاقانه، غذاهایی را تهیه می‌کنند که شما را به سفری جذاب و لذت‌بخش به دنیای طعم و تجربه دعوت
-        می‌کنند. هر غذا در رستوران ما، یک ترکیب هنر، عشق و اندیشه است که با دقت و عنایت به جزئیات
-      </p>
-      <input type="button" value=" سفارش آنلاین" class=" cbtn w-fit">
+        می‌کنند. هر غذا در رستوران ما، یک ترکیب هنر، عشق و اندیشه است.  ما در رستورانت گل یخ به ارائه تجربه‌ای منحصر به فرد از غذاهای لذیذ و محیطی دلنشین و آرام برای شما عزیزان افتخار می‌کنیم. با ترکیبی از بهترین مواد اولیه، طعمی خوشمزه و فضایی دلنشین، ما سعی می‌کنیم تا لحظات شما را در رستورانت گل یخ به یادماندنی تبدیل کنیم.
+    </p>
     </div>
   </div>
 </div>
@@ -88,19 +87,19 @@
 
 
     <!-- item -1  -->
-    <div role="listitem" class=" relative mt-16  min-w-[240px] max-w-[240px]  py-8">
+    <div role="listitem" class=" relative mt-16  min-w-[260px] max-w-[260px]  py-8">
       <div class="rounded overflow-hidden shadow-lg bg-white">
         <div class="absolute -mt-20 w-full flex justify-center">
           <div class="w-36 h-36">
-            <img src="{%static 'admin/profile/2.jpg'%}" class="rounded-full object-cover h-full w-full shadow-md" />
+            <img src="{%static 'admin/profile/user-4.jpg'%}" class="rounded-full object-cover h-full w-full shadow-md" />
           </div>
         </div>
         <div class="px-6 mt-[70px]">
           <h1 class="font-bold text-2xl text-center mb-1">حسین راموز</h1>
           <p class=" text-sm font-semibold text-[#f5056d] text-center">مؤسس رستورانت گل یخ</p>
-          <p class="text-center text-gray-600 text-sm pt-3 font-normal">The CEO's role in
-            raising a company's corporate IQ is to establish an atmosphere that promotes
-            knowledge sharing and collaboration.</p>
+          <p class="text-justify text-gray-600 text-sm mt-3 font-normal h-36 custom-scrollbar overflow-y-scroll">حسین راموز، مالک و مدیرعامل رستورانت گل یخ. به عنوان مسئول اصلی این رستورانت، حسین راموز با تجربه و پشتکار بالا در صنعت خوراکی و خدمات رستورانتی، به ارمغان آورده است.
+
+          </p>
 
           <!-- sotial media icons -->
           <div class="w-full flex justify-center pt-5 pb-5">
@@ -119,19 +118,17 @@
     </div>
 
     <!-- item -2  -->
-    <div role="listitem" class=" relative mt-16  min-w-[240px] max-w-[240px] py-8">
+    <div role="listitem" class=" relative mt-16  min-w-[260px] max-w-[260px] py-8">
       <div class="rounded overflow-hidden shadow-lg bg-white">
         <div class="absolute -mt-20 w-full flex justify-center">
           <div class="w-36 h-36">
-            <img src="{%static 'admin/profile/3.jpg'%}" class="rounded-full object-cover h-full w-full shadow-md" />
+            <img src="{%static 'admin/profile/user.5.jpg'%}" class="rounded-full object-cover h-full w-full shadow-md" />
           </div>
         </div>
         <div class="px-6 mt-[70px]">
-          <h1 class="font-bold text-2xl text-center mb-1">حسین راموز</h1>
-          <p class=" text-sm font-semibold text-[#f5056d] text-center">مؤسس رستورانت گل یخ</p>
-          <p class="text-center text-gray-600 text-sm pt-3 font-normal">The CEO's role in
-            raising a company's corporate IQ is to establish an atmosphere that promotes
-            knowledge sharing and collaboration.</p>
+          <h1 class="font-bold text-2xl text-center mb-1">بهرام علی زاده</h1>
+          <p class=" text-sm font-semibold text-[#f5056d] text-center">مدیر مالی </p>
+          <p class="text-justify text-gray-600 text-sm mt-3 font-normal h-36 custom-scrollbar overflow-y-scroll "> بهرام علی زاده، مدیر مالی رستورانت گل یخ. بهرام علی زاده با تجربه و تخصص قوی در حوزه مدیریت مالی و حسابداری، نقش حیاتی در رشد و پیشرفت مالی رستورانت گل یخ دارد.</p>
 
           <!-- sotial media icons -->
           <div class="w-full flex justify-center pt-5 pb-5">
@@ -149,7 +146,7 @@
       </div>
     </div>
     <!-- item -3  -->
-    <div role="listitem" class=" relative mt-16 min-w-[240px] max-w-[240px] py-8">
+    <div role="listitem" class=" relative mt-16 min-w-[260px] max-w-[260px] py-8">
       <div class="rounded overflow-hidden shadow-lg bg-white">
         <div class="absolute -mt-20 w-full flex justify-center">
           <div class="w-36 h-36">
@@ -158,11 +155,11 @@
           </div>
         </div>
         <div class="px-6 mt-[70px]">
-          <h1 class="font-bold text-2xl text-center mb-1">حسین راموز</h1>
-          <p class=" text-sm font-semibold text-[#f5056d] text-center">مؤسس رستورانت گل یخ</p>
-          <p class="text-center text-gray-600 text-sm pt-3 font-normal">The CEO's role in
-            raising a company's corporate IQ is to establish an atmosphere that promotes
-            knowledge sharing and collaboration.</p>
+          <h1 class="font-bold text-2xl text-center mb-1">محمد عارف زمانی</h1>
+          <p class=" text-sm font-semibold text-[#f5056d] text-center">سر آشپز رستورانت گل یخ</p>
+          <p class="text-justify text-gray-600 text-sm mt-3 font-normal h-36 custom-scrollbar overflow-y-scroll">محمد عارف زمانی با انگیزه و استعداد خلاقانه خود، نقش بسیار مهم و حیاتی در رستورانت گل یخ دارد.
+
+            محمد عارف زمانی علاقه زیادی به هنر آشپزی دارد و همواره در تلاش است تا با طعم‌های منحصر به فرد و ظاهری دل‌نواز، تجربه‌ی خوشمزه‌ای به میهمانان رستورانت گل یخ ارائه دهد. </p>
 
           <!-- sotial media icons -->
           <div class="w-full flex justify-center pt-5 pb-5">
