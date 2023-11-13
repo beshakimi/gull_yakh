@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="fa">
 
@@ -96,18 +97,11 @@
                 <img src="{% static 'icons/shopping-cart.png'%}" alt=""
                   class="md:ml-0 relative p-[2px] flex border border-gray-300 rounded-md hover:bg-[#f5056d] duration-500 w-8 h-8">
               </a>
-            </span>
-            {% else %}
-
-            <span class="relative">
-              <a href="">
-                <img src="{% static 'icons/shopping-cart.png'%}" alt=""
-                  class="md:ml-0 relative p-[2px] flex border border-gray-300 rounded-md hover:bg-[#f5056d] duration-500 w-8 h-8">
-              </a>
-              {% comment %} <h2
+           
+              <h2
                 class="absolute left-[8px] top-[-10px] text-center text-white font-semibold text-[12px] w-[16px] h-[16px] rounded-full bg-blue-500 cursor-default">
-                {{ request.user.cart.cartitem_set.count }}
-              </h2> {% endcomment %}
+                {% total_items request %}
+              </h2>
             </span>
             <!-- Handle the case when the cart is empty or doesn't exist -->
             {% endif %}
@@ -262,24 +256,24 @@
 
 
   <!-- start footer -->
-  <footer id="footer" class="bg-gray-800 text-[#f5056d] w-full">
+  <footer id="footer" class="bg-gray-800 text-[#f5056d] w-full ">
     <div class="container mx-auto px-10">
-      <div class="flex flex-wrap -mx-4">
-        <div class="w-full md:w-1/2 lg:w-1/4 px-4">
+      <div class="flex flex-wrap  md:w-[80%] mx-auto py-10">
+        <div class="w-full md:w-1/2 lg:w-1/3 px-4">
           <h3 class="text-lg font-semibold mb-1 mt-4 "> ساعت کاری</h3>
           <ul class="text-sm text-gray-300">
             <li>شنبه تا سه شنبه از ساعت 06:00 صبح تا 10:00 شب</li>
             <li> چهارشنبه تا جمعه از ساعت 07:00 صبح تا 07:00 شب</li>
           </ul>
         </div>
-        <div class="w-full md:w-1/2 lg:w-1/4 px-4">
+        <div class="w-full md:w-1/2 lg:w-1/3 px-4">
           <h3 class="text-lg font-semibold mb-1 mt-4"> تماس با ما</h3>
           <p class="text-sm text-gray-300">آدرس: دشت برچی- نقاش</p>
 
           <p class="text-sm text-gray-300">شماره تماس: 0799442233 - 0773002020</p>
           <p class="text-sm text-gray-300">ایمل آدرس: gullyakh@gmail.com</p>
         </div>
-        <div class="w-full md:w-1/2 lg:w-1/4 px-4">
+        <div class="w-full md:w-1/2 lg:w-1/3 px-4">
           <h3 class="text-lg font-semibold mb-1 mt-4">شبکه های اجتماعی </h3>
           <ul class=" text-right space-x-2 block">
             <li><a href="#" class="text-sm text-gray-300"><i
@@ -295,23 +289,12 @@
             </li>
           </ul>
         </div>
-        <div class="w-full md:w-1/2 lg:w-1/4 px-4">
-          <h3 class="text-lg font-semibold mb-1 mt-4">خبر های جدید</h3>
-          <p class="text-sm text-gray-300">برای اطلاع یافتن از تخفیف ها و قرعه کشی های ما ایمل خود را وارد
-            کنید</p>
-          <form class="mt-2">
-            <input type="email" placeholder="ایمل شما"
-              class="text-bl w-full border border-gray-300 rounded-sm px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#f5056d]">
-            <div class="">
-              <input type="button" value=" مشترک شدن " class="cbtn">
-            </div>
-          </form>
-        </div>
+        
       </div>
     </div>
     <div class="bg-gray-700 py-2 text-gray-300">
-      <div class="container mx-auto px-4 text-center text-sm  flex justify-center ">
-        &copy; <p> 2023<span class="text-[#f5056d]"> گل</span> یخ _ تمام حقوق محفظ است.</p>
+      <div class="container mx-auto px-4 text-center text-xs  flex justify-center ">
+        &copy; <p> 2023<span class="text-[#f5056d]"> بسم</span> الله حکیمی _ تمام حقوق محفظ است.</p>
       </div>
     </div>
   </footer>

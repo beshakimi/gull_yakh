@@ -44,7 +44,7 @@
       <div class="md:flex gap-2 my-2 ">
 
         <form id="commentForm" class="mt-4 md:w-1/2 px-4 border" action='{% url "add-drink-comment" drinkDetails.id %}'
-          method="POST">
+          method="POST" onsubmit="return submitForm()">
           {% csrf_token %}
           <h1 class="w-14 py-2 text-sm font-bold border-b-2 border-gray-500">نظر دهید</h1>
           <label for="author" class="block text-gray-700 text-sm pt-2 font-bold">نام کاربری</label>
@@ -55,8 +55,17 @@
           <button type="submit" class="cbtn py-2 my-2" onclick="submitComment()">ارسال نظر</button>
         </form>
         <script>
-          document.getElementById("content").setCustomValidity("لطفاً نظری بنویسید.");
-        </script>
+          function submitForm() {
+              var contentInput = document.getElementById("content");
+      
+              if (contentInput.value.trim() !== "") {
+                  return true; // ارسال فرم
+              } else {
+                  contentInput.setCustomValidity("لطفاً نظری بنویسید.");
+                  return false; // عدم ارسال فرم
+              }
+          }
+      </script>
         <!-- show comments  -->
         <div class="md:w-1/2  mt-4 px-4 border py-2  ">
           <h1 class="w-12 pb-2 text-sm font-bold border-b-2 border-gray-500">نظر ها</h1>

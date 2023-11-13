@@ -32,6 +32,11 @@ urlpatterns = [
     path('chackout', views.chackout_view, name='chackout'),
     path('chackout_details/<int:pk>/', views.chackout_details_view, name='chackout_details'),
     # mark as ordered
-    path('mark_ordered/<int:pk>/', views.mark_ordered, name='mark-ordered')
+    path('mark_ordered/<int:pk>/', views.mark_ordered, name='mark-ordered'),
+    path('comment_list/', views.comment_list_view, name='comment-list'),
+
+    # delete wesite comment
+    path('delete_website_comment/<int:comment_id>/', views.delete_website_comment, name="delete-website-comment"),
+
 
 ]

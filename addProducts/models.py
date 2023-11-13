@@ -83,8 +83,10 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
     checkout = models.ForeignKey(Checkout, on_delete=models.SET_NULL, null=True, blank=True)
     checked = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     total_price = models.CharField(max_length=200)
     created = models.DateField(auto_now_add=True)
+
     
 # drink comment model 
 class DrinkComment(models.Model):

@@ -11,6 +11,7 @@ from django.utils import timezone
 from datetime import date
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import admin_required
+from addProducts.models import WebsiteComment
 # dashboar_view
 @login_required(login_url='login')
 @admin_required
@@ -360,8 +361,58 @@ def mark_ordered(request, pk):
     checkout = get_object_or_404(Checkout, id=pk)
     checkout.ordered = True
     checkout.save()
+    cart = checkout.cart
+    for item in cart.cartitem_set.all():
+        item.checked = True
+        item.save()
     return redirect('chackout')
 
+
+# comment list view
+@admin_required  
+def comment_list_view(request):
+    
+
+    comments=WebsiteComment.objects.all()
+    page = request.GET.get('page')
+    
+
+    # تعداد نوشیدنی‌ها در هر صفحه
+    items_per_page = 5
+
+    paginator = Paginator(comments, items_per_page)
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        comments = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        comments = paginator.page(page)
+    
+    left_index = (int(page) - 2 )
+    if left_index < 1:
+        left_index = 1
+    
+    right_index = (int(page) + 2)
+    if right_index > paginator.num_pages:
+        right_index = paginator.num_pages
+
+    pagination_range = range(left_index, right_index + 1)
+    context={
+       "comments":comments,
+       "pagination_range": pagination_range,
+       'section':'comment'
+   }
+    return render(request,"admin/public_comment.html",context)
+
+
+# delete_website_comment view 
+def delete_website_comment(request, comment_id ):
+    web = WebsiteComment.objects.get(id=comment_id)
+    web.delete()
+    messages.success(request, "نظر با موفقیت حذف شد.")
+    return redirect('comment-list' )
 
         
 
