@@ -43,9 +43,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-
-
-
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
@@ -54,7 +51,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         return self.email
     
-
     def get_email(self):
         return self.email
 
