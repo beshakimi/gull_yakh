@@ -115,12 +115,16 @@ def profile_edit_view(request, id):
         phone = request.POST['phone']
         gender = request.POST['gender']
         
+        if 'avatar' in request.FILES:
+            avatar = request.FILES['avatar']
+            profile.avatar = avatar
+        
         profile.first_name = first_name
         profile.last_name = last_name
         profile.phone = phone
         profile.gender = gender
         profile.user = user
-
+        
         profile.save()
 
         return redirect('home')
