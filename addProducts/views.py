@@ -452,6 +452,7 @@ def create_food_comment(request, pk):
             food = food, 
             comment = comment
         )
+        messages.success(request, "نظر با موفقیت اضافه شد.")
     return redirect('food-detail', pk)
 
 # create_drink_comment view
@@ -465,6 +466,7 @@ def create_drink_comment(request, pk):
             drink = drink, 
             comment = comment
         )
+        messages.success(request, "نظر با موفقیت اضافه شد.")
     return redirect('drink-detail', pk)
 
 # create_blog_comment view
@@ -478,6 +480,7 @@ def create_blog_comment(request, pk):
             post = post, 
             comment = comment
         )
+        messages.success(request, "نظر با موفقیت اضافه شد.")
     return redirect('blog-detail', pk)
 
 # create_website_comment view
@@ -489,6 +492,7 @@ def create_website_comment(request):
             profile = request.user.profile,  
             comment = comment
         )
+        messages.success(request, "نظر با موفقیت اضافه شد.")
     return redirect('home')
 
 # delete_blog_comment view 

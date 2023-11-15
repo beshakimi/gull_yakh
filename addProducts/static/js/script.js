@@ -93,10 +93,10 @@ function validateForm() {
 
   var namePattern = /^[a-zA-Z\u0600-\u06FF]{1}[^!@#$%^&*()+=\[\]{};':"\\|,.<>\/?]*$/;
   var phonePattern = /^93[\d]{9}$/;
-  var emailPattern = /^[A-Za-z][A-Za-z0-9_.]*@[a-zA-Z]{3,}\.[a-zA-Z]{2,5}$/;
+  // var emailPattern = /^[A-Za-z][A-Za-z0-9_.]*@[a-zA-Z]{3,}\.[a-zA-Z]{2,5}$/;
 
 
-  if (nameInput.value === "" && emailInput.value === "" && imageInput.value === "" && descriptionInput.value === "") {
+  if (nameInput.value === "" && emailInput.value === "" && phone1Input.value === "" && getElementById.value === "") {
       errorElement.textContent = "هیچ مقداری وارد نشده است";
       errorElement.classList.remove("hidden");
       setTimeout(function () {
@@ -123,23 +123,6 @@ function validateForm() {
       return false;
   }
 
-  if (emailInput.value === "") {
-    errorElement.textContent = "ایمیل خود را وارد نکرده اید";
-    errorElement.classList.remove("hidden");
-    setTimeout(function () {
-        errorElement.classList.add("hidden");
-    }, 5000);
-    return false;
-}
-
-if (!emailPattern.test(emailInput.value)) {
-    errorElement.textContent = "ایمیل نامعتبر است";
-    errorElement.classList.remove("hidden");
-    setTimeout(function () {
-        errorElement.classList.add("hidden");
-    }, 5000);
-    return false;
-}
 
   if (phone1Input.value === "") {
       errorElement.textContent = "شماره تماسخ خود را وارد نکرده اید";
@@ -151,15 +134,23 @@ if (!emailPattern.test(emailInput.value)) {
   }
 
    
-
-  if (!phonePattern.test(phone2Input.value)) {
-      errorElement.textContent = "شماره تماس 2 نامعتبر است";
+  if (!phonePattern.test(phone1Input.value)) {
+      errorElement.textContent = "شماره تماس نامعتبر است";
       errorElement.classList.remove("hidden");
       setTimeout(function () {
           errorElement.classList.add("hidden");
       }, 5000);
       return false;
   }
+
+  if (!phonePattern.test(phone2Input.value)) {
+    errorElement.textContent = "شماره تماس 2 نامعتبر است";
+    errorElement.classList.remove("hidden");
+    setTimeout(function () {
+        errorElement.classList.add("hidden");
+    }, 5000);
+    return false;
+}
 
 
   if (addressInput.value === "") {
