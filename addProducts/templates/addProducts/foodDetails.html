@@ -57,18 +57,25 @@
           <button type="submit" class="cbtn py-2 my-2" onclick="submitComment()">ارسال نظر</button>
         </form>
 
-        <script>
-          function submitForm() {
-              var contentInput = document.getElementById("content");
-      
-              if (contentInput.value.trim() !== "") {
-                  return true; // ارسال فرم
-              } else {
-                  contentInput.setCustomValidity("لطفاً نظری بنویسید.");
-                  return false; // عدم ارسال فرم
+          <!-- validate comment  -->
+          <script>
+            function submitForm() {
+                var contentInput = document.getElementById("content");
+                var errorElement = document.getElementById("formError");
+  
+                if (contentInput.value === "") {
+                  errorElement.textContent = "لطفاً متن نظر  خود را بنویسید.";
+                  errorElement.classList.remove("hidden");
+                  setTimeout(function () {
+                      errorElement.classList.add("hidden");
+                  }, 5000);
+                  return false;
               }
-          }
-      </script>
+              errorElement.classList.add("hidden");
+              return true;
+            }
+          </script>
+          
         <!-- show comments  -->
         <div class="md:w-1/2  mt-4 px-4 border py-2  ">
           <h1 class="w-12 pb-2 text-sm font-bold border-b-2 border-gray-500">نظر ها</h1>
