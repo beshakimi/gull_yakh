@@ -9,4 +9,5 @@ db.sqlite3
 /tailwind/node_modules/
 /managements/__pycache__/
 /managements/migrations/
+/managements/static/admin/images/
 
