@@ -75,7 +75,7 @@
       <div>
         <h2 class=" text-right text-xs px-2 mt-3  text-gray-500 ">
           {{ post.created_at|naturaltime }}</h2>
-        <h1 class="text-xl px-2 font-bold">{{ post.Title }}</h1>
+        <h1 class="text-lg px-2 font-bold">{{ post.Title }}</h1>
         <p class="px-2 mt-2 text-sm text-gray-500  overflow-hidden">{{ post.Description|slice:":70" }}
           {% if post.Description|length > 70 %}...{% endif %}</p>
         <div class="w-full mt-4 py-3 px-2 bg-gray-200">

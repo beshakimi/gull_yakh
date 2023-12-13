@@ -41,38 +41,38 @@
                     <tbody class="text-center">
                         {% for item in cart_items %}
                         {% if item.food %}
-                        <tr class="border-b dark:border-neutral-300">
-                            <td class="whitespace-nowrap px-6 py-4 font-medium"><a
+                        <tr class="border-b ">
+                            <td class=" px-6 py-4 font-medium"><a
                                     href="{% url 'delete-cart' item.id %}"><i
                                         class="fa-solid fa-xmark hover:cursor-pointer "></a></i>
                             </td>
                             <td class="py-2 flex justify-center items-center"><img src="{{ item.food.Image.url }}" alt=""
                                     class="w-[60px] h-[60px] object-cover"></td>
-                            <td class="whitespace-nowrap px-6 py-4">{{ item.food.Title }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 price">{{ item.food.Price }}</td>
-                            <td class="whitespace-nowrap px-6 py-4">
+                            <td class=" px-6 py-4">{{ item.food.Title }}</td>
+                            <td class=" px-6 py-4 price">{{ item.food.Price }}</td>
+                            <td class="px-6 py-4 ">
                                 <input type="number" value="{{item.quantity}}" min="1"
-                                    class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 quantity">
+                                    class="border border-gray-300 rounded-sm focus:outline-none pr-2 py-1 w-16 quantity">
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 totalPrice">{{ item.total_price }}</td>
+                            <td class=" px-6 py-4 totalPrice">{{ item.total_price }}</td>
                         </tr>
                         
 
                         {% elif item.drink %}
-                        <tr class="border-b dark:border-neutral-300">
-                            <td class="whitespace-nowrap px-6 py-4 font-medium"><a
+                        <tr class="border-b ">
+                            <td class=" px-6 py-4 font-medium"><a
                                     href="{% url 'delete-cart' item.id %}"><i
                                         class="fa-solid fa-xmark hover:cursor-pointer "></a></i>
                             </td>
                             <td class="py-2 flex justify-center items-center"><img src="{{ item.drink.Image.url }}" alt=""
                                     class="w-[60px] h-[60px] object-cover"></td>
-                            <td class="whitespace-nowrap px-6 py-4">{{ item.drink.Title }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 price">{{ item.drink.Price }}</td>
-                            <td class="whitespace-nowrap px-6 py-4">
+                            <td class=" px-6 py-4">{{ item.drink.Title }}</td>
+                            <td class=" px-6 py-4 price">{{ item.drink.Price }}</td>
+                            <td class="px-6 py-4">
                                 <input type="number" value="{{item.quantity}}" min="1"
                                     class="border border-gray-300 rounded-sm focus:ring-2 focus:outline-none pr-2 py-1 w-16 quantity">
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 totalPrice">{{ item.total_price }}</td>
+                            <td class="w-fit px-6 py-4 totalPrice">{{ item.total_price }}</td>
                         </tr>
                         {% endif %}
                         {% endfor %}
