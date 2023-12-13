@@ -1,11 +1,13 @@
+media/
 /venv/
 /accounts/migrations/
 /accounts/__pycache__/
 /addProducts/__pycache__/
-/addProducts/migrations
+/addProducts/migrations/
 /GullYakh/__pycache__/
 db.sqlite3
 /tailwind/node_modules/
 /managements/__pycache__/
 /managements/migrations/
-/media/
+/managements/static/admin/images/
+
