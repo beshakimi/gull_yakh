@@ -23,15 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-# SECRET_KEY = 'django-insecure-)f92m==_&5ipf-4(+qf8%g8*+si@nd(!#e!@9gp)-m(v11kh&+'
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-)f92m==_&5ipf-4(+qf8%g8*+si@nd(!#e!@9gp)-m(v11kh&+'
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG =os.environ.get("DEBUG", "False").lower() == "true"
+DEBUG = True
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -104,8 +104,8 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get("DATABASE_URL")
-DATABASES['default'] = dj_database_url.parse("database_url")
+# database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse("postgres://db_gull_yakh_user:G5sz9WWqHAFD9ORnLCbW3Y7LmkeC8mTg@dpg-cm0iu1mn7f5s73c7bu80-a/db_gull_yakh")
 
 
 # Password validation
@@ -147,6 +147,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
