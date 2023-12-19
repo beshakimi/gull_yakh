@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)f92m==_&5ipf-4(+qf8%g8*+si@nd(!#e!@9gp)-m(v11kh&+'
+
+# SECRET_KEY = 'django-insecure-)f92m==_&5ipf-4(+qf8%g8*+si@nd(!#e!@9gp)-m(v11kh&+'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG =os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -87,7 +92,7 @@ WSGI_APPLICATION = 'GullYakh.wsgi.application'
 #         'NAME': 'db.sqlite3',
 #     }
 # }
-
+# postgres://db_gull_yakh_user:G5sz9WWqHAFD9ORnLCbW3Y7LmkeC8mTg@dpg-cm0iu1mn7f5s73c7bu80-a.oregon-postgres.render.com/db_gull_yakh
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -98,6 +103,9 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+database_url = os.environ.get("DATABASE_URL")
+DATABASES['default'] = dj_database_url.parse("database_url")
 
 
 # Password validation
