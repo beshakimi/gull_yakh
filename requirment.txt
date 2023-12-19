@@ -4,3 +4,4 @@ persintools
 jalaliDate
 pytz
 pillow
+gunicorn
