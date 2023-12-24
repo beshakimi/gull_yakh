@@ -1,6 +1,5 @@
 from django.db import models
 from django import forms
-from hijri_converter import Hijri
 from django.utils import timezone
 from accounts.models import User
 from accounts.models import Profile

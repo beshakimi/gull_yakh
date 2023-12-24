@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from persiantools.jdatetime import JalaliDate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from addProducts.models import foodModel
