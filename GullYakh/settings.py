@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -86,12 +85,21 @@ WSGI_APPLICATION = 'GullYakh.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+# settings.py - DATABASES
+
+
+if "DATABASE_URL" in os.environ:
+    DATABASES = {
+        "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 # postgres://db_gull_yakh_user:G5sz9WWqHAFD9ORnLCbW3Y7LmkeC8mTg@dpg-cm0iu1mn7f5s73c7bu80-a.oregon-postgres.render.com/db_gull_yakh
 # DATABASES = {
 #     'default': {
@@ -143,13 +151,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 import os
 
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+
+# اینجا همه مسیرهای استاتیک اپ‌ها را اضافه کنید
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'), 
+    os.path.join(BASE_DIR, 'managements', 'static'),  # استاتیک‌های اپ managements
+    # می‌توانید مسیرهای اپ‌های دیگر را هم اضافه کنید
 ]
+
+# مسیر جمع‌آوری شده برای collectstatic
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_URL="/media/"
-MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static_files'),
